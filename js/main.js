@@ -2697,6 +2697,31 @@ Official Portal:     https://vinayakbhardwaj.com
         });
     }
 
+    // 14. CASE STUDY FILTER CONTROLS (PROJECTS HUB)
+    function initCaseStudyFilters() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.case-study-card');
+        if (!filterBtns.length || !cards.length) return;
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const category = btn.getAttribute('data-filter') || 'all';
+
+                cards.forEach(card => {
+                    const cardCat = card.getAttribute('data-category') || '';
+                    if (category === 'all' || cardCat.includes(category)) {
+                        card.style.display = 'block';
+                        card.style.opacity = '1';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
     // INITIALIZATION DISPATCHER
     document.addEventListener('DOMContentLoaded', () => {
         initLenis();
@@ -2717,6 +2742,7 @@ Official Portal:     https://vinayakbhardwaj.com
         initWorldClock();
         initContactForm();
         initQuickCopy();
+        initCaseStudyFilters();
 
         // 13. DEVELOPER CONSOLE SIGNATURE & EASTER EGG (JURY AUDIT HOOK)
         console.log(

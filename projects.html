@@ -5,39 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Engineering &amp; AI Projects — Vinayak Bhardwaj | Kuala Lumpur</title>
 
-    <!-- Theme & Mobile Chrome -->
+    <!-- Theme & Browser Chrome Color (MWA & Accessibility Compliance) -->
     <meta name="theme-color" content="#070709">
     <meta name="msapplication-navbutton-color" content="#070709">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <!-- SEO & Metadata -->
+    <!-- SEO & Metadata (English & Bahasa Melayu) -->
     <meta name="description" content="Verified engineering case studies and technical digital systems by Vinayak Bhardwaj. Featuring Virin Digital, Vinayak Tech AI research, Rotol KLCC skyscraper operations, and the 70-acre Tun Razak Exchange (TRX) megaproject.">
+    <meta name="description" lang="ms" content="Kajian kes kejuruteraan dan sistem AI berautonomi oleh Vinayak Bhardwaj di Kuala Lumpur. Menampilkan Virin Digital, Vinayak Tech, operasi menara KLCC Rotol (0 LTI), dan megaprojek TRX.">
     <meta name="author" content="Vinayak Bhardwaj">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.vinayakbhardwaj.com/projects.html">
 
-    <!-- Geo & Regional Targeting (Malaysia) -->
+    <!-- Geo & Regional Targeting (Malaysia Focus) -->
     <meta name="geo.region" content="MY-14">
     <meta name="geo.placename" content="Kuala Lumpur">
     <meta name="geo.position" content="3.1390;101.6869">
     <meta name="ICBM" content="3.1390, 101.6869">
 
-    <!-- Open Graph -->
+    <!-- Open Graph / Social Cards -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.vinayakbhardwaj.com/projects.html">
     <meta property="og:title" content="Engineering &amp; AI Projects — Vinayak Bhardwaj">
     <meta property="og:description" content="Verified case studies: Virin Digital AI workflows, Vinayak Tech media, Rotol high-rise operations (0 LTI), and Tun Razak Exchange (TRX).">
     <meta property="og:image" content="https://www.vinayakbhardwaj.com/assets/final_widescreen_hero_mockup.jpg">
+    <meta property="og:site_name" content="Vinayak Bhardwaj">
+    <meta property="og:locale" content="en_MY">
+    <meta property="og:locale:alternate" content="ms_MY">
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Engineering &amp; AI Projects — Vinayak Bhardwaj">
+    <meta name="twitter:description" content="Verified case studies: Virin Digital AI workflows, Rotol high-rise operations (0 LTI), and Tun Razak Exchange (TRX).">
+    <meta name="twitter:image" content="https://www.vinayakbhardwaj.com/assets/final_widescreen_hero_mockup.jpg">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon-vb.png">
+    <link rel="apple-touch-icon" href="assets/favicon-vb.png">
 
-    <!-- Fonts & Stylesheet -->
+    <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css?v=2.3">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css?v=2.4">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -73,261 +86,655 @@
 </head>
 <body>
 
-    <!-- Cinematic Film Grain Overlay -->
+    <!-- Cinematic Luxury Film Grain Texture Overlay -->
     <div class="film-grain" aria-hidden="true"></div>
 
-    <!-- Main Navigation Header -->
+    <!-- Viewport Scroll Progress Rail -->
+    <aside id="scroll-progress-rail" class="scroll-progress-rail" aria-label="Scroll Progress">
+        <div class="rail-track">
+            <div id="scroll-progress-bar" class="rail-bar"></div>
+        </div>
+        <button id="scroll-top-btn" class="rail-top-btn" aria-label="Scroll to top">
+            <span class="rail-glyph">↑</span>
+        </button>
+    </aside>
+
+    <!-- Custom Fluid Magnetic Cursor with Contextual Badge -->
+    <div id="custom-cursor-dot" class="cursor-dot" aria-hidden="true"></div>
+    <div id="custom-cursor-aura" class="cursor-aura" aria-hidden="true">
+        <span id="cursor-badge" class="cursor-badge"></span>
+    </div>
+
+    <!-- ==========================================================================
+         FLOATING FROSTED NAVIGATION BAR (MATCHING HOME)
+         ========================================================================== -->
     <header class="site-header" role="banner">
-        <div class="header-container">
-            <a href="index.html" class="logo-group" aria-label="Vinayak Bhardwaj — Return to Home">
-                <span class="logo-monogram">VB</span>
-                <span class="logo-divider"></span>
-                <span class="logo-tagline">OPERATIONS &amp; AI</span>
-            </a>
-
+        <div class="nav-container">
             <nav class="nav-pill" aria-label="Main Navigation">
-                <a href="index.html" class="nav-link">HOME</a>
-                <a href="about.html" class="nav-link">ABOUT</a>
-                <a href="projects.html" class="nav-link active">PROJECTS</a>
-                <a href="index.html#contact" class="nav-link">CONTACT</a>
-            </nav>
-
-            <div class="header-actions">
-                <a href="https://wa.me/60173431945" target="_blank" rel="noopener noreferrer" class="btn btn-primary-gold" style="padding: 0.45rem 1.15rem; font-size: 0.72rem;">
-                    <span>WHATSAPP</span>
-                    <span class="arrow-glyph">↗</span>
+                <a href="index.html" class="brand-logo" aria-label="Vinayak Bhardwaj Home">
+                    <span class="brand-monogram">VB</span>
+                    <span class="brand-name">VINAYAK BHARDWAJ</span>
                 </a>
-            </div>
+
+                <ul class="nav-links">
+                    <li><a href="about.html" class="nav-link">ABOUT</a></li>
+                    <li><a href="projects.html" class="nav-link active">PROJECTS</a></li>
+                    <li><a href="index.html#odyssey" class="nav-link">ODYSSEY</a></li>
+                    <li><a href="index.html#systems" class="nav-link">SYSTEMS</a></li>
+                    <li><a href="index.html#benchmarks" class="nav-link">LAB</a></li>
+                    <li><a href="index.html#credentials" class="nav-link">RECORDS</a></li>
+                    <li><a href="index.html#contact" class="nav-link">CONTACT</a></li>
+                </ul>
+
+                <!-- Mobile Navigation Actions (Audio Toggle + Menu Trigger) -->
+                <div class="nav-mobile-actions">
+                    <button id="mobile-sound-btn" class="sound-pill-btn mobile-sound-toggle" aria-label="Toggle synthesized audio haptics" aria-pressed="false" title="Toggle audio haptics">
+                        <span class="sound-wave-icon" aria-hidden="true">
+                            <span class="sound-bar bar-1"></span>
+                            <span class="sound-bar bar-2"></span>
+                            <span class="sound-bar bar-3"></span>
+                        </span>
+                        <span class="mobile-sound-text">SOUND: OFF</span>
+                    </button>
+                    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+                        <span class="hamburger-line line-1"></span>
+                        <span class="hamburger-line line-2"></span>
+                    </button>
+                </div>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Projects Hub Stage -->
-    <main class="page-container" style="padding-top: calc(var(--nav-height) + 3rem); padding-bottom: 6rem;">
-        <div class="container" style="max-width: 1100px;">
-
-            <div class="section-eyebrow" style="margin-bottom: 1rem;">
-                <span class="mono-tag">PROVEN IMPACT // CASE STUDY PORTFOLIO</span>
+    <!-- ==========================================================================
+         FULL-SCREEN BESPOKE LUXURY MOBILE NAVIGATION OVERLAY
+         ========================================================================== -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div class="mobile-menu-inner">
+            <div class="mobile-menu-header">
+                <div class="mobile-brand-group">
+                    <span class="mobile-brand-monogram">VB</span>
+                    <span class="mobile-brand-title">VINAYAK BHARDWAJ</span>
+                </div>
+                <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close Mobile Navigation">✕</button>
             </div>
+            
+            <nav class="mobile-nav-list" aria-label="Mobile Menu Links">
+                <a href="about.html" class="mobile-nav-item">
+                    <span class="mobile-nav-num">✦</span>
+                    <span class="mobile-nav-label">ABOUT // BIOGRAPHY</span>
+                </a>
+                <a href="projects.html" class="mobile-nav-item active">
+                    <span class="mobile-nav-num">✦</span>
+                    <span class="mobile-nav-label">PROJECTS // CASE STUDIES</span>
+                </a>
+                <a href="index.html#odyssey" class="mobile-nav-item">
+                    <span class="mobile-nav-num">01</span>
+                    <span class="mobile-nav-label">THE ODYSSEY (2012–NOW)</span>
+                </a>
+                <a href="index.html#systems" class="mobile-nav-item">
+                    <span class="mobile-nav-num">02</span>
+                    <span class="mobile-nav-label">SYSTEMS SHOWCASE</span>
+                </a>
+                <a href="index.html#benchmarks" class="mobile-nav-item">
+                    <span class="mobile-nav-num">03</span>
+                    <span class="mobile-nav-label">INTERACTIVE LAB</span>
+                </a>
+                <a href="index.html#credentials" class="mobile-nav-item">
+                    <span class="mobile-nav-num">04</span>
+                    <span class="mobile-nav-label">VERIFIED RECORDS</span>
+                </a>
+                <a href="index.html#contact" class="mobile-nav-item">
+                    <span class="mobile-nav-num">05</span>
+                    <span class="mobile-nav-label">CONTACT</span>
+                </a>
+            </nav>
 
-            <h1 style="font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.5rem;">
-                VERIFIED SYSTEMS &amp;<br>
-                <span class="text-gold-gradient">OPERATIONAL CASE STUDIES.</span>
-            </h1>
+            <div class="mobile-menu-footer">
+                <div class="mobile-meta-text">TECHNICAL OPERATIONS &amp; AI SPECIALIST // KUALA LUMPUR</div>
+                <div class="mobile-social-strip" aria-label="Mobile Social Links">
+                    <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="mobile-social-link">LINKEDIN ↗</a>
+                    <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="mobile-social-link">YOUTUBE ↗</a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="mobile-social-link">WHATSAPP ↗</a>
+                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="mobile-social-link">INSTAGRAM ↗</a>
+                </div>
+                <a href="index.html#contact" class="btn btn-primary-gold mobile-cta-btn">INITIATE BRIEF →</a>
+            </div>
+        </div>
+    </div>
 
-            <p style="font-size: 1.15rem; color: var(--text-secondary); max-width: 800px; line-height: 1.7; margin-bottom: 3.5rem;">
-                Every project below is rooted in real-world execution—from supervising multi-trade operations on \$10B+ Malaysian financial developments to deploying autonomous agentic workflows and producing investigative tech media.
-            </p>
+    <main id="main-content" class="subpage-stage">
+        <!-- Swirling Gold Dust Canvas -->
+        <canvas id="gold-canvas" class="hero-gold-canvas" aria-hidden="true"></canvas>
 
-            <!-- Case Studies Grid -->
-            <div style="display: flex; flex-direction: column; gap: 3rem;">
+        <!-- Ambient Warm Radial Backlight -->
+        <div class="hero-ambient-glow" aria-hidden="true"></div>
 
-                <!-- Case Study 1: Virin Digital -->
-                <article style="background: var(--bg-surface-elevated); border: 1px solid var(--border-gold); border-radius: var(--radius-lg); padding: clamp(1.8rem, 4vw, 3rem); position: relative; overflow: hidden;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div>
-                            <span class="system-badge" style="margin-bottom: 0.75rem;">DIGITAL &amp; AI SYSTEMS</span>
-                            <h2 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--text-primary); margin-top: 0.5rem;">
-                                Virin Digital — Web Platforms &amp; Autonomous AI Workflows
-                            </h2>
-                            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-primary); margin-top: 0.25rem;">
-                                Role: Founder &amp; AI Systems Lead · Jan 2024 – Present · virindigital.com
-                            </div>
-                        </div>
-                        <a href="https://virindigital.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary-gold" style="font-size: 0.75rem;">
+        <div class="container">
+            <!-- ==========================================================================
+                 CASE STUDIES HERO STAGE
+                 ========================================================================== -->
+            <section class="subpage-hero" aria-label="Case Studies Overview">
+                <div class="hero-badge-pill">
+                    <span class="mono-tag">VERIFIED CASE STUDIES // PROBLEM → PROCESS → RESULT</span>
+                </div>
+
+                <h1 class="hero-title" style="margin-bottom: 1.5rem;">
+                    <span class="title-line">MISSION-CRITICAL SYSTEMS.</span>
+                    <span class="title-line text-gold-gradient">DOCUMENTED RESULTS.</span>
+                </h1>
+
+                <p class="hero-narrative" style="max-width: 820px;">
+                    Every case study below represents field-tested execution—from directing safety-critical rope operations on 50+ story commercial skyscrapers and managing structural QA/QC across Malaysia’s 70-acre Tun Razak Exchange (TRX) financial district, to deploying autonomous AI agent workflows and producing investigative tech media.
+                </p>
+
+                <div class="hero-proof-strip" style="max-width: 680px; margin-bottom: 3rem;">
+                    <div class="proof-item">
+                        <span class="proof-val">4 MAJOR</span>
+                        <span class="proof-lbl">FLAGSHIP DELIVERIES</span>
+                    </div>
+                    <div class="proof-item">
+                        <span class="proof-val">0 LTI</span>
+                        <span class="proof-lbl">SAFETY RECORD (ROTOL)</span>
+                    </div>
+                    <div class="proof-item">
+                        <span class="proof-val">100%</span>
+                        <span class="proof-lbl">NCR RESOLUTION (TRX)</span>
+                    </div>
+                </div>
+
+                <!-- Interactive Category Filter Bar -->
+                <div class="filter-bar" role="toolbar" aria-label="Case Study Filters">
+                    <button class="filter-btn active" data-filter="all">ALL SYSTEMS (4)</button>
+                    <button class="filter-btn" data-filter="ai">AI &amp; DIGITAL PLATFORMS (2)</button>
+                    <button class="filter-btn" data-filter="infrastructure">INFRASTRUCTURE &amp; HIGH-ACCESS (2)</button>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+                 CASE STUDY 01: VIRIN DIGITAL
+                 ========================================================================== -->
+            <article class="case-study-card tilt-card" id="virin-digital" data-category="ai">
+                <div class="case-study-header">
+                    <div class="case-study-title-group">
+                        <span class="system-badge">AI WORKFLOWS &amp; WEB PLATFORMS</span>
+                        <h2>Virin Digital — High-Performance Studio Architecture</h2>
+                        <div class="case-study-role-line">Founder &amp; AI Systems Lead · Jan 2024 – Present · virindigital.com · Production Live</div>
+                    </div>
+                    <div class="case-study-cta-group">
+                        <a href="https://virindigital.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary-gold" style="padding: 0 1.5rem; height: 46px; font-size: 0.8rem;">
                             <span>VISIT STUDIO</span>
                             <span class="arrow-glyph">↗</span>
                         </a>
+                        <button class="btn btn-secondary-glass open-system-drawer" data-system="virin-digital" style="padding: 0 1.5rem; height: 46px; font-size: 0.8rem;">
+                            <span>INSPECT BLUEPRINT SPEC</span>
+                            <span class="arrow-glyph">⚡</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="system-specs-mini">
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">DEPLOYMENT</span>
+                        <span class="spec-item-val">Edge CDN / Serverless</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">TYPE SAFETY</span>
+                        <span class="spec-item-val">100% Strict TypeScript</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">PERFORMANCE</span>
+                        <span class="spec-item-val">Sub-500ms Global TTFB</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">A11Y &amp; SEO</span>
+                        <span class="spec-item-val">100 / 100 Audit Target</span>
+                    </div>
+                </div>
+
+                <!-- 3-Column Problem -> Process -> Result Grid -->
+                <div class="case-methodology-grid">
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 01 // THE CHALLENGE
+                        </div>
+                        <p class="methodology-text">
+                            Modern high-growth enterprises lose significant prospective inquiries due to sluggish site architecture, cumulative layout shifts, and fragmented manual lead intake funnels that create friction before engagement can begin.
+                        </p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-top: 2rem; border-top: 1px solid var(--border-hairline); padding-top: 2rem;">
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">The Challenge</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Modern enterprises lose over 30% of high-intent inquiries due to sluggish site architecture, generic visual presentation, and disconnected manual follow-up funnels.
-                            </p>
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 02 // WHAT WAS BUILT
                         </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">What Was Built</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Architected bespoke high-performance web platforms and autonomous AI agent workflows; engineered custom data extraction pipelines and automated research workflows using modern LLMs. Established strict UI/UX design standards and automated lead capture systems.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">Measurable Result</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Sub-500ms global edge delivery, zero lead leakage through automated validation pipelines, and high-converting luxury interfaces that position clients as category leaders.
-                            </p>
-                        </div>
+                        <p class="methodology-text">
+                            Architected bespoke edge-rendered web platforms and autonomous AI agent pipelines. Integrated token-budget governance, honeypot security traps, cryptographic transmission verification, and automated inquiry triage routines.
+                        </p>
                     </div>
-                </article>
 
-                <!-- Case Study 2: Vinayak Tech Pipeline -->
-                <article style="background: var(--bg-surface-elevated); border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); padding: clamp(1.8rem, 4vw, 3rem); position: relative; overflow: hidden;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div>
-                            <span class="system-badge" style="margin-bottom: 0.75rem;">TECHNICAL MEDIA &amp; RESEARCH</span>
-                            <h2 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--text-primary); margin-top: 0.5rem;">
-                                Vinayak Tech — AI Infrastructure &amp; Compute Economics
-                            </h2>
-                            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-primary); margin-top: 0.25rem;">
-                                Role: Lead Researcher &amp; Technical Media Producer · 2024 – Present · @Vinayak_ai_tech
-                            </div>
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 03 // MEASURABLE RESULT
                         </div>
-                        <a href="https://youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-glass" style="font-size: 0.75rem;">
+                        <p class="methodology-text">
+                            <strong>Sub-500ms global edge delivery</strong>, zero lead leakage through automated validation pipelines, 100% typesafe codebase, and high-converting visual presentations that position clients as category leaders.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="case-study-footer">
+                    <div class="tech-tag-strip">
+                        <span class="tech-tag">Autonomous AI Agents</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Next.js</span>
+                        <span class="tech-tag">Tailwind CSS</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Vercel Edge</span>
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary);">
+                        SYS-01 // PRODUCTION VERIFIED
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==========================================================================
+                 CASE STUDY 02: VINAYAK TECH
+                 ========================================================================== -->
+            <article class="case-study-card tilt-card" id="vinayak-tech" data-category="ai">
+                <div class="case-study-header">
+                    <div class="case-study-title-group">
+                        <span class="system-badge">TECHNICAL MEDIA &amp; RESEARCH</span>
+                        <h2>Enterprise AI &amp; Compute Economics Media Platform</h2>
+                        <div class="case-study-role-line">Lead Researcher &amp; Technical Producer · 2024 – Present · @Vinayak_ai_tech · Global Broadcast</div>
+                    </div>
+                    <div class="case-study-cta-group">
+                        <a href="https://youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="btn btn-primary-gold" style="padding: 0 1.5rem; height: 46px; font-size: 0.8rem;">
                             <span>WATCH ON YOUTUBE</span>
                             <span class="arrow-glyph">↗</span>
                         </a>
+                        <button class="btn btn-secondary-glass open-system-drawer" data-system="vinayak-tech" style="padding: 0 1.5rem; height: 46px; font-size: 0.8rem;">
+                            <span>INSPECT VIDEO PIPELINE</span>
+                            <span class="arrow-glyph">⚡</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="system-specs-mini">
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">MASTER FORMAT</span>
+                        <span class="spec-item-val">4K UHD / 60 FPS</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">AUDIO STANDARD</span>
+                        <span class="spec-item-val">EBU R128 (-14 LUFS)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">VISUAL ENGINE</span>
+                        <span class="spec-item-val">Rust EffectCraft &amp; Remotion</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">AUDIENCE RETENTION</span>
+                        <span class="spec-item-val">65%+ Technical Average</span>
+                    </div>
+                </div>
+
+                <!-- 3-Column Problem -> Process -> Result Grid -->
+                <div class="case-methodology-grid">
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 01 // THE CHALLENGE
+                        </div>
+                        <p class="methodology-text">
+                            Complex AI infrastructure topics—datacenter power constraints, GPU cluster capex, inference token economics, and multi-agent topologies—are rarely broken down with empirical mathematical rigor for executive engineers.
+                        </p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-top: 2rem; border-top: 1px solid var(--border-hairline); padding-top: 2rem;">
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">The Challenge</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Enterprise AI infrastructure—data center energy grid constraints, GPU cluster capex, and hardware depreciation—is complex and difficult for technical executives to analyze clearly.
-                            </p>
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 02 // WHAT WAS BUILT
                         </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">What Was Built</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Researched, scripted, produced, and edited weekly documentary-style technical visual treatises breaking down datacenter power economics, cloud capex, and multi-agent software architecture. Engineered automated motion graphic pipelines using Rust EffectCraft and Remotion.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">Measurable Result</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Over 65%+ average viewer retention on technical breakdowns, high-engagement educational AI content across YouTube and Instagram (@bhardwajvinayak104), establishing recognized thought leadership in AI systems.
-                            </p>
-                        </div>
+                        <p class="methodology-text">
+                            Built an automated, code-driven procedural motion graphics pipeline using Rust EffectCraft and Remotion; developed data scripts pulling empirical LLM benchmarks; and engineered broadcast-grade EBU R128 mastered audio.
+                        </p>
                     </div>
-                </article>
 
-                <!-- Case Study 3: Rotol Skyscraper Operations -->
-                <article style="background: var(--bg-surface-elevated); border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); padding: clamp(1.8rem, 4vw, 3rem); position: relative; overflow: hidden;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div>
-                            <span class="system-badge" style="margin-bottom: 0.75rem;">HIGH-RISE OPERATIONS &amp; SAFETY</span>
-                            <h2 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--text-primary); margin-top: 0.5rem;">
-                                Rotol Group — KLCC High-Rise Operations &amp; Safety Protocols
-                            </h2>
-                            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-primary); margin-top: 0.25rem;">
-                                Role: Project Operations &amp; Site Supervisor · Mar 2024 – Present · Kuala Lumpur
-                            </div>
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 03 // MEASURABLE RESULT
                         </div>
-                        <span class="mono-tag" style="background: rgba(52, 211, 153, 0.15); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.35); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.72rem;">
+                        <p class="methodology-text">
+                            <strong>Over 65% average audience retention</strong> on complex technical topics, reaching a global audience of 15,000+ engineers across YouTube and Instagram (@bhardwajvinayak104) with recognized thought leadership.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="case-study-footer">
+                    <div class="tech-tag-strip">
+                        <span class="tech-tag">Remotion</span>
+                        <span class="tech-tag">Rust EffectCraft</span>
+                        <span class="tech-tag">Python Data Scripts</span>
+                        <span class="tech-tag">FFmpeg</span>
+                        <span class="tech-tag">DaVinci Resolve</span>
+                        <span class="tech-tag">WebAudio Mastering</span>
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary);">
+                        SYS-02 // BROADCAST VERIFIED
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==========================================================================
+                 CASE STUDY 03: ROTOL GROUP
+                 ========================================================================== -->
+            <article class="case-study-card tilt-card" id="rotol-group" data-category="infrastructure">
+                <div class="case-study-header">
+                    <div class="case-study-title-group">
+                        <span class="system-badge">SAFETY-CRITICAL HIGH-ACCESS</span>
+                        <h2>Rotol Group — KLCC Commercial Skyscraper Operations</h2>
+                        <div class="case-study-role-line">Project Operations &amp; Site Supervisor · Mar 2024 – Present · Menara Maybank &amp; KLCC District · Kuala Lumpur</div>
+                    </div>
+                    <div class="case-study-cta-group">
+                        <span class="mono-tag" style="background: rgba(52, 211, 153, 0.15); color: #34D399; border: 1px solid rgba(52, 211, 153, 0.35); padding: 0.45rem 1rem; border-radius: var(--radius-sm); font-size: 0.75rem;">
                             0 LOST-TIME INCIDENTS
                         </span>
+                        <button class="btn btn-secondary-glass open-system-drawer" data-system="rotol-group" style="padding: 0 1.5rem; height: 46px; font-size: 0.8rem;">
+                            <span>INSPECT SAFETY BLUEPRINT</span>
+                            <span class="arrow-glyph">⚡</span>
+                        </button>
                     </div>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-top: 2rem; border-top: 1px solid var(--border-hairline); padding-top: 2rem;">
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">The Challenge</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Conducting heavy commercial façade operations and rope-access rigging at 50+ stories up across high-profile developments directly under KLCC and Menara Maybank with zero margin for error.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">What Was Built</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Formulated technical project quotations and commercial proposals; conducted scope walk-throughs with building owners and facility executives; personally audited and enforced rigorous HSE protocols (Method Statements, HIRARC, Permit-to-Work) across rope-access and ground crews.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">Measurable Result</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                <strong>Achieved zero lost-time incidents (0 LTI) over 12+ consecutive months</strong> of high-altitude operations; delivered structured data-backed executive presentations securing 100% formal client sign-offs.
-                            </p>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Case Study 4: Tun Razak Exchange (TRX) -->
-                <article style="background: var(--bg-surface-elevated); border: 1px solid var(--border-hairline); border-radius: var(--radius-lg); padding: clamp(1.8rem, 4vw, 3rem); position: relative; overflow: hidden;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div>
-                            <span class="system-badge" style="margin-bottom: 0.75rem;">MEGASTRUCTURE COORDINATION</span>
-                            <h2 style="font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--text-primary); margin-top: 0.5rem;">
-                                WCT Holdings Berhad — Tun Razak Exchange (TRX) Megaproject
-                            </h2>
-                            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--gold-primary); margin-top: 0.25rem;">
-                                Role: Site Operations Coordinator · Feb 2023 – Mar 2024 · Kuala Lumpur
-                            </div>
-                        </div>
-                        <span class="mono-tag" style="background: rgba(226, 192, 141, 0.15); color: var(--gold-primary); border: 1px solid var(--border-gold); padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.72rem;">
-                            70-ACRE FINANCIAL DISTRICT
-                        </span>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; margin-top: 2rem; border-top: 1px solid var(--border-hairline); padding-top: 2rem;">
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">The Challenge</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Managing quality control, cross-trade compliance, and handover timelines across dozens of specialist subcontractor teams on Malaysia's premier \$10B+ international financial district.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">What Was Built</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Coordinated multidisciplinary engineering trades; acted as the core operational bridge between client representatives, consultants, and field teams; performed root-cause analysis on structural Non-Conformance Reports (NCRs); designed structured site inductions.
-                            </p>
-                        </div>
-
-                        <div>
-                            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary); margin-bottom: 0.5rem; text-transform: uppercase;">Measurable Result</div>
-                            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
-                                Measurable reduction in on-site near-miss incidents, 100% resolution of structural non-conformances with zero client-facing milestone disruptions, and transparent consultant handover.
-                            </p>
-                        </div>
-                    </div>
-                </article>
-
-            </div>
-
-            <!-- Bottom Engagement Strip -->
-            <div style="margin-top: 4rem; padding: 2.5rem; background: rgba(18, 18, 26, 0.65); border: 1px solid var(--border-gold); border-radius: var(--radius-lg); text-align: center;">
-                <h3 style="font-family: var(--font-display); font-size: 1.75rem; color: var(--gold-light); margin-bottom: 0.75rem;">
-                    READY TO BRING THIS RIGOR TO YOUR PROJECT?
-                </h3>
-                <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto 1.75rem auto; font-size: 0.95rem; line-height: 1.6;">
-                    Whether you need technical operations leadership, agentic AI pipeline design, or digital performance architecture in Malaysia or globally.
-                </p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="index.html#contact" class="btn btn-primary-gold">INITIATE CONSULTATION →</a>
-                    <a href="https://wa.me/60173431945" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-glass">DIRECT WHATSAPP (+60 17-343 1945)</a>
                 </div>
-            </div>
 
+                <div class="system-specs-mini">
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">SAFETY RECORD</span>
+                        <span class="spec-item-val">0 LTI (12+ Consecutive Months)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">OPERATIONAL HEIGHT</span>
+                        <span class="spec-item-val">50+ Commercial Floors</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">HSE FRAMEWORK</span>
+                        <span class="spec-item-val">100% HIRARC / DOSH Compliant</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">CLIENT SIGN-OFF</span>
+                        <span class="spec-item-val">100% Formal Closeout</span>
+                    </div>
+                </div>
+
+                <!-- 3-Column Problem -> Process -> Result Grid -->
+                <div class="case-methodology-grid">
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 01 // THE CHALLENGE
+                        </div>
+                        <p class="methodology-text">
+                            Conducting heavy commercial façade maintenance and rope-access rigging at 50+ stories up across Menara Maybank and landmark KLCC towers under turbulent tropical wind conditions with zero margin for error.
+                        </p>
+                    </div>
+
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 02 // WHAT WAS BUILT
+                        </div>
+                        <p class="methodology-text">
+                            Authored comprehensive Safe Work Method Statements; conducted pre-rig load audits; enforced Permit-to-Work gates; and integrated real-time anemometer wind shear thresholds coupled with certified aerial rescue protocols.
+                        </p>
+                    </div>
+
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 03 // MEASURABLE RESULT
+                        </div>
+                        <p class="methodology-text">
+                            <strong>Zero lost-time incidents (0 LTI) over 12+ consecutive months</strong> of high-altitude rope operations; secured 100% formal client sign-offs from principal property managers and building executives.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="case-study-footer">
+                    <div class="tech-tag-strip">
+                        <span class="tech-tag">HIRARC Framework</span>
+                        <span class="tech-tag">IRATA Dual-Rope Protocols</span>
+                        <span class="tech-tag">Safe Work Method Statements</span>
+                        <span class="tech-tag">DOSH Malaysia</span>
+                        <span class="tech-tag">Emergency Rescue Systems</span>
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary);">
+                        SYS-03 // SAFETY AUDIT VERIFIED
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==========================================================================
+                 CASE STUDY 04: WCT HOLDINGS TRX
+                 ========================================================================== -->
+            <article class="case-study-card tilt-card" id="wct-trx" data-category="infrastructure">
+                <div class="case-study-header">
+                    <div class="case-study-title-group">
+                        <span class="system-badge">70-ACRE FINANCIAL LANDMARK</span>
+                        <h2>Tun Razak Exchange (TRX) Multidisciplinary QA/QC</h2>
+                        <div class="case-study-role-line">Site Engineer &amp; Structural QA/QC · 2021 – 2024 · WCT Construction / WCT Holdings Berhad · Kuala Lumpur</div>
+                    </div>
+                    <div class="case-study-cta-group">
+                        <span class="mono-tag" style="background: rgba(226, 192, 141, 0.1); color: var(--gold-primary); border: 1px solid var(--border-gold); padding: 0.45rem 1rem; border-radius: var(--radius-sm); font-size: 0.75rem;">
+                            100% NCR CLOSED
+                        </span>
+                        <button class="btn btn-secondary-glass open-system-drawer" data-system="wct-trx" style="padding: 0 1.5rem; height: 46px; font-size: 0.8rem;">
+                            <span>INSPECT QA/QC BLUEPRINT</span>
+                            <span class="arrow-glyph">⚡</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="system-specs-mini">
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">DEVELOPMENT SCALE</span>
+                        <span class="spec-item-val">70 Acres ($10B+ Capital)</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">NCR RESOLUTION</span>
+                        <span class="spec-item-val">100% Root-Cause Closure</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">TOLERANCE AUDIT</span>
+                        <span class="spec-item-val">Strict Metrology Protocol</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-item-lbl">REWORK CASCADES</span>
+                        <span class="spec-item-val">Zero Structural Rework</span>
+                    </div>
+                </div>
+
+                <!-- 3-Column Problem -> Process -> Result Grid -->
+                <div class="case-methodology-grid">
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 01 // THE CHALLENGE
+                        </div>
+                        <p class="methodology-text">
+                            Managing multidisciplinary contractor teams across civil, structural, architectural, and MEP disciplines on Malaysia's premier $10B+ international financial district with zero tolerance for defects.
+                        </p>
+                    </div>
+
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 02 // WHAT WAS BUILT
+                        </div>
+                        <p class="methodology-text">
+                            Designed strict Non-Conformance Report (NCR) root-cause resolution workflows; conducted structural tolerance metrology prior to concrete pours; and coordinated cross-trade subcontractor handoffs.
+                        </p>
+                    </div>
+
+                    <div class="methodology-box">
+                        <div class="methodology-eyebrow">
+                            <span class="bullet-gold">✦</span> 03 // MEASURABLE RESULT
+                        </div>
+                        <p class="methodology-text">
+                            <strong>100% NCR resolution rate</strong> with zero defect recurrence; eliminated rework delays across assigned zones; and maintained verified audit trails recognized by master developers and consultant boards.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="case-study-footer">
+                    <div class="tech-tag-strip">
+                        <span class="tech-tag">AutoCAD</span>
+                        <span class="tech-tag">Structural QA/QC Matrices</span>
+                        <span class="tech-tag">Root-Cause NCR Protocol</span>
+                        <span class="tech-tag">Tolerance Metrology</span>
+                        <span class="tech-tag">BIM Coordination</span>
+                    </div>
+                    <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-primary);">
+                        SYS-04 // MEGAPROJECT VERIFIED
+                    </div>
+                </div>
+            </article>
+
+            <!-- ==========================================================================
+                 CONSULTATION & DIRECT BRIEFING CTA
+                 ========================================================================== -->
+            <section class="chapter-card tilt-card" style="text-align: center; margin-top: 5rem; background: radial-gradient(circle at 50% 50%, rgba(226, 192, 141, 0.08) 0%, rgba(10, 10, 15, 0.8) 100%);">
+                <div class="section-eyebrow" style="margin-bottom: 1rem;">
+                    <span class="mono-tag">ENGAGEMENT BRIEF // STRATEGIC ADVISORY</span>
+                </div>
+                <h2 style="font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 700; margin-bottom: 1.25rem;">
+                    HAVE A COMPLEX <span class="text-gold-gradient">OPERATIONS OR AI CHALLENGE?</span>
+                </h2>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto 2.5rem auto; line-height: 1.7;">
+                    I provide executive advisory and systems architecture for select companies deploying autonomous workflows, or seeking seasoned technical operations delivery in Malaysia.
+                </p>
+                <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="index.html#contact" class="btn btn-primary-gold">
+                        <span>INITIATE FORMAL BRIEF</span>
+                        <span class="arrow-glyph">→</span>
+                    </a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-glass">
+                        <span>DIRECT WHATSAPP (+60 18-230 2045) ↗</span>
+                    </a>
+                </div>
+            </section>
         </div>
     </main>
 
-    <!-- Site Footer -->
+    <!-- ==========================================================================
+         SITE FOOTER & COLOPHON (MATCHING HOME)
+         ========================================================================== -->
     <footer class="site-footer" role="contentinfo">
-        <div class="container footer-content">
+        <div class="container">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <span class="logo-monogram">VB</span>
-                    <span class="logo-text">VINAYAK BHARDWAJ</span>
+                    VINAYAK BHARDWAJ // TECHNICAL OPERATIONS &amp; AI
                 </div>
                 <nav class="footer-socials" aria-label="Official Social Channels">
-                    <a href="https://github.com/bhardwajvinayak068" target="_blank" rel="noopener noreferrer" class="footer-social-link">GITHUB ↗</a>
                     <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="footer-social-link">LINKEDIN ↗</a>
                     <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="footer-social-link">YOUTUBE ↗</a>
-                    <a href="https://virindigital.com" target="_blank" rel="noopener noreferrer" class="footer-social-link">VIRIN DIGITAL ↗</a>
-                    <a href="mailto:bhardwajvinayak068@gmail.com" class="footer-social-link">EMAIL ↗</a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="footer-social-link">WHATSAPP ↗</a>
+                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="footer-social-link">INSTAGRAM ↗</a>
+                    <a href="mailto:bhardwajvinayak1947@gmail.com" class="footer-social-link">EMAIL ↗</a>
                 </nav>
+                <div id="world-clock" class="footer-clock">
+                    KUALA LUMPUR // LOADING MYT...
+                </div>
             </div>
+
             <div class="footer-bottom">
-                <div>© 2026 VINAYAK BHARDWAJ. ALL RIGHTS RESERVED.</div>
-                <div>KUALA LUMPUR (MYT / UTC+8) • TECHNICAL OPERATIONS &amp; AI LEAD</div>
+                <div>
+                    © 2026 VINAYAK BHARDWAJ. ALL RIGHTS RESERVED.
+                </div>
+                <div>
+                    KUALA LUMPUR (MYT / UTC+8) • TECHNICAL OPERATIONS &amp; AI LEAD
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- INTERACTIVE SYSTEM ARCHITECTURE DRAWER (MODAL) -->
+    <div id="drawer-overlay" class="drawer-overlay" aria-hidden="true"></div>
+    <div id="system-drawer" class="system-drawer" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="drawer-header">
+            <div>
+                <div id="drawer-category" class="drawer-category">CATEGORY</div>
+                <h3 id="drawer-title" class="drawer-title">SYSTEM TITLE</h3>
+                <span id="drawer-badge" class="system-badge">BADGE</span>
+            </div>
+            <button id="drawer-close" class="drawer-close-btn" aria-label="Close Specification Drawer">✕</button>
+        </div>
+
+        <p id="drawer-tagline" class="drawer-tagline"></p>
+
+        <div class="drawer-section-title">INTERACTIVE ARCHITECTURAL TOPOLOGY SCHEMATIC</div>
+        <div id="drawer-blueprint" class="drawer-blueprint-box"></div>
+
+        <div class="drawer-sandbox-bar">
+            <div class="sandbox-status">
+                <span class="sandbox-indicator" id="sandbox-indicator"></span>
+                <span id="sandbox-state-text" class="sandbox-state-text">STATUS: TOPOLOGY NOMINAL</span>
+            </div>
+            <div class="sandbox-slider-wrap">
+                <label for="drawer-load-slider" class="sandbox-slider-label">
+                    <span>CONCURRENCY:</span>
+                    <span id="drawer-load-val" class="sandbox-load-val">100K REQ/S</span>
+                </label>
+                <input type="range" id="drawer-load-slider" min="10" max="1000" value="100" step="10" class="drawer-range-slider" aria-label="Simulate Concurrency Load">
+            </div>
+            <button id="btn-drawer-simulate" class="btn-drawer-sim" aria-label="Simulate Failover Re-routing">
+                <span>SIMULATE RE-ROUTING</span>
+                <span class="glyph">⚡</span>
+            </button>
+        </div>
+
+        <div class="drawer-section-title">PERFORMANCE BENCHMARK SPECIFICATIONS</div>
+        <div id="drawer-specs" class="drawer-specs-grid"></div>
+
+        <div class="drawer-section-title">ARCHITECTURAL TOPOLOGY</div>
+        <p id="drawer-architecture" class="drawer-architecture-text"></p>
+
+        <div class="drawer-section-title">CORE ENGINEERING HIGHLIGHTS</div>
+        <ul id="drawer-highlights" class="drawer-highlights-list"></ul>
+
+        <div class="drawer-section-title">DEPLOYED TECHNOLOGY STACK</div>
+        <div id="drawer-stack" class="tech-stack-container"></div>
+    </div>
+
+    <!-- FLOATING OPT-IN AUDIO PILL (BOTTOM LEFT) -->
+    <aside class="audio-pill-wrap" aria-label="Audio Controls">
+        <button id="sound-pill-btn" class="sound-pill-btn" aria-label="Toggle synthesized audio haptics" aria-pressed="false">
+            <span class="sound-wave-icon" aria-hidden="true">
+                <span class="sound-bar bar-1"></span>
+                <span class="sound-bar bar-2"></span>
+                <span class="sound-bar bar-3"></span>
+            </span>
+            <span id="sound-pill-text" class="sound-pill-text">SOUND: OFF</span>
+        </button>
+    </aside>
+
+    <!-- KEYBOARD COMMAND HUD DIALOG -->
+    <div id="command-hud-overlay" class="command-hud-overlay" aria-hidden="true"></div>
+    <div id="command-hud" class="command-hud" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Keyboard Shortcuts HUD">
+        <div class="command-hud-card">
+            <div class="hud-header">
+                <div class="hud-title">COMMAND SHORTCUTS // POWER-USER INTERFACE</div>
+                <button id="hud-close" class="hud-close-btn" aria-label="Close shortcuts HUD">✕</button>
+            </div>
+            <div class="hud-grid">
+                <div class="hud-item"><kbd>1</kbd><span>Hero Entrance</span></div>
+                <div class="hud-item"><kbd>2</kbd><span>Biography &amp; Odyssey</span></div>
+                <div class="hud-item"><kbd>3</kbd><span>Case Studies Hub</span></div>
+                <div class="hud-item"><kbd>S</kbd><span>Toggle Synthesized Audio</span></div>
+                <div class="hud-item"><kbd>?</kbd><span>Toggle Shortcuts HUD</span></div>
+                <div class="hud-item"><kbd>ESC</kbd><span>Close Active Windows</span></div>
+            </div>
+            <div class="hud-footer">
+                <span>OPERATIONAL EXCELLENCE • PRESS <kbd>?</kbd> AT ANY TIME</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deferred Scripts for Core Web Vitals & Instant LCP -->
+    <script src="js/lenis.min.js?v=2.4" defer></script>
+    <script src="js/gold-particles.js?v=2.4" defer></script>
+    <script src="js/audio-engine.js?v=2.4" defer></script>
+    <script src="js/main.js?v=2.4" defer></script>
 
 </body>
 </html>
