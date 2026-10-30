@@ -47,14 +47,24 @@
     <link rel="icon" type="image/png" href="assets/favicon-vb.png">
     <link rel="apple-touch-icon" href="assets/favicon-vb.png">
     
-    <!-- AI Context Link Autodiscovery -->
+    <!-- AI Context Link Autodiscovery & Agentic Markdown -->
     <link rel="help" type="text/plain" href="https://vinayakbhardwaj.com/llms.txt" title="LLM Context Index">
+    <link rel="alternate" type="text/markdown" href="https://vinayakbhardwaj.com/llms-full.txt" title="Sovereign Architectural Whitepaper">
 
-    <!-- Schema.org Multi-Entity JSON-LD Knowledge Graph (Person, ProfessionalService, WebSite, FAQPage) -->
+    <!-- Schema.org Multi-Entity JSON-LD Knowledge Graph (ProfilePage, Person, ProfessionalService, WebSite, FAQPage) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@graph": [
+        {
+          "@type": "ProfilePage",
+          "@id": "https://vinayakbhardwaj.com/#profilepage",
+          "url": "https://vinayakbhardwaj.com/",
+          "name": "Vinayak Bhardwaj — Systems Architect & Executive AI Advisor",
+          "mainEntity": {
+            "@id": "https://vinayakbhardwaj.com/#person"
+          }
+        },
         {
           "@type": "Person",
           "@id": "https://vinayakbhardwaj.com/#person",
@@ -77,6 +87,7 @@
             "sameAs": "https://www.sharda.ac.in/"
           },
           "sameAs": [
+            "https://github.com/bhardwajvinayak068",
             "https://www.linkedin.com/in/vinayak-bhardwaj1947/",
             "https://www.youtube.com/@Vinayak.AInews",
             "https://www.instagram.com/bhardwajvinayak104/",
