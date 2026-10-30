@@ -114,9 +114,9 @@
                     radius: 20 + Math.random() * 58,
                     baseAlpha: 0.03 + Math.random() * 0.08,
                     alphaPhase: Math.random() * Math.PI * 2,
-                    speed: 0.008 + Math.random() * 0.015,
-                    vx: (Math.random() - 0.5) * 0.2,
-                    vy: -0.15 - Math.random() * 0.25,
+                    speed: 0.004 + Math.random() * 0.008,
+                    vx: (Math.random() - 0.5) * 0.08,
+                    vy: -0.06 - Math.random() * 0.12,
                     color: Math.random() > 0.4 ? 'rgba(226, 192, 141, ' : 'rgba(212, 175, 55, '
                 });
             }
@@ -135,6 +135,10 @@
                 const distance = 40 + Math.pow(Math.random(), 1.35) * (this.dimensions.width * 0.55);
                 const col = colors[Math.floor(Math.random() * colors.length)];
 
+                // Calibrated serene velocity: balanced bidirectional drift and gentle float
+                const direction = Math.random() > 0.5 ? 1 : -1;
+                const gentleOrbitSpeed = (0.00018 + Math.random() * 0.00035) * direction;
+
                 this.particles.push({
                     angle: angle,
                     distance: distance,
@@ -144,13 +148,13 @@
                     vx: 0,
                     vy: 0,
                     size: Math.random() < 0.82 ? (0.8 + Math.random() * 1.6) : (2.4 + Math.random() * 2.4),
-                    orbitSpeed: (0.0007 + Math.random() * 0.002) * (Math.random() > 0.12 ? 1 : -0.5),
-                    driftY: -0.2 - Math.random() * 0.45,
-                    wobbleSpeed: 0.02 + Math.random() * 0.03,
+                    orbitSpeed: gentleOrbitSpeed,
+                    driftY: -0.08 - Math.random() * 0.22, // Soft vertical float
+                    wobbleSpeed: 0.008 + Math.random() * 0.014,
                     wobbleOffset: Math.random() * Math.PI * 2,
                     baseAlpha: 0.25 + Math.random() * 0.75,
                     color: col,
-                    twinkleSpeed: 0.02 + Math.random() * 0.05,
+                    twinkleSpeed: 0.015 + Math.random() * 0.035,
                     twinklePhase: Math.random() * Math.PI * 2,
                     isSparkle: Math.random() < 0.04
                 });
@@ -158,6 +162,12 @@
         }
 
         start() {
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                this.render(performance.now());
+                this.stop();
+                return;
+            }
+
             if (!this.isRunning) {
                 this.isRunning = true;
                 this.lastTime = performance.now();
@@ -170,9 +180,12 @@
         }
 
         render(currentTime) {
-            if (!this.isRunning) return;
+            if (!this.isRunning && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
 
+            // Delta time normalization (60 FPS baseline = 16.67ms)
+            const dt = (currentTime && this.lastTime) ? Math.min((currentTime - this.lastTime) / 1000, 0.05) : 0.0166;
             this.lastTime = currentTime;
+            const timeScale = dt / 0.01667;
 
             const ctx = this.ctx;
             const w = this.dimensions.width;
@@ -194,9 +207,9 @@
             ctx.globalCompositeOperation = 'lighter';
             for (let i = 0; i < this.bokeh.length; i++) {
                 const b = this.bokeh[i];
-                b.alphaPhase += b.speed;
-                b.y += b.vy - vel * 0.15;
-                b.x += b.vx;
+                b.alphaPhase += b.speed * timeScale;
+                b.y += (b.vy * timeScale) - vel * 0.15;
+                b.x += b.vx * timeScale;
 
                 if (b.y < -b.radius * 2) {
                     b.y = h + b.radius;
@@ -226,22 +239,23 @@
             for (let i = 0; i < this.particles.length; i++) {
                 const p = this.particles[i];
 
-                p.angle += p.orbitSpeed;
-                p.twinklePhase += p.twinkleSpeed;
-                p.wobbleOffset += p.wobbleSpeed;
+                p.angle += p.orbitSpeed * timeScale;
+                p.twinklePhase += p.twinkleSpeed * timeScale;
+                p.wobbleOffset += p.wobbleSpeed * timeScale;
 
                 // Vertical drift plus scroll inertia
-                p.y += p.driftY - vel * 0.35;
+                p.y += (p.driftY * timeScale) - vel * 0.35;
 
                 // Radial dispersion under high scroll velocity
                 if (velMag > 2) {
                     p.distance += velMag * 0.6;
                 } else {
-                    p.distance += (p.baseDistance - p.distance) * 0.04;
+                    p.distance += (p.baseDistance - p.distance) * (0.02 * timeScale);
                 }
 
-                const naturalX = this.portraitCenter.x + Math.cos(p.angle) * p.distance + Math.sin(p.wobbleOffset) * 8;
-                p.x += (naturalX - p.x) * 0.05;
+                // Smooth tranquil horizontal drift without fast left-to-right conveyer sweeping
+                const naturalX = this.portraitCenter.x + Math.cos(p.angle) * p.distance + Math.sin(p.wobbleOffset) * 4;
+                p.x += (naturalX - p.x) * (0.02 * timeScale);
 
                 // Hydrodynamic Cursor Swirl
                 if (this.mouse.active) {
@@ -257,8 +271,8 @@
                     }
                 }
 
-                p.x += p.vx;
-                p.y += p.vy;
+                p.x += p.vx * timeScale;
+                p.y += p.vy * timeScale;
                 p.vx *= 0.92;
                 p.vy *= 0.92;
 
@@ -319,7 +333,9 @@
             }
             ctx.restore();
 
-            requestAnimationFrame((t) => this.render(t));
+            if (this.isRunning) {
+                requestAnimationFrame((t) => this.render(t));
+            }
         }
     }
 
