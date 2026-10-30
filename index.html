@@ -302,7 +302,7 @@
     <!-- Fonts (self-hosted) and hero preload -->
     <link rel="preload" href="assets/fonts/cinzel-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/schibsted-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" as="image" type="image/avif" imagesrcset="assets/media/hero-640.avif 640w, assets/media/hero-1000.avif 1000w, assets/media/hero-1600.avif 1600w, assets/media/hero-2400.avif 2400w" imagesizes="(max-width: 767px) 100vw, 72vw" fetchpriority="high">
+    <link rel="preload" as="image" type="image/avif" imagesrcset="assets/media/hero-640.avif?v=2 640w, assets/media/hero-1000.avif?v=2 1000w, assets/media/hero-1600.avif?v=2 1600w, assets/media/hero-2400.avif?v=2 2400w" imagesizes="(max-width: 767px) 100vw, 72vw" fetchpriority="high">
 
     <!-- Stylesheets -->
     <style>
@@ -398,9 +398,9 @@
         <section class="ev-hero" id="hero" aria-labelledby="hero-title">
             <figure class="ev-hero-media">
                 <picture>
-                    <source type="image/avif" srcset="assets/media/hero-640.avif 640w, assets/media/hero-1000.avif 1000w, assets/media/hero-1600.avif 1600w, assets/media/hero-2400.avif 2400w" sizes="(max-width: 767px) 100vw, 72vw">
-                    <source type="image/webp" srcset="assets/media/hero-640.webp 640w, assets/media/hero-1000.webp 1000w, assets/media/hero-1600.webp 1600w, assets/media/hero-2400.webp 2400w" sizes="(max-width: 767px) 100vw, 72vw">
-                    <img src="assets/media/hero-1600.jpg" alt="AI-assisted portrait of Vinayak Bhardwaj in a rope-access harness, holding his climbing helmet" width="2400" height="1792" fetchpriority="high" decoding="async">
+                    <source type="image/avif" srcset="assets/media/hero-640.avif?v=2 640w, assets/media/hero-1000.avif?v=2 1000w, assets/media/hero-1600.avif?v=2 1600w, assets/media/hero-2400.avif?v=2 2400w" sizes="(max-width: 767px) 100vw, 72vw">
+                    <source type="image/webp" srcset="assets/media/hero-640.webp?v=2 640w, assets/media/hero-1000.webp?v=2 1000w, assets/media/hero-1600.webp?v=2 1600w, assets/media/hero-2400.webp?v=2 2400w" sizes="(max-width: 767px) 100vw, 72vw">
+                    <img src="assets/media/hero-1600.jpg?v=2" alt="AI-assisted studio portrait of Vinayak Bhardwaj in a navy blazer, looking off to the side" width="2400" height="1792" fetchpriority="high" decoding="async">
                 </picture>
                 <figcaption class="ev-credit">Portrait: AI-assisted, from my own photos</figcaption>
             </figure>
