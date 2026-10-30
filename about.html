@@ -169,7 +169,9 @@
                     <span class="mobile-brand-monogram">VB</span>
                     <span class="mobile-brand-title">VINAYAK BHARDWAJ</span>
                 </div>
-                <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close Mobile Navigation">✕</button>
+                <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close Mobile Navigation">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
             </div>
             
             <nav class="mobile-nav-list" aria-label="Mobile Menu Links">
@@ -496,32 +498,60 @@
     </main>
 
     <!-- ==========================================================================
-         SITE FOOTER & COLOPHON (MATCHING HOME)
+         SITE FOOTER & COLOPHON (PRECISION ARCHITECTURAL THREE-TIER)
          ========================================================================== -->
     <footer class="site-footer" role="contentinfo">
         <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    VINAYAK BHARDWAJ // TECHNICAL OPERATIONS &amp; AI
+            <!-- Tier 1: Identity & Live World Status -->
+            <div class="footer-header">
+                <div class="footer-identity">
+                    <a href="index.html" class="footer-brand-title">VINAYAK BHARDWAJ</a>
+                    <span class="footer-separator" aria-hidden="true">//</span>
+                    <span class="footer-role-text">TECHNICAL OPERATIONS &amp; AI</span>
                 </div>
-                <nav class="footer-socials" aria-label="Official Social Channels">
-                    <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="footer-social-link">LINKEDIN ↗</a>
-                    <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="footer-social-link">YOUTUBE ↗</a>
-                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="footer-social-link">WHATSAPP ↗</a>
-                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="footer-social-link">INSTAGRAM ↗</a>
-                    <a href="mailto:bhardwajvinayak1947@gmail.com" class="footer-social-link">EMAIL ↗</a>
-                </nav>
-                <div id="world-clock" class="footer-clock">
-                    KUALA LUMPUR // LOADING MYT...
+                <div id="world-clock" class="footer-clock-pill" aria-label="Current Kuala Lumpur Time">
+                    <span class="clock-status-dot" aria-hidden="true"></span>
+                    <span class="clock-string">KUALA LUMPUR // --:--:-- MYT (UTC+8)</span>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <div>
+            <!-- Tier 2: Channels Navigation & Fast Return -->
+            <div class="footer-channels-bar">
+                <nav class="footer-social-nav" aria-label="Official Social Channels">
+                    <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="footer-channel-link">
+                        <span>LINKEDIN</span>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+                    <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="footer-channel-link">
+                        <span>YOUTUBE</span>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="footer-channel-link">
+                        <span>WHATSAPP</span>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="footer-channel-link">
+                        <span>INSTAGRAM</span>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+                    <a href="mailto:bhardwajvinayak1947@gmail.com" class="footer-channel-link">
+                        <span>EMAIL</span>
+                        <span class="channel-arrow">↗</span>
+                    </a>
+                </nav>
+                <a href="#main-content" class="footer-back-to-top" aria-label="Scroll back to top">
+                    <span>TOP</span>
+                    <span class="top-arrow">↑</span>
+                </a>
+            </div>
+
+            <!-- Tier 3: Legal Colophon & Production Systems Statement -->
+            <div class="footer-colophon-bar">
+                <div class="colophon-item">
                     © 2026 VINAYAK BHARDWAJ. ALL RIGHTS RESERVED.
                 </div>
-                <div>
-                    KUALA LUMPUR (MYT / UTC+8) • TECHNICAL OPERATIONS &amp; AI LEAD
+                <div class="colophon-item colophon-accent">
+                    KUALA LUMPUR (MYT / UTC+8) • HIGH-AVAILABILITY DIGITAL SYSTEMS
                 </div>
             </div>
         </div>
@@ -536,7 +566,9 @@
                 <h3 id="drawer-title" class="drawer-title">SYSTEM TITLE</h3>
                 <span id="drawer-badge" class="system-badge">BADGE</span>
             </div>
-            <button id="drawer-close" class="drawer-close-btn" aria-label="Close Specification Drawer">✕</button>
+            <button id="drawer-close" class="drawer-close-btn" aria-label="Close Specification Drawer">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
         </div>
 
         <p id="drawer-tagline" class="drawer-tagline"></p>
@@ -558,7 +590,11 @@
             </div>
             <button id="btn-drawer-simulate" class="btn-drawer-sim" aria-label="Simulate Failover Re-routing">
                 <span>SIMULATE RE-ROUTING</span>
-                <span class="glyph">⚡</span>
+                <span class="sim-pulse-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </span>
             </button>
         </div>
 
@@ -593,7 +629,9 @@
         <div class="command-hud-card">
             <div class="hud-header">
                 <div class="hud-title">COMMAND SHORTCUTS // POWER-USER INTERFACE</div>
-                <button id="hud-close" class="hud-close-btn" aria-label="Close shortcuts HUD">✕</button>
+                <button id="hud-close" class="hud-close-btn" aria-label="Close shortcuts HUD">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
             </div>
             <div class="hud-grid">
                 <div class="hud-item"><kbd>1</kbd><span>Hero Entrance</span></div>

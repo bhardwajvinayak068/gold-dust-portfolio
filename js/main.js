@@ -2177,13 +2177,14 @@
                 sandboxIndicator.classList.remove('simulating');
                 sandboxIndicator.style.background = '#34D399';
             }
+            const SIM_ICON_SVG = `<span class="sim-pulse-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></span>`;
             if (sandboxStateText) {
                 sandboxStateText.textContent = 'STATUS: TOPOLOGY NOMINAL';
                 sandboxStateText.style.color = 'var(--text-primary)';
             }
             if (simBtn) {
                 simBtn.disabled = false;
-                simBtn.innerHTML = `<span>SIMULATE RE-ROUTING</span><span class="glyph">⚡</span>`;
+                simBtn.innerHTML = `<span>SIMULATE RE-ROUTING</span>${SIM_ICON_SVG}`;
                 isSimulating = false;
             }
             triggerHaptic(10);
@@ -2211,6 +2212,7 @@
         const simBtn = document.getElementById('btn-drawer-simulate');
         const sandboxIndicator = document.getElementById('sandbox-indicator');
         const sandboxStateText = document.getElementById('sandbox-state-text');
+        const SIM_ICON_SVG = `<span class="sim-pulse-icon" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></span>`;
         let isSimulating = false;
 
         if (simBtn) {
@@ -2219,7 +2221,7 @@
                 if (isSimulating) return;
                 isSimulating = true;
                 simBtn.disabled = true;
-                simBtn.innerHTML = `<span>SIMULATING FAILOVER...</span><span class="glyph">⚡</span>`;
+                simBtn.innerHTML = `<span>SIMULATING FAILOVER...</span>${SIM_ICON_SVG}`;
 
                 triggerHaptic(18);
                 if (window.sovereignAudio) {
@@ -2258,7 +2260,7 @@
 
                     setTimeout(() => {
                         simBtn.disabled = false;
-                        simBtn.innerHTML = `<span>SIMULATE RE-ROUTING</span><span class="glyph">⚡</span>`;
+                        simBtn.innerHTML = `<span>SIMULATE RE-ROUTING</span>${SIM_ICON_SVG}`;
                         isSimulating = false;
                     }, 1200);
                 }, 2200);
@@ -2417,7 +2419,7 @@
         }
     }
 
-    // 10. LIVE UTC & IST WORLD CLOCK
+    // 10. LIVE KUALA LUMPUR WORLD CLOCK (MYT / UTC+8)
     function initWorldClock() {
         const clockEl = document.getElementById('world-clock');
         if (!clockEl) return;
@@ -2432,7 +2434,12 @@
                 second: '2-digit'
             };
             const mytTime = now.toLocaleTimeString('en-US', options);
-            clockEl.textContent = `KUALA LUMPUR // ${mytTime} MYT (UTC+8)`;
+            const clockText = clockEl.querySelector('.clock-string');
+            if (clockText) {
+                clockText.textContent = `KUALA LUMPUR // ${mytTime} MYT (UTC+8)`;
+            } else {
+                clockEl.textContent = `KUALA LUMPUR // ${mytTime} MYT (UTC+8)`;
+            }
         }
 
         updateTime();
@@ -2607,7 +2614,7 @@ Official Portal:     https://vinayakbhardwaj.com
 
                 navigator.clipboard.writeText(briefText).then(() => {
                     const originalText = copyBriefBtn.textContent;
-                    copyBriefBtn.textContent = 'BRIEF COPIED TO CLIPBOARD ✓';
+                    copyBriefBtn.textContent = 'BRIEF COPIED TO CLIPBOARD';
                     if (feedback) {
                         feedback.className = 'form-feedback success';
                         feedback.textContent = 'Structured brief copied to clipboard. Ready to paste directly into your email or terminal.';
@@ -2688,7 +2695,7 @@ Official Portal:     https://vinayakbhardwaj.com
                 const text = btn.getAttribute('data-copy') || 'bhardwajvinayak1947@gmail.com';
                 navigator.clipboard.writeText(text).then(() => {
                     const originalText = btn.textContent;
-                    btn.textContent = 'COPIED TO CLIPBOARD ✓';
+                    btn.textContent = 'COPIED TO CLIPBOARD';
                     setTimeout(() => {
                         btn.textContent = originalText;
                     }, 2000);
@@ -2746,7 +2753,7 @@ Official Portal:     https://vinayakbhardwaj.com
 
         // 13. DEVELOPER CONSOLE SIGNATURE & EASTER EGG (JURY AUDIT HOOK)
         console.log(
-            `%c ❖ VINAYAK BHARDWAJ // SYSTEMS ARCHITECT & EXECUTIVE AI ADVISOR %c\n` +
+            `%c ❖ VINAYAK BHARDWAJ // TECHNICAL OPERATIONS & AI SPECIALIST %c\n` +
             `  ─────────────────────────────────────────────────────────────────\n` +
             `  • Base Terminal:   Kuala Lumpur, Malaysia (MYT / UTC+8)\n` +
             `  • Architecture:    Zero-Tolerance Distributed Core // Lock-Free Memory\n` +
@@ -2763,7 +2770,7 @@ Official Portal:     https://vinayakbhardwaj.com
             const btn = document.getElementById('btn-surge-test');
             if (btn) {
                 btn.click();
-                return '⚡ [SOVEREIGN EDGE] Peak stress simulation triggered across 32 global nodes.';
+                return '[SYSTEMS ENGINE] Peak stress simulation triggered across edge nodes.';
             }
             return 'Diagnostics panel not found.';
         };
