@@ -5,4 +5,6 @@ _backup_pre_concept3/
 _v2-backup/
 .vercel
 .env*
+.agent/
+.agents/
 
