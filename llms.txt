@@ -11,7 +11,7 @@
 
 ## Services (Kuala Lumpur)
 
-- AI agent workflows: manual processes such as lead intake, reporting or document checks, rebuilt as agent pipelines with a checking step and a cost cap.
+- AI agent workflows and automation: manual processes such as lead intake, reporting or document checks, rebuilt as agent pipelines with a checking step and a cost cap.
 - Websites: hand-built sites for founders and service businesses, fast on phones and readable by search engines and AI assistants.
 - Documentary and explainer video: research from primary documents, motion graphics in Remotion, audio mastered to -14 LUFS.
 

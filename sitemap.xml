@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.vinayakbhardwaj.com/</loc>
     <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.00</priority>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/hero-1600.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/desk-1000.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/studio-1000.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/headshot-800.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.vinayakbhardwaj.com/projects</loc>
     <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.90</priority>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/virin-desktop-1440.webp</image:loc></image:image>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/harness-cut-800.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.vinayakbhardwaj.com/about</loc>
     <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <image:image><image:loc>https://www.vinayakbhardwaj.com/assets/media/candid-1000.jpg</image:loc></image:image>
   </url>
 </urlset>

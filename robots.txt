@@ -7,8 +7,6 @@
 User-agent: *
 Allow: /
 Disallow: /404.html
-Disallow: /_backup*/
-Disallow: /scratch/
 
 # Explicit Directives for AI Engines, LLMs & Retrieval Systems
 # Ensuring zero friction for citation in Perplexity, ChatGPT Search, Claude, Gemini & Google AI Overviews

@@ -7,7 +7,7 @@ Short index: https://www.vinayakbhardwaj.com/llms.txt
 
 ## 1. What he does for businesses in Kuala Lumpur
 
-### AI agent workflows
+### AI agent workflows and automation
 He takes a manual process, such as lead intake, reporting or document checks, and maps it the way he mapped a non-conformance on site: where it fails, why, and who signs it off. He then builds agents that do the work and a second step that checks it. Delivered through Virin Digital (https://www.virindigital.com/).
 
 ### Websites
