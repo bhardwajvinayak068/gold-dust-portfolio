@@ -2440,7 +2440,7 @@
         const btnReceiptReset = document.getElementById('btn-receipt-reset');
         if (!form) return;
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const name = form.querySelector('[name="name"]').value.trim();
@@ -2461,7 +2461,12 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'ENCRYPTING & ROUTING BRIEF...';
+                submitBtn.textContent = 'ENCRYPTING & DISPATCHING TO GMAIL...';
+            }
+
+            if (feedback) {
+                feedback.className = 'form-feedback';
+                feedback.textContent = '';
             }
 
             triggerHaptic([30, 40, 60]);
@@ -2479,35 +2484,73 @@
                 hashHex += Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10) + Math.random().toString(16).substring(2, 10);
             }
 
-            setTimeout(() => {
-                // Update Receipt HUD
-                if (receiptHashVal) {
-                    receiptHashVal.textContent = `HASH: ${hashHex.toUpperCase()}`;
-                }
+            try {
+                // Dispatch payload directly to Vinayak Bhardwaj via Web3Forms API
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        access_key: 'c9277eab-0b48-461a-b03f-dc7143732e24',
+                        subject: `[Executive Brief] ${name} (${org || 'Executive Peer'}) — ${scope}`,
+                        from_name: name,
+                        email: email,
+                        organization: org || 'Individual / Private Peer',
+                        scope: scope,
+                        message: message,
+                        receipt_hash: hashHex,
+                        timestamp: new Date().toUTCString(),
+                        source: 'https://vinayakbhardwaj.com/'
+                    })
+                });
 
-                if (btnReceiptWa) {
-                    const waText = encodeURIComponent(
-                        `Hello Vinayak, I have transmitted an executive brief [Hash: ${hashHex}] for "${scope}" from ${org || 'Executive Peer'} (${name}). Reaching out via direct channel.`
-                    );
-                    btnReceiptWa.href = `https://wa.me/60182302045?text=${waText}`;
-                }
+                const result = await response.json();
 
-                // Smooth transition from form to receipt HUD
-                form.style.display = 'none';
-                if (receiptHud) {
-                    receiptHud.style.display = 'block';
-                }
+                if (response.status === 200 && result.success) {
+                    // Update Receipt HUD
+                    if (receiptHashVal) {
+                        receiptHashVal.textContent = `HASH: ${hashHex.toUpperCase()}`;
+                    }
 
+                    if (btnReceiptWa) {
+                        const waText = encodeURIComponent(
+                            `Hello Vinayak, I have transmitted an executive brief [Hash: ${hashHex}] for "${scope}" from ${org || 'Executive Peer'} (${name}). Reaching out via direct channel.`
+                        );
+                        btnReceiptWa.href = `https://wa.me/60182302045?text=${waText}`;
+                    }
+
+                    // Smooth transition from form to receipt HUD
+                    form.style.display = 'none';
+                    if (receiptHud) {
+                        receiptHud.style.display = 'block';
+                    }
+
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'TRANSMIT ENGAGEMENT BRIEF';
+                    }
+
+                    triggerHaptic([50, 70, 90]);
+                    if (window.sovereignAudio) {
+                        window.sovereignAudio.playNodePing();
+                    }
+                } else {
+                    throw new Error(result.message || 'Transmission failed');
+                }
+            } catch (err) {
+                console.error('[Transmission Ingress Error]:', err);
+                if (feedback) {
+                    feedback.className = 'form-feedback error';
+                    feedback.textContent = 'Network or ingress delivery error. Please use direct WhatsApp (+60 18-230 2045) or email bhardwajvinayak1947@gmail.com.';
+                }
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'TRANSMIT ENGAGEMENT BRIEF';
+                    submitBtn.textContent = 'RETRY TRANSMISSION';
                 }
-
-                triggerHaptic([50, 70, 90]);
-                if (window.sovereignAudio) {
-                    window.sovereignAudio.playNodePing();
-                }
-            }, 750);
+                triggerHaptic([60, 40]);
+            }
         });
 
         // Reset / Transmit Another Brief

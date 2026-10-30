@@ -1025,7 +1025,14 @@
 
                     <!-- Right: Engagement Briefing Form -->
                     <div class="contact-form-panel reveal-on-scroll delay-1">
-                        <form id="executive-form">
+                        <form id="executive-form" action="https://api.web3forms.com/submit" method="POST">
+                            <!-- Web3Forms Sovereign Direct Email Ingress -->
+                            <input type="hidden" name="access_key" value="c9277eab-0b48-461a-b03f-dc7143732e24">
+                            <input type="hidden" name="subject" value="[Executive Brief] New Sovereign Engagement Inquiry">
+                            <input type="hidden" name="from_name" value="Sovereign Terminal Dispatch">
+                            <!-- Spam HoneyPot -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
                             <div class="form-group">
                                 <label class="form-label" for="inp-name">FULL NAME / TITLE *</label>
                                 <input type="text" id="inp-name" name="name" class="form-input" placeholder="e.g. Elena Rostova, VP Engineering" required>
