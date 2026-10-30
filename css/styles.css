@@ -9,17 +9,17 @@
     /* Color Palette */
     --bg-void: #070709;
     --bg-surface: #0E0E14;
-    --bg-surface-elevated: #14141C;
+    --bg-surface-elevated: #14141A;
     --bg-glass: rgba(14, 14, 20, 0.72);
     --bg-glass-card: rgba(18, 18, 26, 0.65);
     --bg-glass-hover: rgba(26, 26, 36, 0.85);
 
     /* Gold Metallics */
-    --gold-foil: linear-gradient(135deg, #FBF2DE 0%, #E2C08D 35%, #D4AF37 65%, #9E7D3B 100%);
-    --gold-light: #FBF2DE;
+    --gold-foil: #E2C08D;
+    --gold-light: #F5F4F0;
     --gold-primary: #E2C08D;
-    --gold-amber: #D4AF37;
-    --gold-deep: #A37F38;
+    --gold-amber: #E2C08D;
+    --gold-deep: #E2C08D;
     --gold-glow: rgba(226, 192, 141, 0.22);
     --gold-glow-strong: rgba(226, 192, 141, 0.45);
 
@@ -30,13 +30,13 @@
 
     /* Typography Colors (WCAG AA Certified) */
     --text-primary: #F5F4F0;
-    --text-secondary: #B5B4AF;
-    --text-muted: #8E8B82;
+    --text-secondary: #C9C6BE;
+    --text-muted: #9A968C;
     --text-gold: #E2C08D;
 
     /* Status Colors */
-    --status-active: #34D399;
-    --status-active-glow: rgba(52, 211, 153, 0.35);
+    --status-active: #E2C08D;
+    --status-active-glow: transparent;
 
     /* Typography Families */
     --font-display: 'Cinzel', Didot, 'Bodoni MT', Baskerville, Georgia, serif;
@@ -608,7 +608,7 @@ img {
     font-weight: 600;
     letter-spacing: 0.08em;
     background: rgba(52, 211, 153, 0.12);
-    color: #34D399;
+    color: var(--status-active);
     border: 1px solid rgba(52, 211, 153, 0.35);
     white-space: nowrap;
 }
@@ -1033,7 +1033,7 @@ img {
 }
 
 .node-select-wrap select {
-    background: #12121A;
+    background: var(--bg-surface);
     color: var(--text-primary);
     border: 1px solid var(--border-hairline);
     min-height: 44px;
@@ -1440,7 +1440,7 @@ img {
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.14em;
-    color: #34D399;
+    color: var(--status-active);
     background: rgba(52, 211, 153, 0.1);
     border: 1px solid rgba(52, 211, 153, 0.3);
     padding: 0.35rem 0.8rem;
@@ -1525,7 +1525,7 @@ img {
 
 .btn-receipt-action.gold {
     background: var(--gold-primary);
-    color: #060608;
+    color: var(--bg-void);
     border: 1px solid var(--gold-primary);
 }
 
@@ -1715,7 +1715,7 @@ img {
     width: 100%;
     max-width: 680px;
     height: 100vh;
-    background: #0C0C12;
+    background: var(--bg-surface);
     border-left: 1px solid var(--border-gold);
     box-shadow: -20px 0 60px rgba(0, 0, 0, 0.9);
     z-index: 2001;
@@ -1791,7 +1791,7 @@ img {
 .drawer-spec-card {
     padding: 1.25rem;
     border-radius: var(--radius-md);
-    background: #12121A;
+    background: var(--bg-surface);
     border: 1px solid var(--border-hairline);
 }
 
@@ -2191,7 +2191,7 @@ button:active,
 .btn-copy-brief:hover {
     border-color: var(--border-gold);
     background: rgba(226, 192, 141, 0.12);
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 @media (max-width: 640px) {
@@ -3055,7 +3055,7 @@ button:active,
 }
 
 .timeline-dust-slot:hover .timeline-dust-label {
-    color: #FFFFFF;
+    color: var(--text-primary);
     text-shadow: 0 0 20px rgba(226, 192, 141, 0.5);
 }
 
@@ -3243,7 +3243,7 @@ button:active,
     left: 0;
     width: 6px;
     height: 6px;
-    background: #FBF2DE;
+    background: var(--text-primary);
     border-radius: 50%;
     pointer-events: none;
     z-index: 99999;
@@ -3303,7 +3303,7 @@ button:active,
     font-family: var(--font-mono);
     font-size: 0.64rem;
     font-weight: 700;
-    color: #FBF2DE;
+    color: var(--text-primary);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -3313,12 +3313,7 @@ button:active,
     display: inline-block;
 }
 
-/* Eliminate native OS arrow cursor completely on fine-pointer desktop devices */
-@media (hover: hover) and (pointer: fine) {
-    *, *::before, *::after {
-        cursor: none !important;
-    }
-}
+
 
 /* --- 2. VIEWPORT SCROLL PROGRESS RAIL --- */
 .scroll-progress-rail {
@@ -3477,21 +3472,21 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 /* --- 6. CONTRAST & LUMINANCE BOOST --- */
 .mono-tag {
-    color: #FBF2DE !important;
+    color: var(--text-primary) !important;
     text-shadow: 0 0 12px rgba(226, 192, 141, 0.35);
 }
 
 .proof-val {
-    color: #FBF2DE !important;
+    color: var(--text-primary) !important;
     text-shadow: 0 0 20px rgba(226, 192, 141, 0.3);
 }
 
 .proof-lbl {
-    color: #C8C7C0 !important;
+    color: var(--text-secondary) !important;
 }
 
 .timeline-subtitle {
-    color: #FBF2DE !important;
+    color: var(--text-primary) !important;
 }
 
 .timeline-desc {
@@ -3542,7 +3537,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .marquee-ribbon:hover .marquee-track span {
     opacity: 1;
-    color: #FFFFFF;
+    color: var(--text-primary);
 }
 
 @keyframes marqueeScroll {
@@ -3652,14 +3647,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .waveform-status {
     color: var(--status-active);
     font-weight: 600;
-    text-shadow: 0 0 8px var(--status-active-glow);
+    
 }
 
 .waveform-canvas {
     display: block;
     width: 100%;
     height: 72px;
-    background: #040407;
+    background: var(--bg-void);
     border-radius: 4px;
 }
 
@@ -3699,7 +3694,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .audio-beacon-tooltip .beacon-star {
-    color: #FBF2DE;
+    color: var(--text-primary);
     margin-right: 0.3rem;
 }
 
@@ -3980,7 +3975,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #34D399;
+    background: var(--status-active);
     box-shadow: 0 0 8px rgba(52, 211, 153, 0.8);
     transition: background 0.3s, box-shadow 0.3s;
 }
@@ -4093,15 +4088,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 /* Dynamic Blueprint SVG Animation Hooks */
 .blueprint-svg line.sim-active,
 .blueprint-svg path.sim-active {
-    stroke: #FBF2DE !important;
+    stroke: var(--text-primary) !important;
     stroke-width: 2.2 !important;
     filter: drop-shadow(0 0 6px #E2C08D);
 }
 
 .blueprint-svg rect.sim-active,
 .blueprint-svg circle.sim-active {
-    stroke: #34D399 !important;
-    filter: drop-shadow(0 0 8px #34D399);
+    stroke: var(--status-active) !important;
+    
 }
 
 /* ==========================================================================

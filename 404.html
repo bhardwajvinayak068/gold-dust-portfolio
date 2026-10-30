@@ -3,82 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 // Coordinate Off-Grid — Vinayak Bhardwaj</title>
-    <meta name="description" content="The requested architectural coordinate does not exist. Return to the primary sovereign terminal.">
+    <title>Page not found — Vinayak Bhardwaj</title>
+    <meta name="description" content="This page doesn't exist. Go back to the home page, the case studies or the about page.">
     <meta name="robots" content="noindex, follow">
     <meta name="theme-color" content="#070709">
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/assets/brand/vb-icon.svg" type="image/svg+xml">
+    <link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/favicon-vb.png">
-
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/styles.css">
-
+    <!-- Root-relative paths: this page is served at any missing URL, including nested ones. -->
+    <link rel="preload" href="/assets/fonts/schibsted-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/fonts.css?v=3.1">
+    <link rel="stylesheet" href="/css/site.css?v=6.3">
     <style>
-        .page-404-stage {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem 2rem;
+        .nf {
             position: relative;
-            background: radial-gradient(circle at 50% 50%, rgba(20, 20, 30, 0.6) 0%, #070709 70%);
+            isolation: isolate;
+            min-height: 100svh;
+            display: grid;
+            align-items: center;
+            padding: 6rem 0;
             overflow: hidden;
         }
-        .page-404__code {
-            font-family: var(--font-display);
-            font-size: clamp(6rem, 20vw, 15rem);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 0.85;
-            background: var(--gold-foil);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0.25;
-            user-select: none;
-            margin-bottom: 1.5rem;
+
+        .nf-texture {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-image: image-set(url("/assets/media/texture-1800.avif") type("image/avif"), url("/assets/media/texture-1800.webp") type("image/webp"));
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+            -webkit-mask-image: radial-gradient(ellipse at 70% 50%, #000 20%, transparent 75%);
+            mask-image: radial-gradient(ellipse at 70% 50%, #000 20%, transparent 75%);
         }
-        .page-404__title {
-            font-family: var(--font-display);
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-            margin-bottom: 1.25rem;
-        }
-        .page-404__desc {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 48ch;
-            line-height: 1.65;
-            margin-bottom: 2.5rem;
-            font-weight: 300;
-        }
-        .page-404__actions {
+
+        .nf-copy {
+            max-width: 38rem;
             display: flex;
+            flex-direction: column;
             gap: 1.25rem;
+        }
+
+        .nf-code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--ev-gold);
+            margin: 0;
+        }
+
+        .nf h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: clamp(2.4rem, 6vw, 4.25rem);
+            line-height: 1.05;
+            color: var(--ev-ink);
+            text-wrap: balance;
+            margin: 0;
+        }
+
+        .nf p {
+            color: var(--ev-ink-2);
+            font-size: 1.1rem;
+            line-height: 1.65;
+            max-width: 52ch;
+            margin: 0;
+        }
+
+        .nf-links {
+            display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .nf-links .btn {
+            font-family: var(--font-body);
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header" role="banner">
+        <div class="nav-container">
+            <div class="nav-pill">
+                <div class="nav-mobile-actions">
+                    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+                        <span class="menu-icon" aria-hidden="true"><span class="hamburger-line line-1"></span><span class="hamburger-line line-2"></span><span class="hamburger-line line-3"></span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    <main class="page-404-stage">
-        <span class="mono-tag" style="margin-bottom: 1.25rem;">404 // COORDINATE VOID</span>
-        <div class="page-404__code" aria-hidden="true">404</div>
-        <h1 class="page-404__title">Coordinate Off-Grid</h1>
-        <p class="page-404__desc">
-            The requested architectural endpoint does not exist within the sovereign index. In mission-critical engineering, untested routes fail.
-        </p>
-        <div class="page-404__actions">
-            <a class="btn btn-primary-gold" href="index.html#hero">RETURN TO TERMINAL →</a>
-            <a class="btn btn-secondary-glass" href="index.html#systems">INSPECT SYSTEMS SPEC</a>
+    <!-- ==========================================================================
+         FULL-SCREEN BESPOKE LUXURY MOBILE NAVIGATION OVERLAY
+         ========================================================================== -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div class="mobile-menu-inner">
+            <div class="mobile-menu-header">
+                <img class="menu-logo" src="/assets/brand/vb-mark.svg" alt="Vinayak Bhardwaj" width="855" height="646">
+                <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close Mobile Navigation">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-list" aria-label="Main navigation">
+                <a href="/" class="mobile-nav-item"><span class="mobile-nav-label">Home</span></a>
+                <a href="/#services" class="mobile-nav-item"><span class="mobile-nav-label">Services</span></a>
+                <a href="/projects" class="mobile-nav-item"><span class="mobile-nav-label">Work</span></a>
+                <a href="/about" class="mobile-nav-item"><span class="mobile-nav-label">About</span></a>
+                <a href="/#videos" class="mobile-nav-item"><span class="mobile-nav-label">Videos</span></a>
+                <a href="/#contact" class="mobile-nav-item"><span class="mobile-nav-label">Contact</span></a>
+            </nav>
+
+            <div class="mobile-menu-footer">
+                <div class="mobile-meta-text">Kuala Lumpur, Malaysia</div>
+                <div class="mobile-social-strip" aria-label="Mobile Social Links">
+                    <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="mobile-social-link">LINKEDIN ↗</a>
+                    <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="mobile-social-link">YOUTUBE ↗</a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="mobile-social-link">WHATSAPP ↗</a>
+                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="mobile-social-link">INSTAGRAM ↗</a>
+                </div>
+                <a href="/#contact" class="btn btn-primary-gold mobile-cta-btn">Start a project →</a>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content" class="nf">
+        <div class="nf-texture" aria-hidden="true"></div>
+        <div class="container">
+            <div class="nf-copy">
+                <a href="/" class="ev-hero-logo-link" aria-label="Vinayak Bhardwaj, home"><img class="ev-hero-logo" src="/assets/brand/vb-mark.svg" alt="" width="855" height="646"></a>
+                <p class="nf-code">404 · Page not found</p>
+                <h1>This page isn't on the drawing.</h1>
+                <p>The link may be old, or the address may have a typo. On site we would raise a non-conformance report. Here, these three pages will get you back on track.</p>
+                <div class="nf-links">
+                    <a href="/" class="btn btn-primary-gold"><span>Home</span><span class="arrow-glyph" aria-hidden="true">→</span></a>
+                    <a href="/projects" class="btn btn-secondary-glass"><span>Case studies</span></a>
+                    <a href="/about" class="btn btn-secondary-glass"><span>About</span></a>
+                </div>
+            </div>
         </div>
     </main>
-
+    <script src="/js/main.js?v=5.7" defer></script>
 </body>
 </html>

@@ -68,7 +68,9 @@
         }
 
         resize() {
-            const rect = this.canvas.parentElement ? this.canvas.parentElement.getBoundingClientRect() : { width: window.innerWidth, height: window.innerHeight };
+            // data-fit="viewport": size to the first screen, not the parent (subpages put the canvas in a page-tall <main>).
+            const fitViewport = this.canvas.dataset.fit === 'viewport' || !this.canvas.parentElement;
+            const rect = fitViewport ? { width: document.documentElement.clientWidth, height: Math.min(window.innerHeight, 1000) } : this.canvas.parentElement.getBoundingClientRect();
             this.dimensions.width = rect.width;
             this.dimensions.height = rect.height;
             this.dimensions.dpr = Math.min(window.devicePixelRatio || 1, 2);

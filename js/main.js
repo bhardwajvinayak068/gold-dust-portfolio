@@ -9,12 +9,8 @@
 (function () {
     'use strict';
 
-    // HAPTIC FEEDBACK GUARDIAN (MOBILE & ACCESSIBLE INPUT PARITY)
-    function triggerHaptic(duration = 8) {
-        if ('vibrate' in navigator) {
-            try { navigator.vibrate(duration); } catch (e) {}
-        }
-    }
+    // Haptics retired with the sound toggle (v4.4); kept as a no-op for existing call sites.
+    function triggerHaptic() {}
 
     // 1. SMOOTH SCROLL (LENIS & MOBILE NATIVE MOMENTUM)
     let lenisInstance = null;
@@ -1844,6 +1840,7 @@
             hud.classList.add('active', 'open');
             overlay.classList.add('active');
             hud.setAttribute('aria-hidden', 'false');
+            hud.removeAttribute('inert');
             overlay.setAttribute('aria-hidden', 'false');
             document.body.classList.add('modal-open');
             triggerHaptic(8);
@@ -1859,6 +1856,7 @@
             hud.classList.remove('active', 'open');
             overlay.classList.remove('active');
             hud.setAttribute('aria-hidden', 'true');
+            hud.setAttribute('inert', '');
             overlay.setAttribute('aria-hidden', 'true');
             document.body.classList.remove('modal-open');
             triggerHaptic(6);
@@ -1896,10 +1894,10 @@
 
             const sectionMap = {
                 '1': '#hero',
-                '2': '#odyssey',
-                '3': '#systems',
-                '4': '#manifesto',
-                '5': '#benchmarks',
+                '2': '#services',
+                '3': '#work',
+                '4': '#faq',
+                '5': '#videos',
                 '6': '#contact'
             };
 
@@ -1989,7 +1987,7 @@
             title: 'ENTERPRISE AI & COMPUTE ECONOMICS MEDIA',
             category: 'TECHNICAL MEDIA & AI RESEARCH',
             badge: 'ACTIVE BROADCAST',
-            tagline: 'Documenting frontier AI architectures, agent orchestration, and hardware compute economics for 15,000+ engineers globally.',
+            tagline: 'Documenting frontier AI architectures, agent orchestration, and hardware compute economics, built from primary documents.',
             blueprintSvg: `
                 <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Vinayak Tech Media Schematic">
                     <!-- Research Ingestion -->
@@ -2171,6 +2169,7 @@
             overlay.classList.add('active');
             document.body.classList.add('modal-open');
             drawer.setAttribute('aria-hidden', 'false');
+            drawer.removeAttribute('inert');
 
             // Reset simulation toolbar state
             if (sandboxIndicator) {
@@ -2200,6 +2199,7 @@
             overlay.classList.remove('active');
             document.body.classList.remove('modal-open');
             drawer.setAttribute('aria-hidden', 'true');
+            drawer.setAttribute('inert', '');
             triggerHaptic(6);
 
             // Return focus to trigger element
@@ -2430,15 +2430,14 @@
                 timeZone: 'Asia/Kuala_Lumpur',
                 hour12: false,
                 hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
+                minute: '2-digit'
             };
             const mytTime = now.toLocaleTimeString('en-US', options);
             const clockText = clockEl.querySelector('.clock-string');
             if (clockText) {
-                clockText.textContent = `KUALA LUMPUR // ${mytTime} MYT (UTC+8)`;
+                clockText.textContent = `Kuala Lumpur · ${mytTime} (UTC+8)`;
             } else {
-                clockEl.textContent = `KUALA LUMPUR // ${mytTime} MYT (UTC+8)`;
+                clockEl.textContent = `Kuala Lumpur · ${mytTime} (UTC+8)`;
             }
         }
 
@@ -2468,7 +2467,7 @@
             if (!name || !email || !message) {
                 if (feedback) {
                     feedback.className = 'form-feedback error';
-                    feedback.textContent = 'Please fill out all required credentials.';
+                    feedback.textContent = 'Please fill in your name, email and message.';
                 }
                 triggerHaptic(40);
                 return;
@@ -2477,7 +2476,7 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.textContent = 'ENCRYPTING & DISPATCHING TO GMAIL...';
+                submitBtn.textContent = 'Sending…';
             }
 
             if (feedback) {
@@ -2510,7 +2509,7 @@
                     },
                     body: JSON.stringify({
                         access_key: 'c9277eab-0b48-461a-b03f-dc7143732e24',
-                        subject: `[Executive Brief] ${name} (${org || 'Executive Peer'}) — ${scope}`,
+                        subject: `[Executive Brief] ${name} (${org || 'Not given'}) — ${scope}`,
                         from_name: name,
                         email: email,
                         organization: org || 'Individual / Private Peer',
@@ -2527,12 +2526,12 @@
                 if (response.status === 200 && result.success) {
                     // Update Receipt HUD
                     if (receiptHashVal) {
-                        receiptHashVal.textContent = `HASH: ${hashHex.toUpperCase()}`;
+                        receiptHashVal.textContent = '';
                     }
 
                     if (btnReceiptWa) {
                         const waText = encodeURIComponent(
-                            `Hello Vinayak, I have transmitted an executive brief [Hash: ${hashHex}] for "${scope}" from ${org || 'Executive Peer'} (${name}). Reaching out via direct channel.`
+                            `Hello Vinayak, I have transmitted an executive brief [Hash: ${hashHex}] for "${scope}" from ${org || 'Not given'} (${name}). Reaching out via direct channel.`
                         );
                         btnReceiptWa.href = `https://wa.me/60182302045?text=${waText}`;
                     }
@@ -2545,7 +2544,7 @@
 
                     if (submitBtn) {
                         submitBtn.disabled = false;
-                        submitBtn.textContent = 'TRANSMIT ENGAGEMENT BRIEF';
+                        submitBtn.textContent = 'Send enquiry';
                     }
 
                     triggerHaptic([50, 70, 90]);
@@ -2559,11 +2558,11 @@
                 console.error('[Transmission Ingress Error]:', err);
                 if (feedback) {
                     feedback.className = 'form-feedback error';
-                    feedback.textContent = 'Network or ingress delivery error. Please use direct WhatsApp (+60 18-230 2045) or email bhardwajvinayak1947@gmail.com.';
+                    feedback.textContent = 'Your message did not send. Check your connection and try again, or message me on WhatsApp (+60 18-230 2045) or email bhardwajvinayak1947@gmail.com.';
                 }
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.textContent = 'RETRY TRANSMISSION';
+                    submitBtn.textContent = 'Try again';
                 }
                 triggerHaptic([60, 40]);
             }
@@ -2589,10 +2588,10 @@
         const copyBriefBtn = document.getElementById('btn-copy-brief');
         if (copyBriefBtn) {
             copyBriefBtn.addEventListener('click', () => {
-                const name = form.querySelector('[name="name"]').value.trim() || 'Executive Peer';
+                const name = form.querySelector('[name="name"]').value.trim() || 'Not given';
                 const email = form.querySelector('[name="email"]').value.trim() || 'Unspecified';
-                const org = form.querySelector('[name="organization"]').value.trim() || 'Private Venture';
-                const scope = form.querySelector('[name="scope"]').value.trim() || 'Systems Architecture';
+                const org = form.querySelector('[name="organization"]').value.trim() || 'Not given';
+                const scope = form.querySelector('[name="scope"]').value.trim() || 'Not sure yet';
                 const message = form.querySelector('[name="message"]').value.trim() || 'No message provided.';
 
                 const briefText = 
@@ -2614,10 +2613,10 @@ Official Portal:     https://vinayakbhardwaj.com
 
                 navigator.clipboard.writeText(briefText).then(() => {
                     const originalText = copyBriefBtn.textContent;
-                    copyBriefBtn.textContent = 'BRIEF COPIED TO CLIPBOARD';
+                    copyBriefBtn.textContent = 'Copied';
                     if (feedback) {
                         feedback.className = 'form-feedback success';
-                        feedback.textContent = 'Structured brief copied to clipboard. Ready to paste directly into your email or terminal.';
+                        feedback.textContent = 'Your message is copied. Paste it into an email or WhatsApp.';
                     }
                     setTimeout(() => {
                         copyBriefBtn.textContent = originalText;
@@ -2625,7 +2624,7 @@ Official Portal:     https://vinayakbhardwaj.com
                 }).catch(() => {
                     if (feedback) {
                         feedback.className = 'form-feedback error';
-                        feedback.textContent = 'Clipboard access restricted by browser permissions.';
+                        feedback.textContent = 'Your browser blocked copying. Select the text in the message box and copy it manually.';
                     }
                 });
             });
@@ -2646,6 +2645,7 @@ Official Portal:     https://vinayakbhardwaj.com
             overlay.classList.add('active');
             toggleBtn.setAttribute('aria-expanded', 'true');
             overlay.setAttribute('aria-hidden', 'false');
+            overlay.removeAttribute('inert');
             document.body.style.overflow = 'hidden';
             triggerHaptic(10);
 
@@ -2659,6 +2659,7 @@ Official Portal:     https://vinayakbhardwaj.com
             overlay.classList.remove('active');
             toggleBtn.setAttribute('aria-expanded', 'false');
             overlay.setAttribute('aria-hidden', 'true');
+            overlay.setAttribute('inert', '');
             document.body.style.overflow = '';
             triggerHaptic(6);
             toggleBtn.focus();
@@ -2673,6 +2674,11 @@ Official Portal:     https://vinayakbhardwaj.com
         });
 
         if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+        // Clicking the dimmed page beside the panel closes the menu
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeMenu();
+        });
 
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -2731,49 +2737,11 @@ Official Portal:     https://vinayakbhardwaj.com
 
     // INITIALIZATION DISPATCHER
     document.addEventListener('DOMContentLoaded', () => {
-        initLenis();
-        initMagneticCursor();
-        initMobileMenu();
-        initScrollProgressRail();
-        initTiltCards();
-        initScrollReveals();
-        initStatCounters();
-        initNodeGraph();
-        initOscilloscope();
-        initPortraitParallax();
-        initChronologyScrubber();
-        initTimelineMagicDust();
-        initCommandHUD();
-        initSystemDrawer();
-        initBenchmarkSimulator();
-        initWorldClock();
-        initContactForm();
-        initQuickCopy();
-        initCaseStudyFilters();
+        // Each module is independent: a page without a module's markup must not stop the rest.
+        [initMobileMenu, initTiltCards, initScrollReveals, initStatCounters, initNodeGraph, initOscilloscope, initPortraitParallax, initChronologyScrubber, initTimelineMagicDust, initCommandHUD, initSystemDrawer, initBenchmarkSimulator, initWorldClock, initContactForm, initQuickCopy, initCaseStudyFilters].forEach((init) => {
+            try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
+        });
 
-        // 13. DEVELOPER CONSOLE SIGNATURE & EASTER EGG (JURY AUDIT HOOK)
-        console.log(
-            `%c ❖ VINAYAK BHARDWAJ // TECHNICAL OPERATIONS & AI SPECIALIST %c\n` +
-            `  ─────────────────────────────────────────────────────────────────\n` +
-            `  • Base Terminal:   Kuala Lumpur, Malaysia (MYT / UTC+8)\n` +
-            `  • Architecture:    Zero-Tolerance Distributed Core // Lock-Free Memory\n` +
-            `  • Magical Stardust: 6x Borderless Gold Silhouette Formations Initialized (60-120 FPS)\n` +
-            `  • Diagnostics:     Type %csurge()%c in this console to run peak edge stress test.\n` +
-            `  ─────────────────────────────────────────────────────────────────`,
-            'background: #070709; color: #E2C08D; font-size: 13px; font-weight: bold; padding: 6px 12px; border-left: 3px solid #E2C08D; font-family: monospace;',
-            'color: #9C9B95; font-family: monospace; font-size: 11px;',
-            'color: #FBF2DE; font-weight: bold; font-family: monospace;',
-            'color: #9C9B95; font-family: monospace; font-size: 11px;'
-        );
-
-        window.surge = () => {
-            const btn = document.getElementById('btn-surge-test');
-            if (btn) {
-                btn.click();
-                return '[SYSTEMS ENGINE] Peak stress simulation triggered across edge nodes.';
-            }
-            return 'Diagnostics panel not found.';
-        };
     });
 
 })();

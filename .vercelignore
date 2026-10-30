@@ -1,0 +1,9 @@
+# Never deploy working files
+new assert/
+.impeccable/
+.claude/
+.agent/
+.agents/
+*.pdf
+.env*
+tools/

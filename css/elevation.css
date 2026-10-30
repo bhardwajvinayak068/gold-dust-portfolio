@@ -1,0 +1,2413 @@
+/* ==========================================================================
+   ELEVATION LAYER (v3.0)
+   Real imagery carries the page; gold is spent on the hero and accents only.
+   Loads after styles.css and overrides the parts of the incumbent system it replaces.
+   ========================================================================== */
+
+:root {
+    --font-body: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ev-ink: #F5F4F0;
+    --ev-ink-2: #C9C6BE;
+    --ev-ink-3: #9A968C;
+    --ev-line: rgba(226, 192, 141, 0.16);
+    --ev-line-soft: rgba(245, 244, 240, 0.08);
+    --ev-gold: #E2C08D;
+    --ev-panel: #0E0E14;
+    --ev-radius: 6px;
+    --ev-ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --ev-gutter: max(1.25rem, env(safe-area-inset-left, 0px));
+    --ev-section-pad: clamp(4.5rem, 9vw, 8rem);
+}
+
+body {
+    font-family: var(--font-body);
+}
+
+.nav-link {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    letter-spacing: 0;
+    font-weight: 500;
+}
+
+.mobile-nav-label {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+/* Shared section head ---------------------------------------------------- */
+.ev-section-head {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 46rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ev-section-head h2 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.85rem, 3.4vw, 2.85rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--ev-ink);
+    text-transform: none;
+    text-wrap: balance;
+    margin: 0;
+}
+
+.ev-section-head p {
+    color: var(--ev-ink-2);
+    font-size: 1.08rem;
+    line-height: 1.65;
+    max-width: 62ch;
+    margin: 0;
+}
+
+.ev-head-row {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    max-width: none;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+}
+
+.ev-head-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ev-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--ev-gold);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--ev-line);
+    text-underline-offset: 0.3em;
+    transition: text-decoration-color 0.3s var(--ev-ease);
+}
+
+.ev-link:hover {
+    text-decoration-color: var(--ev-gold);
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.ev-hero {
+    position: relative;
+    isolation: isolate;
+    min-height: min(100svh, 980px);
+    display: flex;
+    align-items: center;
+    padding: calc(var(--nav-height) + 3rem) 0 4rem;
+    overflow: hidden;
+    background: var(--bg-void);
+}
+
+.ev-hero-media {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 72%;
+    margin: 0;
+    z-index: -2;
+}
+
+.ev-hero-media picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.ev-hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 68% 28%;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 34%), linear-gradient(0deg, transparent 0%, #000 22%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 34%), linear-gradient(0deg, transparent 0%, #000 22%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+    animation: ev-develop 1.6s var(--ev-ease) both;
+}
+
+/* One authored moment: the photo develops in like a print, then the dust takes over. */
+@keyframes ev-develop {
+    from { opacity: 0; transform: scale(1.04); filter: saturate(0.2) brightness(0.7); }
+    to { opacity: 1; transform: scale(1); filter: none; }
+}
+
+.ev-credit {
+    position: absolute;
+    right: var(--ev-gutter);
+    bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ev-ink-3);
+}
+
+.ev-hero-dust {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 70%);
+    mask-image: linear-gradient(90deg, transparent 30%, #000 70%);
+    opacity: 0.7;
+}
+
+.ev-hero-inner {
+    position: relative;
+    width: 100%;
+}
+
+.ev-hero-copy {
+    max-width: 36rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+}
+
+.ev-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ev-gold);
+    margin: 0;
+}
+
+.ev-hero-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5.4vw, 4.75rem);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    color: var(--ev-ink);
+    text-wrap: balance;
+    margin: 0;
+}
+
+.ev-gold {
+    color: var(--ev-gold);
+}
+
+.ev-hero-lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    line-height: 1.65;
+    color: var(--ev-ink-2);
+    max-width: 52ch;
+    margin: 0;
+}
+
+.ev-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.ev-hero-actions .btn {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.ev-hero-facts {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 1.25rem 0 0;
+    border-top: 1px solid var(--ev-line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 2rem;
+    color: var(--ev-ink-3);
+    font-size: 0.9rem;
+}
+
+.ev-hero-facts li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.ev-fact-val {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--ev-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 767px) {
+    .ev-hero {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        padding: 0 0 3rem;
+    }
+
+    .ev-hero-media {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        aspect-ratio: 4 / 4.2;
+        max-width: 100%;
+    }
+
+    .ev-hero-media img {
+        object-position: 74% 20%;
+        -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 38%);
+        mask-image: linear-gradient(0deg, transparent 0%, #000 38%);
+    }
+
+    .ev-credit {
+        top: calc(var(--nav-height) + 1.25rem);
+        bottom: auto;
+        right: auto;
+        left: 1rem;
+        max-width: 9rem;
+        line-height: 1.4;
+    }
+
+    .ev-hero-title {
+        font-size: clamp(2.1rem, 9.6vw, 2.6rem);
+    }
+
+    .ev-hero-media img {
+        animation-duration: 1.1s;
+    }
+
+    .ev-hero-dust {
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 55%);
+        mask-image: linear-gradient(180deg, #000 0%, transparent 55%);
+    }
+
+    .ev-hero-inner {
+        margin-top: -3.5rem;
+    }
+
+    .ev-hero-copy {
+        gap: 1.15rem;
+    }
+
+    .ev-hero-actions .btn {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    .ev-hero-facts {
+        gap: 0.75rem 1.25rem;
+    }
+}
+
+/* ==========================================================================
+   SERVICES
+   ========================================================================== */
+.ev-services,
+.ev-work,
+.ev-route,
+.ev-videos {
+    padding: var(--ev-section-pad) 0;
+    position: relative;
+}
+
+.ev-services {
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(1.75rem, 5vw, 5rem);
+    align-items: center;
+}
+
+.ev-row + .ev-row {
+    margin-top: clamp(3.5rem, 8vw, 7rem);
+}
+
+.ev-row-flip .ev-row-media {
+    order: 2;
+}
+
+.ev-row-media {
+    margin: 0;
+    position: relative;
+    min-width: 0;
+}
+
+.ev-row-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--ev-radius);
+    border: 1px solid var(--ev-line-soft);
+    box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.8);
+}
+
+.ev-row-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.ev-row-copy h3 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ev-ink);
+    text-wrap: balance;
+    margin: 0;
+}
+
+.ev-row-copy p {
+    color: var(--ev-ink-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 58ch;
+    margin: 0;
+}
+
+/* Desktop screenshot with the phone capture overlapping its corner */
+.ev-device {
+    padding: 0 8% 8% 0;
+}
+
+.ev-device .ev-device-desktop {
+    aspect-ratio: 1440 / 900;
+}
+
+.ev-device .ev-device-phone {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 24%;
+    aspect-ratio: 390 / 844;
+    border-radius: 14px;
+    border: 3px solid var(--bg-surface-elevated);
+    box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 899px) {
+    .ev-row {
+        grid-template-columns: 1fr;
+    }
+
+    .ev-row-flip .ev-row-media {
+        order: 0;
+    }
+}
+
+/* ==========================================================================
+   WORK: method loops + records
+   ========================================================================== */
+.ev-work {
+    background: var(--ev-panel);
+    border-block: 1px solid var(--ev-line-soft);
+}
+
+.ev-loops {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.ev-loop {
+    border: 1px solid var(--ev-line-soft);
+    border-radius: var(--ev-radius);
+    padding: 1.5rem;
+    min-width: 0;
+}
+
+.ev-loop-ai {
+    border-color: var(--ev-line);
+    background: linear-gradient(180deg, rgba(226, 192, 141, 0.05), transparent 70%);
+}
+
+.ev-loop-name {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ev-ink-3);
+    margin: 0 0 1.25rem;
+}
+
+.ev-loop-ai .ev-loop-name {
+    color: var(--ev-gold);
+}
+
+.ev-loop ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    counter-reset: step;
+    position: relative;
+}
+
+.ev-loop li {
+    counter-increment: step;
+    position: relative;
+    padding: 2.25rem 1rem 0 0;
+    color: var(--ev-ink-3);
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* Connector rail and numbered node */
+.ev-loop li::before {
+    content: counter(step);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--ev-line);
+    background: var(--bg-void);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ev-ink-2);
+    z-index: 1;
+}
+
+.ev-loop li::after {
+    content: "";
+    position: absolute;
+    top: 0.8rem;
+    left: 1.6rem;
+    right: 0;
+    height: 1px;
+    background: var(--ev-line);
+}
+
+.ev-loop li:last-child::after {
+    display: none;
+}
+
+.ev-loop-ai li::before {
+    color: var(--ev-gold);
+    border-color: rgba(226, 192, 141, 0.45);
+}
+
+.ev-loop li span {
+    display: block;
+    color: var(--ev-ink);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+@media (max-width: 899px) {
+    .ev-loops {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+
+    .ev-loop {
+        padding: 1.1rem;
+    }
+
+    .ev-loop ol {
+        grid-template-columns: 1fr;
+        gap: 1.1rem;
+    }
+
+    .ev-loop li {
+        padding: 0 0 0 2.4rem;
+        font-size: 0.85rem;
+    }
+
+    .ev-loop li::after {
+        top: 1.6rem;
+        left: 0.8rem;
+        right: auto;
+        width: 1px;
+        height: calc(100% - 0.5rem);
+    }
+
+    .ev-loop li span {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 479px) {
+    .ev-loops {
+        grid-template-columns: 1fr;
+    }
+}
+
+.ev-records {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-records li {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+    gap: 0.5rem 2rem;
+    align-items: baseline;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--ev-line-soft);
+}
+
+.ev-rec-years {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ev-gold);
+    font-variant-numeric: tabular-nums;
+}
+
+.ev-records h3 {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ev-ink);
+    margin: 0 0 0.3rem;
+}
+
+.ev-records p {
+    color: var(--ev-ink-2);
+    margin: 0;
+    line-height: 1.6;
+    max-width: 62ch;
+}
+
+.ev-rec-link {
+    color: var(--ev-ink-2);
+    font-weight: 500;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    transition: color 0.3s var(--ev-ease);
+}
+
+.ev-rec-link:hover {
+    color: var(--ev-gold);
+}
+
+@media (max-width: 699px) {
+    .ev-records li {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   ROUTE
+   ========================================================================== */
+.ev-route-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1.5rem;
+    border-top: 1px solid var(--ev-line);
+}
+
+.ev-route-list li {
+    position: relative;
+    padding-top: 1.75rem;
+    min-width: 0;
+}
+
+.ev-route-list li::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg-void);
+    border: 1px solid var(--ev-gold);
+}
+
+.ev-route-list li:last-child::before {
+    background: var(--ev-gold);
+}
+
+.ev-route-year {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--ev-gold);
+}
+
+.ev-route-list h3 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.05rem;
+    line-height: 1.3;
+    color: var(--ev-ink);
+    margin: 0.5rem 0 0.4rem;
+}
+
+.ev-route-list p {
+    color: var(--ev-ink-3);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+@media (max-width: 899px) {
+    .ev-route-list {
+        grid-template-columns: 1fr;
+        border-top: 0;
+        border-left: 1px solid var(--ev-line);
+        gap: 1.75rem;
+        padding-left: 1.5rem;
+    }
+
+    .ev-route-list li {
+        padding-top: 0;
+    }
+
+    .ev-route-list li::before {
+        top: 0.3rem;
+        left: calc(-1.5rem - 5px);
+    }
+}
+
+/* ==========================================================================
+   VIDEOS
+   ========================================================================== */
+.ev-videos {
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-video-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.ev-video {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+}
+
+.ev-video-btn,
+.ev-video iframe {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: 1px solid var(--ev-line-soft);
+    border-radius: var(--ev-radius);
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+}
+
+.ev-video-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ev-ease), filter 0.6s var(--ev-ease);
+}
+
+.ev-video-btn:hover img {
+    transform: scale(1.03);
+    filter: brightness(0.85);
+}
+
+.ev-play {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--ev-gold);
+    box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.8);
+}
+
+.ev-play::after {
+    content: "";
+    position: absolute;
+    left: 52%;
+    top: 50%;
+    transform: translate(-40%, -50%);
+    border-style: solid;
+    border-width: 0.5rem 0 0.5rem 0.8rem;
+    border-color: transparent transparent transparent var(--bg-void);
+}
+
+.ev-video h3 {
+    font-family: var(--font-body);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--ev-ink);
+    margin: 0.35rem 0 0;
+    text-wrap: balance;
+}
+
+.ev-video-meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ev-ink-3);
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .ev-video-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   CONTACT (on top of the incumbent contact styles)
+   ========================================================================== */
+.ev-contact {
+    background: var(--bg-void);
+    overflow: hidden;
+    padding: var(--ev-section-pad) 0;
+}
+
+.ev-contact-texture {
+    position: absolute;
+    inset: 0;
+    background-image: image-set(url("../assets/media/texture-1800.avif") type("image/avif"), url("../assets/media/texture-1800.webp") type("image/webp"));
+    background-size: cover;
+    background-position: center;
+    opacity: 0.32;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+    pointer-events: none;
+}
+
+.ev-contact .container {
+    position: relative;
+}
+
+.ev-contact-portrait {
+    width: 7.5rem;
+    margin: 0 0 1.75rem;
+}
+
+.ev-contact-portrait img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--ev-radius);
+    border: 1px solid var(--ev-line);
+}
+
+.ev-contact .contact-info-col h2 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    letter-spacing: -0.02em;
+    text-transform: none;
+    text-wrap: balance;
+}
+
+.ev-contact .channel-lbl,
+.ev-contact .form-label {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.ev-contact .btn-submit-inquiry,
+.ev-contact .btn-copy-brief,
+.ev-contact .btn-receipt-action,
+.ev-contact .receipt-badge {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 600;
+}
+
+.site-footer .footer-brand,
+.site-footer .footer-social-link,
+.site-footer .footer-bottom {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+}
+
+.site-footer .footer-bottom > div:last-child {
+    max-width: 52ch;
+}
+
+/* Touch targets: every link and control reaches 44px */
+.ev-contact .channel-val,
+.site-footer .footer-social-link,
+.brand-logo {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.brand-logo {
+    min-width: 44px;
+}
+
+@media (max-width: 767px) {
+    :root {
+        --ev-section-pad: 3.75rem;
+    }
+
+    .ev-row + .ev-row {
+        margin-top: 3rem;
+    }
+}
+
+/* ==========================================================================
+   Motion and accessibility
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .ev-hero-media img {
+        animation: none;
+    }
+
+    .ev-hero-dust {
+        display: none;
+    }
+
+    .ev-video-btn img {
+        transition: none;
+    }
+}
+
+/* ==========================================================================
+   SUBPAGES: case-study media, about portrait, layout-shift guard
+   ========================================================================== */
+.ev-case-media {
+    position: relative;
+    margin: 0 0 2rem;
+}
+
+.ev-case-media > picture img,
+.ev-case-media .ev-device-desktop {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    object-position: 60% 30%;
+    border-radius: var(--ev-radius);
+    border: 1px solid var(--ev-line-soft);
+}
+
+.ev-case-media.ev-device .ev-device-desktop {
+    aspect-ratio: 1440 / 900;
+    object-position: top;
+}
+
+.ev-case-media.ev-device .ev-device-phone {
+    width: 18%;
+}
+
+.ev-case-cap {
+    margin-top: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ev-ink-3);
+}
+
+.ev-about-portrait img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--ev-radius);
+    border: 1px solid var(--ev-line);
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+/* Reserve the action row so late font/animation work cannot shift it (was CLS 0.18 on /about). */
+.subpage-hero .hero-actions {
+    min-height: 3.5rem;
+}
+
+.subpage-hero .reveal-on-scroll,
+.subpage-hero .hero-actions {
+    transform: none;
+}
+
+/* Skip link: first tab stop on every page, visible only on focus */
+.skip-link {
+    position: fixed;
+    top: max(0.75rem, env(safe-area-inset-top, 0px));
+    left: max(0.75rem, env(safe-area-inset-left, 0px));
+    z-index: 10000;
+    padding: 0.75rem 1.1rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--ev-radius);
+    background: var(--ev-gold);
+    color: var(--bg-void);
+    font-family: var(--font-body);
+    font-weight: 600;
+    transform: translateY(-160%);
+    transition: transform 0.25s var(--ev-ease);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+    transform: none;
+}
+
+/* Scroll-to-top control meets the 44px target */
+.rail-top-btn {
+    width: 44px;
+    height: 44px;
+}
+
+/* Tablet portrait: stack the hero like mobile so copy never sits on the photo */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+    .ev-hero {
+        flex-direction: column;
+        align-items: stretch;
+        min-height: 0;
+        padding: 0 0 4rem;
+    }
+
+    .ev-hero-media {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        aspect-ratio: 16 / 11;
+    }
+
+    .ev-hero-media img {
+        object-position: 72% 22%;
+        -webkit-mask-image: linear-gradient(0deg, transparent 0%, #000 35%);
+        mask-image: linear-gradient(0deg, transparent 0%, #000 35%);
+    }
+
+    .ev-credit {
+        top: calc(var(--nav-height) + 1.25rem);
+        bottom: auto;
+        right: auto;
+        left: 1.5rem;
+    }
+
+    .ev-hero-dust {
+        -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 50%);
+        mask-image: linear-gradient(180deg, #000 0%, transparent 50%);
+    }
+
+    .ev-hero-inner {
+        margin-top: -4rem;
+    }
+
+    .ev-hero-copy {
+        max-width: 40rem;
+    }
+}
+
+/* Subpage gold dust: one screen tall, so the canvas no longer spans the whole document. */
+.hero-gold-canvas[data-fit="viewport"] {
+    height: 100vh;
+    height: 100svh;
+    pointer-events: none;
+}
+
+/* Decorative card numbers: raised from 0.35 alpha (2.3:1) to clear 3:1 for large text. */
+.chapter-number,
+.card-number {
+    color: rgba(226, 192, 141, 0.62);
+}
+
+/* Subpage hero: let the grid column shrink and keep long Cinzel words inside 320-480px screens. */
+.subpage-hero-content {
+    min-width: 0;
+    width: 100%; /* auto side margins on a grid item shrink it to max-content; pin it to the column */
+}
+
+@media (max-width: 479px) {
+    .subpage-hero .hero-title {
+        font-size: clamp(1.9rem, 9.4vw, 2.6rem);
+        overflow-wrap: anywhere;
+    }
+
+    .subpage-hero .hero-badge-pill .mono-tag,
+    .subpage-hero .mono-tag {
+        white-space: normal;
+    }
+}
+
+/* Subpage proof strip wraps instead of running off narrow screens. */
+@media (max-width: 479px) {
+    .subpage-hero .hero-proof-strip {
+        flex-wrap: wrap;
+        gap: 1rem 1.5rem;
+    }
+
+    .subpage-hero .proof-item {
+        min-width: 0;
+    }
+}
+
+/* ==========================================================================
+   SUBPAGES v3.5: same system as the home page (sentence case, Schibsted, solid gold)
+   ========================================================================== */
+.ev-sub {
+    padding-top: calc(var(--nav-height) + 3rem);
+    padding-bottom: var(--ev-section-pad);
+    position: relative;
+}
+
+.ev-sub-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.ev-sub-hero-text {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.ev-sub-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    min-width: 0;
+    max-width: 44rem;
+}
+
+.ev-sub-hero-media {
+    margin: 0;
+    min-width: 0;
+}
+
+.ev-sub-hero-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--ev-radius);
+    border: 1px solid var(--ev-line);
+}
+
+.ev-sub-section {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-records-plain li {
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+}
+
+.ev-principles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 4vw, 4rem);
+}
+
+.ev-principles h3,
+.ev-case-steps h3 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--ev-ink);
+    margin: 0 0 0.5rem;
+}
+
+.ev-principles p,
+.ev-case-steps p,
+.ev-case-role {
+    color: var(--ev-ink-2);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 60ch;
+}
+
+.ev-sub-cta {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border: 1px solid var(--ev-line);
+    border-radius: var(--ev-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.ev-sub-cta h2 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    letter-spacing: -0.02em;
+    color: var(--ev-ink);
+    text-wrap: balance;
+    margin: 0;
+}
+
+.ev-sub-cta p {
+    color: var(--ev-ink-2);
+    margin: 0;
+}
+
+.ev-sub .ev-hero-actions .btn {
+    font-family: var(--font-body);
+    letter-spacing: 0;
+    text-transform: none;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* Case studies */
+.ev-case-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+}
+
+.ev-case-index a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--ev-gold);
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: var(--ev-line);
+    text-underline-offset: 0.3em;
+}
+
+.ev-case {
+    padding: clamp(3rem, 6vw, 5rem) 0;
+    border-top: 1px solid var(--ev-line-soft);
+    display: grid;
+    gap: 1.75rem;
+    scroll-margin-top: calc(var(--nav-height) + 1.5rem);
+}
+
+.ev-case-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 46rem;
+}
+
+.ev-case-head .ev-rec-years {
+    margin: 0;
+}
+
+.ev-case-head h2 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ev-ink);
+    text-wrap: balance;
+    margin: 0;
+}
+
+.ev-case .ev-case-media {
+    margin: 0;
+    max-width: 60rem;
+}
+
+.ev-case-specs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 1.25rem 0;
+    border-block: 1px solid var(--ev-line-soft);
+}
+
+.ev-case-specs dt {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ev-ink-3);
+    margin-bottom: 0.25rem;
+}
+
+.ev-case-specs dd {
+    margin: 0;
+    color: var(--ev-ink);
+    font-weight: 500;
+}
+
+.ev-case-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1.25rem, 3vw, 3rem);
+}
+
+@media (max-width: 899px) {
+    .ev-sub-hero,
+    .ev-principles,
+    .ev-case-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .ev-sub-hero-media {
+        max-width: 26rem;
+    }
+}
+
+@media (max-width: 599px) {
+    .ev-case-specs {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ev-records-plain li {
+        grid-template-columns: 1fr;
+    }
+
+    .ev-sub .ev-hero-actions .btn {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+}
+
+/* Gradient text is retired site-wide: emphasis is solid gold */
+.text-gold-gradient {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--ev-gold);
+}
+
+/* FAQ: native disclosure, mirrors the FAQPage structured data */
+.ev-faq {
+    padding: var(--ev-section-pad) 0;
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-faq-list {
+    max-width: 52rem;
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-faq-item {
+    border-bottom: 1px solid var(--ev-line-soft);
+}
+
+.ev-faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    min-height: 44px;
+    padding: 1.25rem 2.5rem 1.25rem 0;
+    position: relative;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ev-ink);
+}
+
+.ev-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.ev-faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 0.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 1.25rem;
+    color: var(--ev-gold);
+    transition: transform 0.3s var(--ev-ease);
+}
+
+.ev-faq-item[open] summary::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.ev-faq-item p {
+    margin: 0 0 1.4rem;
+    color: var(--ev-ink-2);
+    line-height: 1.7;
+    max-width: 62ch;
+}
+
+/* ==========================================================================
+   LAYOUT v3.7: every section spans the full container on desktop.
+   Headers split title | intro; short sections sit beside their header instead
+   of hugging the left edge with the right half empty.
+   ========================================================================== */
+@media (min-width: 1024px) {
+    .ev-section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+        gap: 1rem clamp(2rem, 5vw, 5rem);
+        align-items: end;
+        max-width: none;
+    }
+
+    .ev-section-head > h2:only-child {
+        grid-column: 1 / -1;
+    }
+
+    .ev-section-head > p {
+        justify-self: end;
+        max-width: 46ch;
+    }
+
+    .ev-head-row {
+        display: flex;
+    }
+
+    /* FAQ: heading column beside the questions */
+    .ev-faq .container {
+        display: grid;
+        grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+        gap: clamp(2rem, 6vw, 6rem);
+        align-items: start;
+    }
+
+    .ev-faq .ev-section-head {
+        display: block;
+        margin-bottom: 0;
+        position: sticky;
+        top: calc(var(--nav-height) + 2rem);
+    }
+
+    .ev-faq-list {
+        max-width: none;
+    }
+
+    /* Projects hero: title left, intro and index right */
+    .ev-sub-hero-text .ev-sub-hero-copy {
+        display: grid;
+        grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+        grid-template-areas:
+            "kicker kicker"
+            "title  lede"
+            "title  index";
+        gap: 1.25rem clamp(2rem, 5vw, 5rem);
+        align-items: end;
+        max-width: none;
+    }
+
+    .ev-sub-hero-text .ev-kicker { grid-area: kicker; }
+    .ev-sub-hero-text .ev-hero-title { grid-area: title; align-self: end; }
+    .ev-sub-hero-text .ev-hero-lede { grid-area: lede; }
+    .ev-sub-hero-text .ev-case-index { grid-area: index; }
+
+    /* Case study: header beside its image, specs and steps full width below */
+    .ev-case {
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        column-gap: clamp(2rem, 5vw, 5rem);
+        align-items: center;
+    }
+
+    .ev-case-head,
+    .ev-case .ev-case-media {
+        max-width: none;
+    }
+
+    .ev-case-specs,
+    .ev-case-steps {
+        grid-column: 1 / -1;
+    }
+
+    .ev-case:not(:has(.ev-case-media)) .ev-case-head {
+        grid-column: 1 / -1;
+    }
+
+    /* Closing call to action: copy left, buttons right */
+    .ev-sub-cta {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+            "title actions"
+            "text  actions";
+        align-items: center;
+        column-gap: 3rem;
+    }
+
+    .ev-sub-cta h2 { grid-area: title; }
+    .ev-sub-cta p { grid-area: text; }
+    .ev-sub-cta .ev-hero-actions { grid-area: actions; flex-wrap: nowrap; }
+}
+
+/* LAYOUT v3.8: rows use the full width; contact stays two-column down to tablet */
+@media (min-width: 1024px) {
+    /* Record rows: years | title | description (| link) instead of a left-hugging text block */
+    .ev-records li {
+        grid-template-columns: 7.5rem minmax(0, 4fr) minmax(0, 6fr) auto;
+        align-items: start;
+    }
+
+    .ev-records-plain li {
+        grid-template-columns: 7.5rem minmax(0, 4fr) minmax(0, 6fr);
+    }
+
+    .ev-records li > div {
+        display: contents;
+    }
+
+    .ev-records h3 {
+        margin: 0;
+    }
+
+    .ev-records p {
+        max-width: none;
+    }
+}
+
+@media (min-width: 900px) {
+    .ev-contact .contact-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        gap: clamp(2.5rem, 5vw, 4rem);
+    }
+}
+
+@media (max-width: 899px) {
+    /* Stacked contact: keep the intro and channel list at reading width, not stretched edge to edge */
+    .ev-contact .contact-info-col {
+        max-width: 36rem;
+    }
+}
+
+/* Closing CTA: side-by-side only when there is room for the title on two lines */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .ev-sub-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Footer: brand | links | clock on one grid row, stacked and left-aligned on small screens */
+.site-footer .footer-top {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.25rem 2.5rem;
+}
+
+.site-footer .footer-socials {
+    justify-self: center;
+    flex-wrap: wrap;
+}
+
+.site-footer .footer-clock {
+    font-family: var(--font-mono);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+@media (max-width: 899px) {
+    .site-footer .footer-top {
+        grid-template-columns: 1fr;
+        justify-items: start;
+    }
+
+    .site-footer .footer-socials {
+        justify-self: start;
+    }
+}
+
+/* Current page in the nav */
+.nav-link[aria-current="page"],
+.mobile-nav-item[aria-current="page"] .mobile-nav-label {
+    color: var(--ev-gold);
+}
+
+.nav-link[aria-current="page"]::after {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+/* Credits stay legible: 12px floor */
+.ev-credit,
+.ev-case-cap {
+    font-size: 0.75rem;
+}
+
+/* Undo the legacy <=1240px footer placement (links forced onto their own row) */
+.site-footer .footer-top > * {
+    grid-column: auto;
+    grid-row: auto;
+}
+
+@media (max-width: 899px) {
+    .site-footer .footer-clock {
+        justify-self: start;
+    }
+}
+
+@media (max-width: 899px) {
+    .site-footer .footer-socials {
+        justify-content: flex-start;
+        gap: 0.25rem 1.25rem;
+    }
+}
+
+.ev-hero-actions .btn {
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   v4.4: quiet motion and a five-colour system
+   Native cursor and native scrolling; anchors glide only when motion is welcome.
+   Colour: void, surface, gold, ink (with two ink greys), and red for errors only.
+   ========================================================================== */
+html {
+    scroll-padding-top: calc(var(--nav-height) + 1.5rem);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+.btn-primary-gold,
+.btn-submit-inquiry {
+    background: var(--ev-gold);
+    background-image: none;
+}
+
+.film-grain {
+    display: none;
+}
+
+/* ==========================================================================
+   Cutout portraits: the person stands in the page, no frame.
+   The body rises out of the section divider and fades into the canvas;
+   a warm backlight sits behind the head so the edge reads as lit, not pasted.
+   ========================================================================== */
+.ev-sub-hero:has(.ev-cutout) {
+    align-items: end;
+    padding-bottom: 0;
+}
+
+.ev-sub-hero:has(.ev-cutout) .ev-sub-hero-copy {
+    align-self: center;
+    padding-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.ev-cutout {
+    position: relative;
+    isolation: isolate;
+    align-self: end;
+    max-width: none;
+}
+
+.ev-cutout picture {
+    display: block;
+}
+
+.ev-cutout img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+    object-fit: contain;
+    -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+}
+
+.ev-cutout-light {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 4%;
+    width: 78%;
+    aspect-ratio: 1;
+    transform: translateX(-42%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(226, 192, 141, 0.22) 0%, rgba(226, 192, 141, 0.07) 42%, transparent 70%);
+    pointer-events: none;
+}
+
+.ev-cutout .ev-credit {
+    right: 0;
+    bottom: 1rem;
+}
+
+/* Contact headshot: same treatment, smaller */
+.ev-contact-portrait {
+    width: clamp(10rem, 18vw, 14rem);
+    margin: 0 0 0.5rem -0.5rem;
+    position: relative;
+    isolation: isolate;
+}
+
+.ev-contact-portrait::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 10% 15%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(226, 192, 141, 0.18) 0%, transparent 70%);
+}
+
+.ev-contact-portrait img {
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+    object-fit: contain;
+    -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+}
+
+@media (max-width: 899px) {
+    .ev-sub-hero:has(.ev-cutout) {
+        padding-bottom: 0;
+    }
+
+    .ev-sub-hero:has(.ev-cutout) .ev-sub-hero-copy {
+        padding-bottom: 0;
+    }
+
+    .ev-cutout {
+        max-width: 26rem;
+        margin-inline: auto;
+    }
+
+    .ev-cutout .ev-credit {
+        right: 0;
+        left: auto;
+        top: auto;
+        bottom: 0.75rem;
+    }
+}
+
+/* Subpage dust sits behind content, never across a face */
+.ev-sub > .hero-gold-canvas {
+    z-index: 0;
+}
+
+.ev-sub > .container {
+    position: relative;
+    z-index: 1;
+}
+
+@media (min-width: 900px) {
+    .ev-sub-hero:has(.ev-cutout) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+        min-height: calc(100svh - var(--nav-height) - 3rem);
+    }
+
+    /* Let the figure run to the right edge of the window */
+    .ev-cutout {
+        margin-right: calc(-1 * max(2rem, (100vw - var(--max-width)) / 2 + 2rem));
+    }
+}
+
+@media (max-width: 899px) {
+    .ev-cutout .ev-credit {
+        position: static;
+        display: block;
+        margin-top: 0.5rem;
+        max-width: none;
+        text-align: right;
+    }
+}
+
+/* Rotol case: harness portrait as a cutout standing on the specs divider */
+.ev-case-cutout {
+    justify-self: center;
+    align-self: end;
+    width: min(100%, 26rem);
+    margin-bottom: -1.75rem;
+}
+
+.ev-case .ev-case-cutout > picture img {
+    aspect-ratio: auto;
+    object-fit: contain;
+    border: 0;
+    border-radius: 0;
+}
+
+.ev-case-cutout .ev-cutout-light {
+    top: 2%;
+    width: 95%;
+    transform: translateX(-50%);
+}
+
+.ev-case-cutout .ev-credit {
+    right: auto;
+    left: 100%;
+    bottom: 2.5rem;
+    width: 12rem;
+    margin-left: 1rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 1199px) {
+    .ev-case-cutout .ev-credit {
+        position: static;
+        display: block;
+        width: auto;
+        margin: 0.5rem 0 0;
+        text-align: right;
+    }
+}
+
+@media (max-width: 1023px) {
+    .ev-case-cutout {
+        width: min(80%, 22rem);
+        margin-bottom: 0;
+    }
+}
+
+/* ==========================================================================
+   v5.0 About hero: fits the first screen at any laptop height,
+   portrait centred beside the copy (type scales with viewport height too).
+   ========================================================================== */
+.ev-sub:has(.ev-cutout) {
+    padding-top: calc(var(--nav-height) + 1.5rem);
+}
+
+.ev-sub-hero:has(.ev-cutout) .ev-hero-title {
+    font-size: clamp(2rem, min(5.2vw, 8.4svh), 4.5rem);
+}
+
+.ev-sub-hero:has(.ev-cutout) .ev-hero-lede {
+    font-size: clamp(0.98rem, min(1.35vw, 2.5svh), 1.2rem);
+    line-height: 1.6;
+}
+
+@media (min-width: 900px) {
+    .ev-sub-hero:has(.ev-cutout) {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        align-items: center;
+        min-height: calc(100svh - var(--nav-height) - 1.5rem);
+        padding-bottom: 2rem;
+    }
+
+    .ev-sub-hero:has(.ev-cutout) .ev-sub-hero-copy {
+        align-self: center;
+        padding-bottom: 0;
+        gap: clamp(0.85rem, 2.4svh, 1.4rem);
+    }
+
+    .ev-cutout {
+        align-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 0;
+    }
+
+    .ev-cutout picture {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .ev-cutout img {
+        width: auto;
+        max-width: 100%;
+        max-height: calc(100svh - var(--nav-height) - 5rem);
+    }
+
+    .ev-cutout .ev-credit {
+        position: static;
+        margin-top: 0.25rem;
+        align-self: flex-end;
+    }
+}
+
+/* Short laptop windows: tighten the secondary rows so everything stays above the fold */
+@media (min-width: 900px) and (max-height: 760px) {
+    .ev-sub-hero:has(.ev-cutout) .ev-hero-actions .btn {
+        padding-block: 0.7rem;
+        min-height: 44px;
+    }
+
+    .ev-sub-hero:has(.ev-cutout) .ev-hero-facts {
+        margin-top: 0;
+        padding-top: 0.85rem;
+        font-size: 0.82rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .ev-sub-hero:has(.ev-cutout) .ev-hero-title {
+        font-size: clamp(2rem, min(4.6vw, 7.2svh), 4.5rem);
+    }
+
+    .ev-sub-hero:has(.ev-cutout) .ev-hero-actions {
+        flex-wrap: nowrap;
+        gap: 0.6rem;
+    }
+}
+
+@media (min-width: 900px) and (max-height: 760px) {
+    .ev-sub-hero:has(.ev-cutout) .ev-hero-actions .btn {
+        padding-inline: 1.15rem;
+        font-size: 0.92rem;
+    }
+}
+
+/* ==========================================================================
+   v5.2 Gold dust is a backdrop, never a veil.
+   Home: the photo sits above the dust, so particles only show where the photo
+   fades out. Subpages: the dust gathers behind the portrait side and thins out
+   behind the copy.
+   ========================================================================== */
+.ev-hero-media {
+    z-index: -1;
+}
+
+.ev-hero-dust {
+    z-index: -2;
+    opacity: 0.9;
+}
+
+@media (min-width: 900px) {
+    .ev-sub > .hero-gold-canvas {
+        -webkit-mask-image: linear-gradient(90deg, transparent 28%, rgba(0, 0, 0, 0.35) 48%, #000 70%);
+        mask-image: linear-gradient(90deg, transparent 28%, rgba(0, 0, 0, 0.35) 48%, #000 70%);
+    }
+}
+
+@media (max-width: 899px) {
+    .ev-sub > .hero-gold-canvas {
+        opacity: 0.45;
+    }
+}
+
+/* v5.3 Home hero: whole first screen on short laptop windows */
+@media (min-width: 768px) {
+    .ev-hero {
+        min-height: 100svh;
+        padding-top: calc(var(--nav-height) + clamp(1rem, 4svh, 3rem));
+        padding-bottom: clamp(1.5rem, 4svh, 4rem);
+    }
+
+    .ev-hero-title {
+        font-size: clamp(2.4rem, min(5.4vw, 8.4svh), 4.75rem);
+    }
+
+    .ev-hero-copy {
+        gap: clamp(0.85rem, 2.4svh, 1.5rem);
+    }
+
+    .ev-hero-lede {
+        font-size: clamp(0.98rem, min(1.4vw, 2.5svh), 1.2rem);
+    }
+}
+
+@media (min-width: 768px) and (max-height: 760px) {
+    .ev-hero-facts {
+        margin-top: 0;
+        padding-top: 0.85rem;
+    }
+
+    .ev-hero-actions .btn {
+        padding-block: 0.7rem;
+    }
+}
+
+/* v5.4 Cap viewport-height layouts: full-page capture tools enlarge the viewport,
+   which would otherwise stretch the heroes to thousands of pixels. */
+@media (min-width: 768px) {
+    .ev-hero {
+        min-height: min(100svh, 1000px);
+    }
+}
+
+@media (min-width: 900px) {
+    .ev-sub-hero:has(.ev-cutout) {
+        min-height: min(calc(100svh - var(--nav-height) - 1.5rem), 900px);
+    }
+
+    .ev-cutout img {
+        max-height: min(calc(100svh - var(--nav-height) - 5rem), 820px);
+    }
+}
+
+.hero-gold-canvas[data-fit="viewport"] {
+    height: min(100svh, 1000px);
+}
+
+/* ==========================================================================
+   v5.5 Signature moment: method loops close on scroll
+   Open steps wait in grey; each closed step fills gold with a check and lights
+   the rail to the next; when all five close, the loop is stamped.
+   Without JS the diagram simply shows as before.
+   ========================================================================== */
+.ev-loops.is-live .ev-loop li {
+    color: var(--ev-ink-3);
+    transition: color 0.45s var(--ev-ease);
+}
+
+.ev-loops.is-live .ev-loop li span {
+    color: var(--ev-ink-2);
+    transition: color 0.45s var(--ev-ease);
+}
+
+.ev-loops.is-live .ev-loop li::before {
+    transition: background-color 0.45s var(--ev-ease), color 0.45s var(--ev-ease), border-color 0.45s var(--ev-ease), transform 0.45s var(--ev-ease);
+}
+
+.ev-loops.is-live .ev-loop li::after {
+    background: linear-gradient(90deg, var(--ev-gold) 50%, var(--ev-line) 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 0.6s var(--ev-ease);
+}
+
+.ev-loops.is-live .ev-loop li.is-closed {
+    color: var(--ev-ink-2);
+}
+
+.ev-loops.is-live .ev-loop li.is-closed span {
+    color: var(--ev-ink);
+}
+
+.ev-loops.is-live .ev-loop li.is-closed::before {
+    content: "✓";
+    background: var(--ev-gold);
+    border-color: var(--ev-gold);
+    color: var(--bg-void);
+    font-weight: 700;
+    transform: scale(1.08);
+}
+
+.ev-loops.is-live .ev-loop li.is-closed::after {
+    background-position: 0 0;
+}
+
+/* The AI loop follows the site loop a beat later: same method, mirrored */
+.ev-loops.is-live .ev-loop-ai li,
+.ev-loops.is-live .ev-loop-ai li::before,
+.ev-loops.is-live .ev-loop-ai li::after {
+    transition-delay: 0.12s;
+}
+
+.ev-loop {
+    position: relative;
+}
+
+.ev-loop-stamp {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.25rem;
+    margin: 0;
+    padding: 0.3rem 0.65rem;
+    border: 1px solid var(--ev-gold);
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--ev-gold);
+    opacity: 0;
+    transform: rotate(-4deg) scale(1.25);
+    transition: opacity 0.35s var(--ev-ease), transform 0.35s var(--ev-ease);
+}
+
+.ev-loops.is-complete .ev-loop-stamp {
+    opacity: 1;
+    transform: rotate(-4deg) scale(1);
+}
+
+.ev-loops.is-complete .ev-loop-ai .ev-loop-stamp {
+    transition-delay: 0.15s;
+}
+
+@media (max-width: 899px) {
+    .ev-loops.is-live .ev-loop li::after {
+        background: linear-gradient(180deg, var(--ev-gold) 50%, var(--ev-line) 50%);
+        background-size: 100% 200%;
+        background-position: 0 100%;
+    }
+
+    .ev-loops.is-live .ev-loop li.is-closed::after {
+        background-position: 0 0;
+    }
+
+    .ev-loop-stamp {
+        top: 0.9rem;
+        right: 0.9rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ev-loops.is-live .ev-loop li,
+    .ev-loops.is-live .ev-loop li::before,
+    .ev-loops.is-live .ev-loop li::after,
+    .ev-loop-stamp {
+        transition: none;
+    }
+}
+
+/* ==========================================================================
+   v5.7 Navigation: one floating "Menu" button top-right, no logo bar.
+   The menu opens as a panel from the right on desktop, full screen on phones.
+   ========================================================================== */
+.site-header {
+    top: max(1.25rem, env(safe-area-inset-top, 0px));
+}
+
+.nav-container {
+    max-width: none;
+    padding: 0 max(1.25rem, env(safe-area-inset-right, 0px)) 0 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-pill,
+.nav-pill:hover {
+    height: auto;
+    padding: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    pointer-events: none;
+}
+
+.nav-mobile-actions {
+    display: flex;
+    pointer-events: auto;
+}
+
+.mobile-menu-toggle,
+.mobile-menu-toggle:hover {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    width: auto;
+    height: 48px;
+    min-width: 48px;
+    padding: 0 0.6rem 0 1.15rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--ev-line);
+    background: rgba(14, 14, 20, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8);
+    color: var(--ev-ink);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: border-color 0.3s var(--ev-ease), background-color 0.3s var(--ev-ease);
+}
+
+.mobile-menu-toggle:hover {
+    border-color: var(--ev-gold);
+    background: rgba(20, 20, 26, 0.9);
+}
+
+.menu-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--ev-gold);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.menu-icon .hamburger-line {
+    width: 14px;
+    background: var(--bg-void);
+}
+
+.mobile-menu-toggle.active .line-1 {
+    transform: translateY(3.25px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active .line-2 {
+    transform: translateY(-3.25px) rotate(-45deg);
+}
+
+/* Menu panel */
+.mobile-menu-overlay {
+    background: rgba(7, 7, 9, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.mobile-menu-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(440px, 100%);
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: max(1.25rem, env(safe-area-inset-top, 0px)) max(1.5rem, env(safe-area-inset-right, 0px)) 2rem 2rem;
+    background: var(--ev-panel);
+    border-left: 1px solid var(--ev-line);
+    box-shadow: -30px 0 60px -30px rgba(0, 0, 0, 0.9);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.5s var(--ev-ease);
+}
+
+.mobile-menu-overlay.active .mobile-menu-inner {
+    transform: none;
+}
+
+.mobile-menu-header {
+    border-bottom: 1px solid var(--ev-line-soft);
+}
+
+.menu-kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ev-gold);
+}
+
+.mobile-menu-close-btn {
+    width: 48px;
+    height: 48px;
+    background: var(--ev-gold);
+    border-color: var(--ev-gold);
+    color: var(--bg-void);
+}
+
+.mobile-menu-close-btn:hover {
+    background: var(--ev-gold);
+    border-color: var(--ev-ink);
+}
+
+.mobile-nav-label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 4.5vh, 2rem);
+    letter-spacing: -0.01em;
+}
+
+.mobile-nav-item {
+    border-bottom-color: var(--ev-line-soft);
+}
+
+@media (max-width: 599px) {
+    .mobile-menu-inner {
+        width: 100%;
+        border-left: 0;
+        padding-left: max(1.5rem, env(safe-area-inset-left, 0px));
+    }
+
+    .menu-word {
+        display: none;
+    }
+
+    .mobile-menu-toggle,
+    .mobile-menu-toggle:hover {
+        padding: 0 0.45rem;
+        width: 48px;
+        justify-content: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-menu-inner {
+        transition: none;
+    }
+}
+
+/* v5.8 Menu button: three lines only, no label. Turns into a cross when open. */
+.mobile-menu-toggle,
+.mobile-menu-toggle:hover {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.menu-word {
+    display: none;
+}
+
+.menu-icon {
+    width: 22px;
+    height: 16px;
+    border-radius: 0;
+    background: none;
+    position: relative;
+    display: block;
+}
+
+.menu-icon .hamburger-line {
+    position: absolute;
+    left: 0;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ev-ink);
+    transition: transform 0.35s var(--ev-ease), opacity 0.2s ease, top 0.35s var(--ev-ease);
+}
+
+.menu-icon .line-1 { top: 0; }
+.menu-icon .line-2 { top: 7px; }
+.menu-icon .line-3 { top: 14px; }
+
+.mobile-menu-toggle:hover .hamburger-line {
+    background: var(--ev-gold);
+}
+
+.mobile-menu-toggle.active .line-1 {
+    top: 7px;
+    transform: rotate(45deg);
+}
+
+.mobile-menu-toggle.active .line-2 {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active .line-3 {
+    top: 7px;
+    transform: rotate(-45deg);
+}
+
+/* v5.9 Brand mark: VB monogram top-left (links home), menu button top-right */
+.nav-container {
+    padding: 0 max(1.25rem, env(safe-area-inset-right, 0px)) 0 max(1.25rem, env(safe-area-inset-left, 0px));
+}
+
+.nav-pill,
+.nav-pill:hover {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.site-logo {
+    pointer-events: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 4px;
+    border-radius: 8px;
+    transition: opacity 0.3s var(--ev-ease);
+}
+
+.site-logo img {
+    display: block;
+    height: clamp(26px, 2.6vw, 34px);
+    width: auto;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6));
+}
+
+.site-logo:hover {
+    opacity: 0.85;
+}
+
+.menu-logo {
+    display: block;
+    height: 28px;
+    width: auto;
+}
+
+/* v6.0 Logo lives in the hero, above the kicker, and scrolls with it.
+   The top-left corner is free now, so heroes start higher. */
+.ev-hero-logo {
+    display: block;
+    height: clamp(52px, min(6.2vw, 9.5svh), 88px);
+    width: auto;
+}
+
+.ev-hero-logo-link {
+    display: inline-flex;
+    align-self: flex-start;
+    border-radius: 6px;
+    transition: opacity 0.3s var(--ev-ease);
+}
+
+.ev-hero-logo-link:hover {
+    opacity: 0.85;
+}
+
+.ev-hero-copy > .ev-hero-logo,
+.ev-sub-hero-copy > .ev-hero-logo-link {
+    margin-bottom: clamp(0.25rem, 1.5svh, 1rem);
+}
+
+@media (min-width: 768px) {
+    .ev-hero {
+        padding-top: clamp(1.75rem, 6svh, 4rem);
+    }
+}
+
+.ev-sub,
+.ev-sub:has(.ev-cutout) {
+    padding-top: clamp(1.75rem, 6svh, 4rem);
+}
+
+@media (min-width: 1024px) {
+    .ev-sub-hero-text .ev-sub-hero-copy {
+        grid-template-areas:
+            "logo   logo"
+            "kicker kicker"
+            "title  lede"
+            "title  index";
+    }
+
+    .ev-sub-hero-text .ev-hero-logo-link {
+        grid-area: logo;
+    }
+}
+
+@media (max-width: 767px) {
+    .ev-hero-logo {
+        height: 52px;
+    }
+
+    .ev-sub {
+        padding-top: calc(var(--nav-height) + 0.5rem);
+    }
+}
+
+/* Header holds only the menu button now: pin it right. Hero logo hugs the text edge. */
+.nav-pill,
+.nav-pill:hover {
+    justify-content: flex-end;
+}
+
+.ev-hero-logo {
+    align-self: flex-start;
+    max-width: 100%;
+}
+
+@media (min-width: 768px) and (max-height: 760px) {
+    .ev-hero-logo {
+        height: clamp(42px, 7.6svh, 88px);
+    }
+
+    .ev-hero-copy > .ev-hero-logo,
+    .ev-sub-hero-copy > .ev-hero-logo-link {
+        margin-bottom: 0;
+    }
+}
