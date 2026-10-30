@@ -2065,21 +2065,25 @@ button:active,
    ========================================================================== */
 @media (max-width: 1200px) {
     .hero-layout {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         text-align: center;
     }
     .hero-content {
+        order: 1;
         margin: 0 auto;
     }
     .hero-actions {
         justify-content: center;
     }
     .hero-portrait-stage {
-        order: -1;
-        min-height: 480px;
+        order: 2;
+        min-height: auto;
+        margin-top: 2rem;
     }
     .portrait-wrapper {
-        max-width: 420px;
+        max-width: 320px;
+        margin: 0 auto;
     }
     .hero-proof-strip {
         max-width: 550px;
@@ -2196,11 +2200,17 @@ button:active,
         white-space: nowrap;
     }
     .hero-portrait-stage {
-        min-height: 380px;
-        margin-top: 1.5rem;
+        order: 2;
+        min-height: auto;
+        margin-top: 1rem;
     }
     .portrait-wrapper {
-        max-width: 320px;
+        max-width: 200px;
+        margin: 0 auto;
+    }
+    .hero-gold-canvas {
+        pointer-events: none !important;
+        opacity: 0.22 !important;
     }
 
     /* Section Paddings Compressed on Mobile */

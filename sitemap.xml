@@ -4,10 +4,21 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   <url>
-    <loc>https://vinayakbhardwaj.com/</loc>
-    <lastmod>2026-09-11</lastmod>
+    <loc>https://www.vinayakbhardwaj.com/</loc>
+    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
+  <url>
+    <loc>https://www.vinayakbhardwaj.com/projects.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://www.vinayakbhardwaj.com/about.html</loc>
+    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
-

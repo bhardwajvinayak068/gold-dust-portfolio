@@ -290,10 +290,11 @@
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     const el = entry.target;
-                    const target = parseFloat(el.getAttribute('data-target') || '0');
+                    const targetStr = el.getAttribute('data-target') || '0';
+                    const target = parseFloat(targetStr);
                     const prefix = el.getAttribute('data-prefix') || '';
                     const suffix = el.getAttribute('data-suffix') || '';
-                    const isDecimal = target % 1 !== 0;
+                    const decimalPlaces = targetStr.includes('.') ? targetStr.split('.')[1].length : 0;
                     const duration = 1800;
                     const startTime = performance.now();
 
@@ -303,12 +304,12 @@
                         const easeProgress = 1 - Math.pow(1 - progress, 3);
                         const current = easeProgress * target;
 
-                        el.textContent = prefix + (isDecimal ? current.toFixed(2) : Math.floor(current)) + suffix;
+                        el.textContent = prefix + (decimalPlaces > 0 ? current.toFixed(decimalPlaces) : Math.floor(current)) + suffix;
 
                         if (progress < 1) {
                             requestAnimationFrame(updateCount);
                         } else {
-                            el.textContent = prefix + (isDecimal ? target.toFixed(2) : target) + suffix;
+                            el.textContent = prefix + (decimalPlaces > 0 ? target.toFixed(decimalPlaces) : target) + suffix;
                         }
                     }
 
@@ -1933,13 +1934,13 @@
 
     // 8. SYSTEM ARCHITECTURE DEEP-DIVE DRAWER & DYNAMIC SVG BLUEPRINTS
     const systemData = {
-        'swarm-ai': {
-            title: 'AUTONOMOUS AI MULTI-AGENT SWARMS',
-            category: 'DISTRIBUTED INTELLIGENCE & ORCHESTRATION',
-            badge: 'PROPRIETARY RUNTIME',
-            tagline: 'Self-coordinating agent topologies executing complex enterprise workflows with sub-second distributed routing.',
+        'virin-digital': {
+            title: 'VIRIN DIGITAL STUDIO PLATFORM',
+            category: 'AI WORKFLOWS & WEB PLATFORMS',
+            badge: 'LIVE PRODUCTION',
+            tagline: 'Autonomous AI agent workflows and bespoke digital platforms engineered for high-converting agencies and enterprise clients globally.',
             blueprintSvg: `
-                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Swarm AI Topology Schematic">
+                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Virin Digital Architecture Schematic">
                     <defs>
                         <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="#FBF2DE" />
@@ -1947,164 +1948,172 @@
                         </linearGradient>
                     </defs>
                     <!-- Ingress Node -->
-                    <rect x="20" y="65" width="110" height="50" rx="6" fill="#14141E" stroke="#E2C08D" stroke-width="1.2" />
-                    <text x="75" y="90" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">INGRESS ROUTER</text>
-                    <text x="75" y="103" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">&lt;2ms TOKEN P99</text>
+                    <rect x="20" y="65" width="115" height="50" rx="6" fill="#14141E" stroke="#E2C08D" stroke-width="1.2" />
+                    <text x="77" y="90" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">CLIENT INGRESS</text>
+                    <text x="77" y="103" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Edge Router</text>
                     <!-- Flow Line 1 -->
-                    <line x1="130" y1="90" x2="200" y2="90" stroke="#E2C08D" stroke-width="1.5" stroke-dasharray="3 3" />
-                    <!-- Consensus Supervisor -->
+                    <line x1="135" y1="90" x2="200" y2="90" stroke="#E2C08D" stroke-width="1.5" stroke-dasharray="3 3" />
+                    <!-- Workflow Core -->
                     <rect x="200" y="50" width="140" height="80" rx="8" fill="#1A1826" stroke="#D4AF37" stroke-width="1.5" />
-                    <text x="270" y="82" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">SUPERVISOR CORE</text>
-                    <text x="270" y="97" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Byzantine Consensus</text>
-                    <text x="270" y="112" fill="#888899" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Lock-Free Ring Buffer</text>
+                    <text x="270" y="82" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">AI PIPELINE CORE</text>
+                    <text x="270" y="97" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Agentic Tool Loop</text>
+                    <text x="270" y="112" fill="#888899" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Strict Token Budget</text>
                     <!-- Flow Lines to Workers -->
                     <path d="M 340 75 L 390 40" stroke="#E2C08D" stroke-width="1.2" />
                     <path d="M 340 90 L 390 90" stroke="#E2C08D" stroke-width="1.2" />
                     <path d="M 340 105 L 390 140" stroke="#E2C08D" stroke-width="1.2" />
-                    <!-- Worker Swarm -->
+                    <!-- Output Workers -->
                     <rect x="390" y="20" width="130" height="36" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="455" y="42" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">AGENT WORKER α</text>
+                    <text x="455" y="42" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">RESEARCH RUNNER</text>
                     <rect x="390" y="72" width="130" height="36" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="455" y="94" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">AGENT WORKER β</text>
+                    <text x="455" y="94" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">CODE SYNTHESIS</text>
                     <rect x="390" y="122" width="130" height="36" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="455" y="144" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">AGENT WORKER γ</text>
+                    <text x="455" y="144" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">SSR / CDN CACHE</text>
                 </svg>
             `,
             specs: [
-                { label: 'Throughput', value: '45,000 req/sec' },
-                { label: 'Inference P99', value: '280ms' },
-                { label: 'Fault Recovery', value: '<50ms' },
-                { label: 'SLA Reliability', value: '99.995%' }
+                { label: 'Deployment', value: 'Edge CDN' },
+                { label: 'Type Safety', value: '100% Strict' },
+                { label: 'A11y Score', value: '100 / 100' },
+                { label: 'Status', value: 'Live Production' }
             ],
-            stack: ['Rust', 'Python AsyncIO', 'Three.js', 'gRPC', 'WebSockets', 'Redis Cluster', 'Google Gemini 2.5'],
-            architecture: 'Hierarchical supervisor topology with Byzantine consensus validation. Autonomous agent workers self-elect fallbacks and stream telemetry over zero-copy ring buffers.',
+            stack: ['Autonomous AI Agents', 'TypeScript', 'Next.js', 'Tailwind CSS', 'PostgreSQL', 'Vercel Edge'],
+            architecture: 'Edge-first SSR architecture with isolated autonomous agent execution runners, token-budget governance, and webhook-driven event propagation.',
             highlights: [
-                'Dynamic token-budget allocation preventing cascading LLM degradation',
-                'Sub-millisecond state synchronization across distributed worker pools',
-                'Visual canvas debugger for real-time multi-agent reasoning graph inspection'
+                'Autonomous multi-step research and content generation pipelines',
+                'Sub-150ms TTFB with global edge caching and CDN distribution',
+                'Zero-compromise security posture and client data isolation'
             ]
         },
-        'edge-core': {
-            title: 'ULTRA-LOW LATENCY CLOUD INFRASTRUCTURE',
-            category: 'HIGH-THROUGHPUT GLOBAL EDGE CORE',
-            badge: 'ZERO-DOWNTIME ARCHITECTURE',
-            tagline: 'Sub-10ms global edge delivery network operating across 32 geographic points of presence with active-active replication.',
+        'vinayak-tech': {
+            title: 'ENTERPRISE AI & COMPUTE ECONOMICS MEDIA',
+            category: 'TECHNICAL MEDIA & AI RESEARCH',
+            badge: 'ACTIVE BROADCAST',
+            tagline: 'Documenting frontier AI architectures, agent orchestration, and hardware compute economics for 15,000+ engineers globally.',
             blueprintSvg: `
-                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Edge Core Schematic">
-                    <!-- Anycast Gateway -->
+                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Vinayak Tech Media Schematic">
+                    <!-- Research Ingestion -->
                     <circle cx="70" cy="90" r="40" fill="#14141E" stroke="#E2C08D" stroke-width="1.5" />
-                    <text x="70" y="86" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">ANYCAST</text>
-                    <text x="70" y="99" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">DNS MESH</text>
-                    <!-- Edge Filter -->
+                    <text x="70" y="86" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">ARXIV / CODE</text>
+                    <text x="70" y="99" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Empirical Data</text>
+                    <!-- Graphics Pipeline -->
                     <line x1="110" y1="90" x2="180" y2="90" stroke="#E2C08D" stroke-width="1.5" stroke-dasharray="3 3" />
                     <rect x="180" y="55" width="130" height="70" rx="6" fill="#1A1826" stroke="#D4AF37" stroke-width="1.2" />
-                    <text x="245" y="85" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">eBPF FILTER</text>
-                    <text x="245" y="100" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Kernel Bypass 0-Copy</text>
-                    <!-- Active Regions -->
+                    <text x="245" y="85" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">PROCEDURAL RUST</text>
+                    <text x="245" y="100" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">EffectCraft / Remotion</text>
+                    <!-- Output Regions -->
                     <path d="M 310 75 L 370 45" stroke="#E2C08D" stroke-width="1.2" />
                     <path d="M 310 90 L 370 90" stroke="#E2C08D" stroke-width="1.2" />
                     <path d="M 310 105 L 370 135" stroke="#E2C08D" stroke-width="1.2" />
                     <rect x="370" y="25" width="150" height="35" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="445" y="47" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">POP: US-WEST (5.1ms)</text>
+                    <text x="445" y="47" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">4K 60FPS MASTER</text>
                     <rect x="370" y="73" width="150" height="35" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="445" y="95" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">POP: EU-CENTRAL (8.4ms)</text>
+                    <text x="445" y="95" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">EBU R128 AUDIO</text>
                     <rect x="370" y="120" width="150" height="35" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="445" y="142" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">POP: AP-EAST (4.8ms)</text>
+                    <text x="445" y="142" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">GLOBAL BROADCAST</text>
                 </svg>
             `,
             specs: [
-                { label: 'Global Edge P99', value: '8.4ms' },
-                { label: 'Peak Concurrency', value: '1.2M conn' },
-                { label: 'Packet Loss', value: '0.0001%' },
-                { label: 'Uptime (365d)', value: '100.00%' }
+                { label: 'Video Target', value: '4K UHD / 60 FPS' },
+                { label: 'Audio Standard', value: 'EBU R128 (-14 LUFS)' },
+                { label: 'Visual Pipeline', value: 'Procedural Code' },
+                { label: 'Audience Reach', value: 'Global Engineers' }
             ],
-            stack: ['Go', 'eBPF', 'Terraform', 'Kubernetes', 'Cloudflare Workers', 'PostgreSQL', 'WireGuard'],
-            architecture: 'Multi-region active-active mesh routing traffic via anycast DNS with real-time health probing and automated border gateway failover.',
+            stack: ['Remotion', 'Rust / EffectCraft', 'Python Data Scripts', 'FFmpeg', 'DaVinci Resolve', 'WebAudio API'],
+            architecture: 'Code-driven procedural motion graphics and data visualization pipeline translating complex neural architectures into intuitive visual models.',
             highlights: [
-                'Kernel-bypass packet acceleration leveraging eBPF filters',
-                'Microsecond consensus protocols with distributed atomic clocks',
-                'Automated multi-cloud failover without single connection termination'
+                'Automated SVG and code-to-video procedural animation pipelines',
+                'Rigorous empirical benchmarking of LLM inference latency and token economics',
+                'Broadcast-grade EBU R128 audio mastering and color grading'
             ]
         },
-        'luxury-craft': {
-            title: 'HAUTE HORLOGERIE & LUXURY DIGITAL FLAGSHIPS',
-            category: 'CREATIVE TECHNOLOGY & INTERACTIVE LUXURY',
-            badge: 'AWWWARDS SOTD CANDIDATE',
-            tagline: 'Bespoke high-touch digital flagships engineered with custom WebGL shaders, inertial physics, and mathematical typography.',
+        'rotol-group': {
+            title: 'KLCC HIGH-RISE OPERATIONS & SAFETY SUITE',
+            category: 'SAFETY-CRITICAL SKYSCRAPER OPERATIONS',
+            badge: '0 LOST-TIME INCIDENTS',
+            tagline: 'High-access rope façade operations and HSE compliance protocols across Menara Maybank and landmark Kuala Lumpur skyscrapers.',
             blueprintSvg: `
-                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Haute Horlogerie Pipeline Schematic">
-                    <!-- User Gesture -->
-                    <rect x="20" y="65" width="110" height="50" rx="6" fill="#14141E" stroke="#E2C08D" stroke-width="1.2" />
-                    <text x="75" y="90" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">POINTER GESTURE</text>
-                    <text x="75" y="103" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">120 FPS Sub-Sampling</text>
-                    <!-- Inertia Engine -->
-                    <line x1="130" y1="90" x2="190" y2="90" stroke="#E2C08D" stroke-width="1.5" stroke-dasharray="3 3" />
-                    <rect x="190" y="50" width="140" height="80" rx="8" fill="#1A1826" stroke="#D4AF37" stroke-width="1.5" />
-                    <text x="260" y="82" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">PHYSICS LERP</text>
-                    <text x="260" y="97" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Spring Acceleration</text>
-                    <text x="260" y="112" fill="#888899" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">WebAudio Micro-Chimes</text>
-                    <!-- Shader Pipeline -->
-                    <line x1="330" y1="90" x2="390" y2="90" stroke="#E2C08D" stroke-width="1.5" />
-                    <rect x="390" y="55" width="130" height="70" rx="6" fill="#14141E" stroke="#E2C08D" stroke-width="1.2" />
-                    <text x="455" y="85" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="bold" text-anchor="middle">GLSL SHADERS</text>
-                    <text x="455" y="100" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Liquid Metallic Sheen</text>
-                </svg>
-            `,
-            specs: [
-                { label: 'Framerate Target', value: '120 FPS' },
-                { label: 'Asset Payload', value: '<1.4MB' },
-                { label: 'Shader Pass Time', value: '0.8ms' },
-                { label: 'Lighthouse Score', value: '99 / 100' }
-            ],
-            stack: ['GLSL Shaders', 'Three.js', 'WebAudio API', 'Tailored CSS Grid', 'Vanilla TypeScript', 'Lenis'],
-            architecture: 'Pure procedural GLSL fragment shading pipeline with GPU-driven instancing, dynamic reflections, and zero DOM reflow design.',
-            highlights: [
-                'Zero-layout-shift (CLS: 0.00) architectural rendering pipeline',
-                'Procedural liquid gold & metallic dispersion shader algorithms',
-                'Custom synthesized Web Audio micro-haptics mimicking mechanical luxury timepieces'
-            ]
-        },
-        'event-engine': {
-            title: 'HIGH-CONCURRENCY DISTRIBUTED EVENT ENGINES',
-            category: 'FINANCIAL & REALTIME SYSTEMS',
-            badge: 'MISSION CRITICAL',
-            tagline: 'Deterministic event-sourcing runtime processing millions of transactions per second with cryptographic auditability.',
-            blueprintSvg: `
-                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Event Engine Schematic">
-                    <!-- Ingestion Ring -->
+                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="Rotol Safety Operations Schematic">
+                    <!-- Anchor Point -->
                     <rect x="20" y="65" width="115" height="50" rx="6" fill="#14141E" stroke="#E2C08D" stroke-width="1.2" />
-                    <text x="77" y="90" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">INGESTION RING</text>
-                    <text x="77" y="103" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Lock-Free Disruptor</text>
-                    <!-- WAL Journal -->
+                    <text x="77" y="90" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">RIGGING AUDIT</text>
+                    <text x="77" y="103" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Dual-Rope Redundant</text>
+                    <!-- HIRARC Gate -->
                     <line x1="135" y1="90" x2="200" y2="90" stroke="#E2C08D" stroke-width="1.5" stroke-dasharray="3 3" />
                     <rect x="200" y="50" width="140" height="80" rx="8" fill="#1A1826" stroke="#D4AF37" stroke-width="1.5" />
-                    <text x="270" y="82" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">WAL JOURNAL</text>
-                    <text x="270" y="97" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Append-Only NVMe</text>
-                    <text x="270" y="112" fill="#888899" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Merkle Audit Root</text>
-                    <!-- Kafka / ClickHouse -->
+                    <text x="270" y="82" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">HIRARC PROTOCOL</text>
+                    <text x="270" y="97" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Daily Pre-Rig Check</text>
+                    <text x="270" y="112" fill="#888899" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Anemometer Wind Cutoff</text>
+                    <!-- Operations Execution -->
                     <path d="M 340 75 L 400 50" stroke="#E2C08D" stroke-width="1.2" />
                     <path d="M 340 105 L 400 130" stroke="#E2C08D" stroke-width="1.2" />
                     <rect x="400" y="30" width="125" height="40" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="462" y="55" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">REDPANDA CLUSTER</text>
+                    <text x="462" y="55" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">50+ STORY ASCENT</text>
                     <rect x="400" y="110" width="125" height="40" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
-                    <text x="462" y="135" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">CLICKHOUSE OLAP</text>
+                    <text x="462" y="135" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">0 LTI AUDIT LOG</text>
                 </svg>
             `,
             specs: [
-                { label: 'Event Throughput', value: '2.4M msg/s' },
-                { label: 'Audit Guarantee', value: 'Cryptographic' },
-                { label: 'Disk Persistence', value: 'Append-Only' },
-                { label: 'P99 Latency', value: '1.2ms' }
+                { label: 'Safety Record', value: '0 LTI (12+ Months)' },
+                { label: 'Operational Height', value: '50+ Stories' },
+                { label: 'Compliance Audit', value: '100% HIRARC' },
+                { label: 'Regulatory Body', value: 'DOSH Malaysia' }
             ],
-            stack: ['Rust', 'Kafka / Redpanda', 'ClickHouse', 'PostgreSQL Timescale', 'Docker', 'Prometheus'],
-            architecture: 'Lock-free ring-buffer architecture with event sourcing, write-ahead logging (WAL), and distributed snapshot isolation.',
+            stack: ['HIRARC Safety Frameworks', 'IRATA / High-Access Protocols', 'Method Statements', 'Risk Matrix Analysis', 'Emergency Rescue Systems'],
+            architecture: 'Multi-tiered fail-safe operational hierarchy enforcing dual-point rope access redundancy, daily pre-rigging inspections, and real-time anemometer wind cutoffs.',
             highlights: [
-                'Lock-free lockless memory queues achieving near bare-metal hardware throughput',
-                'Zero-copy serialization with flatbuffers and direct memory mapped files',
-                'Tamper-evident audit log with continuous Merkle tree verification'
+                'Zero lost-time incidents across 12+ consecutive months of 50+ story commercial operations',
+                'Comprehensive Method Statements and Risk Assessments approved by principal building managers',
+                'Certified emergency aerial evacuation and self-rescue operational capability'
+            ]
+        },
+        'wct-trx': {
+            title: 'TUN RAZAK EXCHANGE (TRX) MULTIDISCIPLINARY QA/QC',
+            category: '70-ACRE FINANCIAL DISTRICT MEGASTRUCTURE',
+            badge: '100% AUDIT COMPLIANCE',
+            tagline: 'Site engineering supervision, Non-Conformance Report (NCR) resolution, and structural QA/QC coordination across Malaysia’s $10B+ international financial landmark.',
+            blueprintSvg: `
+                <svg viewBox="0 0 540 180" class="blueprint-svg" aria-label="TRX Site QA/QC Schematic">
+                    <!-- Blueprint Ingestion -->
+                    <rect x="20" y="65" width="115" height="50" rx="6" fill="#14141E" stroke="#E2C08D" stroke-width="1.2" />
+                    <text x="77" y="90" fill="#FBF2DE" font-family="'JetBrains Mono', monospace" font-size="10" text-anchor="middle">SITE BLUEPRINT</text>
+                    <text x="77" y="103" fill="#34D399" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Structural Audit</text>
+                    <!-- Inspection Gate -->
+                    <line x1="135" y1="90" x2="200" y2="90" stroke="#E2C08D" stroke-width="1.5" stroke-dasharray="3 3" />
+                    <rect x="200" y="50" width="140" height="80" rx="8" fill="#1A1826" stroke="#D4AF37" stroke-width="1.5" />
+                    <text x="270" y="82" fill="#D4AF37" font-family="'JetBrains Mono', monospace" font-size="11" font-weight="bold" text-anchor="middle">NCR ROOT CAUSE</text>
+                    <text x="270" y="97" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">Corrective Action</text>
+                    <text x="270" y="112" fill="#888899" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="middle">Subcontractor Matrix</text>
+                    <!-- Closeout -->
+                    <path d="M 340 75 L 400 50" stroke="#E2C08D" stroke-width="1.2" />
+                    <path d="M 340 105 L 400 130" stroke="#E2C08D" stroke-width="1.2" />
+                    <rect x="400" y="30" width="125" height="40" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
+                    <text x="462" y="55" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">CONSULTANT SIGN</text>
+                    <rect x="400" y="110" width="125" height="40" rx="4" fill="#12121A" stroke="#888899" stroke-width="1" />
+                    <text x="462" y="135" fill="#E2C08D" font-family="'JetBrains Mono', monospace" font-size="9" text-anchor="middle">100% NCR CLOSED</text>
+                </svg>
+            `,
+            specs: [
+                { label: 'District Footprint', value: '70 Acres ($10B+)' },
+                { label: 'NCR Resolution', value: '100% Closed' },
+                { label: 'Inspection Protocol', value: 'Strict Factor-of-Safety' },
+                { label: 'Contractor Matrix', value: 'Multidisciplinary' }
+            ],
+            stack: ['AutoCAD', 'Structural QA/QC Matrices', 'Root-Cause NCR Protocol', 'Tolerance Metrology', 'BIM Coordination'],
+            architecture: 'Rigorous root-cause engineering workflow: inspection → non-conformance flag → corrective containment → consultant verification → formal closeout.',
+            highlights: [
+                'Coordinated multidisciplinary subcontractor teams under extreme zero-tolerance physical constraints',
+                'Eliminated defect cascades by catching structural tolerance drift prior to irreversible pour stages',
+                'Maintained pristine audit compliance trails recognized by international master developers'
             ]
         }
     };
+
+    // Backward-compatible aliases
+    systemData['swarm-ai'] = systemData['virin-digital'];
+    systemData['edge-core'] = systemData['rotol-group'];
+    systemData['luxury-craft'] = systemData['vinayak-tech'];
+    systemData['event-engine'] = systemData['wct-trx'];
 
     function initSystemDrawer() {
         const drawer = document.getElementById('system-drawer');

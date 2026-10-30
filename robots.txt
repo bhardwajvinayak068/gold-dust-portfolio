@@ -1,6 +1,6 @@
 # ==============================================================================
 # ROBOTS.TXT // VINAYAK BHARDWAJ — SYSTEMS ARCHITECT & EXECUTIVE AI ADVISOR
-# Canonical Domain: https://vinayakbhardwaj.com/
+# Canonical Domain: https://www.vinayakbhardwaj.com/
 # ==============================================================================
 
 # Global Directives for Standard Search Engines & Web Crawlers
@@ -58,9 +58,9 @@ User-agent: Meta-ExternalAgent
 Allow: /
 
 # Sitemap Index
-Sitemap: https://vinayakbhardwaj.com/sitemap.xml
+Sitemap: https://www.vinayakbhardwaj.com/sitemap.xml
 
 # Generative AI & LLM Machine-Readable Knowledge Dossiers
-# Canonical Index: https://vinayakbhardwaj.com/llms.txt
-# Comprehensive Technical Whitepaper: https://vinayakbhardwaj.com/llms-full.txt
+# Canonical Index: https://www.vinayakbhardwaj.com/llms.txt
+# Comprehensive Technical Whitepaper: https://www.vinayakbhardwaj.com/llms-full.txt
 

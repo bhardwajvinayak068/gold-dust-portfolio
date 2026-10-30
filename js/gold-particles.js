@@ -15,8 +15,8 @@
 
             this.ctx = this.canvas.getContext('2d', { alpha: true });
             this.options = Object.assign({
-                particleCount: window.innerWidth < 768 ? 380 : 900,
-                bokehCount: window.innerWidth < 768 ? 16 : 38,
+                particleCount: window.innerWidth < 768 ? 120 : 500,
+                bokehCount: window.innerWidth < 768 ? 8 : 24,
                 swirlSpeed: 0.0012,
                 cursorRadius: 190,
                 cursorStrength: 0.18
@@ -339,11 +339,15 @@
         }
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
+    function bootEngine() {
+        if (!window.goldDustEngine) {
             window.goldDustEngine = new GoldDustEngine('gold-canvas');
-        });
+        }
+    }
+
+    if (window.requestIdleCallback) {
+        window.requestIdleCallback(bootEngine, { timeout: 1200 });
     } else {
-        window.goldDustEngine = new GoldDustEngine('gold-canvas');
+        window.addEventListener('load', () => setTimeout(bootEngine, 100), { once: true });
     }
 })();

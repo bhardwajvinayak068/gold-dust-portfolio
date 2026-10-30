@@ -7,4 +7,5 @@ _v2-backup/
 .env*
 .agent/
 .agents/
+*.pdf
 
