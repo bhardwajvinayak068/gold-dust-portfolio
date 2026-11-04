@@ -5,7 +5,6 @@
    ========================================================================== */
 
 :root {
-    --font-body: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --ev-ink: #F5F4F0;
     --ev-ink-2: #C9C6BE;
     --ev-ink-3: #9A968C;
@@ -2409,5 +2408,402 @@ html {
     .ev-hero-copy > .ev-hero-logo,
     .ev-sub-hero-copy > .ev-hero-logo-link {
         margin-bottom: 0;
+    }
+}
+
+/* ==========================================================================
+   v7.0 Jury pass
+   One authored moment (the inspection), a headline that rises once,
+   page-to-page continuity, and feedback on everything you can press.
+   ========================================================================== */
+:root {
+    --ev-flag: #F87171;
+}
+
+/* Page transitions: same-origin navigations cross-fade, the VB mark carries over */
+@view-transition {
+    navigation: auto;
+}
+
+.ev-hero-logo {
+    view-transition-name: vb-mark;
+}
+
+::view-transition-old(root) {
+    animation: ev-vt-out 0.3s var(--ev-ease) both;
+}
+
+::view-transition-new(root) {
+    animation: ev-vt-in 0.55s var(--ev-ease) both;
+}
+
+::view-transition-group(vb-mark) {
+    animation-duration: 0.55s;
+    animation-timing-function: var(--ev-ease);
+}
+
+@keyframes ev-vt-out {
+    to { opacity: 0; transform: translateY(-1.5%); }
+}
+
+@keyframes ev-vt-in {
+    from { opacity: 0; transform: translateY(2%); }
+}
+
+/* Hero headline: each line rises out of its own baseline once, as the photo develops */
+.ev-hero-title .ev-line {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+}
+
+.ev-hero-title .ev-line > span {
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ev-hero-title .ev-line > span {
+        animation: ev-rise 1.05s var(--ev-ease) 0.1s both;
+    }
+
+    .ev-hero-title .ev-line + .ev-line > span {
+        animation-delay: 0.24s;
+    }
+}
+
+@keyframes ev-rise {
+    from { transform: translateY(108%); }
+}
+
+/* The portrait drifts slower than the page as the hero scrolls away */
+@supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+        .ev-hero-media picture {
+            animation: ev-drift linear both;
+            animation-timeline: scroll(root);
+            animation-range: 0 100vh;
+        }
+    }
+}
+
+@keyframes ev-drift {
+    to { transform: translateY(14%); }
+}
+
+/* Phone hero: shorter portrait so headline and both buttons fit the first screen */
+@media (max-width: 767px) {
+    .ev-hero-media {
+        aspect-ratio: 1 / 0.86;
+    }
+
+    .ev-hero-media img {
+        object-position: 70% 16%;
+    }
+
+    .ev-hero-inner {
+        margin-top: -4.25rem;
+    }
+
+    .ev-hero-logo {
+        height: 42px;
+    }
+
+    .ev-hero-copy {
+        gap: 0.95rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   The inspection: both loops on a drawing sheet. On wide screens the sheet pins
+   and a scan line sweeps it; a defect is flagged, traced and closed.
+   -------------------------------------------------------------------------- */
+.ev-inspect {
+    position: relative;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.ev-inspect .ev-loops {
+    position: relative;
+    margin-bottom: 0;
+    padding: clamp(0.75rem, 1.6vw, 1.25rem);
+    border: 1px solid var(--ev-line-soft);
+    border-radius: var(--ev-radius);
+    background-color: var(--bg-void);
+    background-image:
+        linear-gradient(rgba(245, 244, 240, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 244, 240, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+    background-position: -1px -1px;
+}
+
+.ev-inspect-readout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.25rem;
+    align-items: baseline;
+    margin: 0 0 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ev-ink-3);
+}
+
+.ev-readout-step {
+    min-width: 9ch;
+    color: var(--ev-gold);
+}
+
+.ev-scan {
+    display: none;
+}
+
+/* Steps that found a problem stay flagged until the whole loop is closed */
+.ev-loops.is-live:not(.is-complete) .ev-loop:not(.ev-loop-ai) li:nth-child(2).is-closed::before,
+.ev-loops.is-live:not(.is-complete) .ev-loop-ai li:nth-child(3).is-closed::before {
+    content: "!";
+    background: var(--ev-flag);
+    border-color: var(--ev-flag);
+    color: var(--bg-void);
+}
+
+@media (min-width: 900px) {
+    .ev-inspect.is-scrub {
+        height: 280vh;
+    }
+
+    .ev-inspect.is-scrub .ev-inspect-stage {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ev-inspect.is-scrub .ev-scan {
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        transform: translateX(calc(var(--p, 0) * 100%));
+        transition: opacity 0.4s var(--ev-ease);
+    }
+
+    .ev-scan::before {
+        content: "";
+        position: absolute;
+        top: -0.6rem;
+        bottom: -0.6rem;
+        left: 0;
+        width: 1px;
+        background: linear-gradient(180deg, transparent, var(--ev-gold) 10%, var(--ev-gold) 90%, transparent);
+    }
+
+    .ev-scan::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 100%;
+        width: 7rem;
+        background: linear-gradient(90deg, transparent, rgba(226, 192, 141, 0.06));
+    }
+
+    .ev-inspect.is-scrub .ev-loops.is-complete .ev-scan {
+        opacity: 0;
+    }
+
+    .ev-inspect.is-scrub .ev-loop-stamp {
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* Pinned, the sheet is the whole screen: the readout narrates, the steps read at a distance */
+    .ev-inspect.is-scrub .ev-inspect-readout {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: clamp(1.25rem, 3vh, 2rem);
+    }
+
+    .ev-inspect.is-scrub .ev-readout-step {
+        font-size: 0.85rem;
+    }
+
+    .ev-inspect.is-scrub .ev-readout-label {
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        color: var(--ev-ink);
+        min-height: 1.15em;
+    }
+
+    .ev-inspect.is-scrub .ev-loops {
+        gap: 1rem;
+        padding: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .ev-inspect.is-scrub .ev-loop {
+        padding: clamp(1.25rem, 3vh, 2rem) clamp(1.25rem, 2vw, 2rem);
+    }
+
+    .ev-inspect.is-scrub .ev-loop li {
+        padding-top: 2.9rem;
+        font-size: 0.98rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loop li span {
+        font-size: 1.15rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loop li::before {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.8rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loop li::after {
+        top: 1rem;
+        left: 2rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Services: heading holds still on the left, the three services pass on the right
+   -------------------------------------------------------------------------- */
+@media (min-width: 900px) {
+    .ev-services > .container {
+        display: grid;
+        grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+        column-gap: clamp(2.5rem, 5vw, 5rem);
+        align-items: start;
+    }
+
+    .ev-services .ev-section-head {
+        position: sticky;
+        top: clamp(2rem, 8vh, 5rem);
+        grid-column: 1;
+        grid-row: 1 / span 3;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+        margin-bottom: 0;
+    }
+
+    .ev-services .ev-section-head h2 {
+        font-size: clamp(1.75rem, 2.6vw, 2.4rem);
+    }
+
+    .ev-services .ev-section-head > p {
+        justify-self: start;
+        font-size: 1rem;
+        max-width: 34ch;
+    }
+
+    .ev-services .ev-row {
+        grid-column: 2;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 1.5rem;
+        align-items: start;
+    }
+
+    .ev-services .ev-row + .ev-row {
+        margin-top: clamp(4rem, 8vw, 6.5rem);
+    }
+
+    .ev-services .ev-row-flip .ev-row-media {
+        order: 0;
+    }
+
+    .ev-services .ev-row-media:not(.ev-device) img {
+        aspect-ratio: 16 / 9;
+    }
+
+    .ev-services .ev-row-copy {
+        display: grid;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        column-gap: 2rem;
+        row-gap: 0.75rem;
+        align-items: start;
+    }
+
+    .ev-services .ev-row-copy h3 {
+        grid-row: 1 / span 2;
+    }
+
+    .ev-services .ev-row-copy .ev-link {
+        grid-column: 2;
+        justify-self: start;
+    }
+
+    /* Middle service steps in from the right edge: breaks the column without flipping it */
+    .ev-services .ev-row:nth-of-type(2) {
+        margin-left: clamp(0rem, 7vw, 6rem);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Feedback: everything pressable answers the pointer
+   -------------------------------------------------------------------------- */
+.btn,
+.btn-submit-inquiry,
+.btn-copy-brief {
+    transition: transform 0.25s var(--ev-ease), background-color 0.25s var(--ev-ease), border-color 0.25s var(--ev-ease), color 0.25s var(--ev-ease), box-shadow 0.25s var(--ev-ease);
+}
+
+.btn:active,
+.btn-submit-inquiry:active,
+.btn-copy-brief:active,
+.ev-video-btn:active {
+    transform: translateY(1px) scale(0.985);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .ev-row-media {
+        transition: transform 0.7s var(--ev-ease);
+    }
+
+    .ev-row-media img {
+        transition: border-color 0.5s var(--ev-ease);
+    }
+
+    .ev-row:hover .ev-row-media {
+        transform: translateY(-4px);
+    }
+
+    .ev-row:hover .ev-row-media img {
+        border-color: var(--ev-line);
+    }
+
+    .ev-records li {
+        transition: background-color 0.3s var(--ev-ease);
+    }
+
+    .ev-records li:hover {
+        background-color: rgba(226, 192, 141, 0.035);
+    }
+
+    .ev-rec-years {
+        transition: color 0.3s var(--ev-ease);
+    }
+
+    .ev-records li:hover .ev-rec-years {
+        color: var(--ev-gold);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+
+    .ev-row-media,
+    .ev-row:hover .ev-row-media {
+        transform: none;
     }
 }
