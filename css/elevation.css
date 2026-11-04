@@ -4343,3 +4343,14 @@ html.is-blueprint .ev-thread {
         display: none;
     }
 }
+
+/* The seated portrait leans left: shift it so the face, not the body, sits on the centre line */
+.ev-stage:not(.ev-stage-sub) .ev-stage-figure {
+    margin-left: 5vw;
+}
+
+@media (max-width: 767px) {
+    .ev-stage:not(.ev-stage-sub) .ev-stage-figure {
+        margin-left: 7vw;
+    }
+}
