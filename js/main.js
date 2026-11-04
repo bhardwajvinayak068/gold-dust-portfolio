@@ -348,7 +348,6 @@
         bp.className = 'ev-tool';
         bp.setAttribute('aria-pressed', 'false');
         bp.innerHTML = '<span class="ev-tool-long">See how it\'s built</span><span class="ev-tool-short">How it\'s built</span><kbd>B</kbd>';
-        bp.setAttribute('aria-label', 'See how this page is built (blueprint view)');
 
         const snd = document.createElement('button');
         snd.type = 'button';
@@ -400,6 +399,37 @@
         });
     }
 
+    // Hero x-ray: on a mouse, a lens follows the cursor and shows the blueprint under the page
+    function initLens() {
+        const hero = document.querySelector('.ev-stage-xray');
+        if (!hero || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        const radius = Math.round(Math.min(170, Math.max(110, window.innerWidth * 0.1)));
+        let frame = 0;
+        let x = 0;
+        let y = 0;
+        hero.addEventListener('pointermove', (e) => {
+            if (hero.classList.contains('is-sweeping')) return;
+            const r = hero.getBoundingClientRect();
+            x = e.clientX - r.left;
+            y = e.clientY - r.top;
+            if (!hero.classList.contains('is-lens')) {
+                hero.classList.add('is-lens', 'has-lensed');
+                hero.style.setProperty('--lr', `${radius}px`);
+            }
+            if (!frame) {
+                frame = requestAnimationFrame(() => {
+                    frame = 0;
+                    hero.style.setProperty('--mx', `${x}px`);
+                    hero.style.setProperty('--my', `${y}px`);
+                });
+            }
+        }, { passive: true });
+        hero.addEventListener('pointerleave', () => {
+            hero.classList.remove('is-lens');
+            hero.style.setProperty('--lr', '0px');
+        });
+    }
+
     // Leaving the tab: the title keeps working
     function initTitle() {
         const original = document.title;
@@ -419,7 +449,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread, initTools, initTitle].forEach((init) => {
+        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread, initTools, initTitle, initLens].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });
