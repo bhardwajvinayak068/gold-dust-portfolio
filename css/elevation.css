@@ -4489,3 +4489,232 @@ html.is-blueprint .ev-thread {
 .form-privacy a {
     color: var(--ev-ink-2);
 }
+
+/* ==========================================================================
+   v17 Drawing-sheet components: stats, plates, index, enquiry sheet
+   ========================================================================== */
+.ev-intro-grid {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+.ev-intro-main {
+    max-width: 62rem;
+}
+
+.ev-intro-kicker {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ev-gold);
+}
+
+.ev-stats {
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--ev-line);
+    border-left: 1px solid var(--ev-line-soft);
+}
+
+.ev-stats li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: clamp(1rem, 2vw, 1.75rem);
+    border-right: 1px solid var(--ev-line-soft);
+    border-bottom: 1px solid var(--ev-line-soft);
+}
+
+.ev-stat-num {
+    font-family: 'Space Grotesk', var(--font-body);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: var(--ev-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.ev-stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--ev-ink-3);
+}
+
+@media (max-width: 767px) {
+    .ev-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Episodes: numbered plates with crop marks, square like a drawing sheet */
+.ev-video-grid {
+    counter-reset: plate;
+}
+
+.ev-video {
+    counter-increment: plate;
+    position: relative;
+    padding: 0.75rem 0.75rem 1rem;
+    border: 1px solid var(--ev-line-soft);
+    background-image:
+        linear-gradient(rgba(245, 244, 240, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 244, 240, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    transition: border-color 0.4s var(--ev-ease);
+}
+
+.ev-video:hover {
+    border-color: var(--ev-gold);
+}
+
+.ev-video::before {
+    content: "EP " counter(plate, decimal-leading-zero);
+    display: block;
+    margin: 0 0 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ev-gold);
+}
+
+.ev-video-btn,
+.ev-video iframe {
+    border-radius: 0;
+    border-color: var(--ev-line);
+}
+
+.ev-video h3,
+.ev-video-meta {
+    padding: 0 0.1rem;
+}
+
+/* Questions: an indexed list, the open one marked with a gold rule */
+.ev-faq-list {
+    counter-reset: q;
+    max-width: none;
+}
+
+.ev-faq-item {
+    counter-increment: q;
+    position: relative;
+    transition: background-color 0.35s var(--ev-ease);
+}
+
+.ev-faq-item summary {
+    padding-left: 4rem;
+}
+
+.ev-faq-item summary::before {
+    content: "Q" counter(q, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--ev-ink-3);
+    transition: color 0.3s ease;
+}
+
+.ev-faq-item[open] summary::before,
+.ev-faq-item summary:hover::before {
+    color: var(--ev-gold);
+}
+
+.ev-faq-item[open]::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: -1px;
+    width: 2px;
+    background: var(--ev-gold);
+}
+
+.ev-faq-item[open] {
+    background-image: linear-gradient(90deg, rgba(226, 192, 141, 0.06), transparent 40%);
+}
+
+.ev-faq-item p {
+    padding-left: 4rem;
+}
+
+@media (max-width: 599px) {
+    .ev-faq-item summary,
+    .ev-faq-item p {
+        padding-left: 3rem;
+    }
+}
+
+/* Enquiry: a sheet to fill in, not a floating card */
+.ev-contact .contact-form-panel {
+    position: relative;
+    counter-reset: field;
+    border-radius: 2px;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    border: 1px solid var(--ev-line);
+    background-color: var(--bg-void);
+    background-image:
+        linear-gradient(rgba(245, 244, 240, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 244, 240, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+    padding: clamp(1.75rem, 3.5vw, 3rem);
+}
+
+.ev-contact .contact-form-panel::before {
+    content: "Enquiry sheet · 01";
+    position: absolute;
+    top: 0;
+    right: clamp(1rem, 2.5vw, 2rem);
+    transform: translateY(-50%) rotate(-2deg);
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--ev-gold);
+    border-radius: 3px;
+    background: var(--bg-void);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ev-gold);
+}
+
+.ev-contact .form-group {
+    counter-increment: field;
+}
+
+.ev-contact .form-label::before {
+    content: counter(field, decimal-leading-zero) " / ";
+    color: var(--ev-gold);
+}
+
+.ev-contact .form-input,
+.ev-contact .form-textarea,
+.ev-contact .form-select {
+    border-radius: 2px;
+    background-color: rgba(10, 11, 14, 0.9);
+    border-color: var(--ev-line);
+}
+
+.ev-contact .form-input:focus,
+.ev-contact .form-textarea:focus,
+.ev-contact .form-select:focus {
+    box-shadow: 0 0 0 1px var(--ev-gold);
+}
+
+.ev-contact .btn-submit-inquiry {
+    border-radius: 2px;
+}
+
+@media (max-width: 767px) {
+    .ev-contact .contact-form-panel::before {
+        right: 1rem;
+    }
+}
