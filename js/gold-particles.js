@@ -51,6 +51,8 @@
                 const currentY = window.scrollY;
                 this.scroll.targetVelocity = (currentY - this.scroll.lastY) * 0.45;
                 this.scroll.lastY = currentY;
+                // Hold the canvas still while the page moves, so scrolling gets the whole frame
+                this.scrollingUntil = performance.now() + 140;
             }, { passive: true });
 
             // Intersection Observer to pause when offscreen
@@ -314,8 +316,10 @@
         render(currentTime) {
             if (!this.isRunning && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
 
-            // Draw at most ~60 times a second: 120 Hz screens would otherwise double the work while scrolling
-            if (this.lastDraw && currentTime - this.lastDraw < 15) {
+            // Draw at most ~60 times a second, and not at all while the page is scrolling;
+            // the headline assembly is the exception, it only plays at the top of the page
+            const scrolling = !this.assembly && this.scrollingUntil && currentTime < this.scrollingUntil;
+            if (scrolling || (this.lastDraw && currentTime - this.lastDraw < 15)) {
                 if (this.isRunning) requestAnimationFrame((t) => this.render(t));
                 return;
             }
@@ -509,6 +513,12 @@
     }
 
     function bootEngine() {
+        // ?nodust turns the canvas off, for comparing scroll feel on a given machine
+        if (/[?&]nodust\b/.test(location.search)) {
+            const stage = document.querySelector('.ev-stage.is-assembling');
+            if (stage) stage.classList.replace('is-assembling', 'is-assembled');
+            return;
+        }
         if (!window.goldDustEngine) {
             window.goldDustEngine = new GoldDustEngine('gold-canvas');
         }

@@ -281,6 +281,8 @@
 
     // Eased wheel scrolling on mouse and trackpad; touch screens and reduced motion keep native scrolling
     function initSmoothScroll() {
+        // ?native turns eased scrolling off, for comparing feel on a given machine
+        if (/[?&]native\b/.test(location.search)) return;
         if (reduceMotion || typeof window.Lenis !== 'function' || !window.matchMedia('(pointer: fine)').matches) return;
         const lenis = new window.Lenis({ lerp: 0.11, smoothWheel: true, anchors: true });
         const frame = (t) => {

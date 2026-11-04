@@ -67,9 +67,12 @@
         return;
     }
 
-    let last = 0;
+    let lastProgress = -1;
     function update() {
         const vh = window.innerHeight;
+        // Asleep while the loop is more than a screen away: no layout reads on the rest of the page
+        const near = (inspect || group).getBoundingClientRect();
+        if (near.bottom < -vh || near.top > vh * 2) return;
         const pinned = wide.matches && inspect;
         if (inspect) inspect.classList.toggle('is-scrub', Boolean(pinned));
         let progress;
@@ -85,6 +88,8 @@
             progress = (start - rect.top) / (start - end);
         }
         progress = Math.min(1, Math.max(0, progress));
+        if (Math.abs(progress - lastProgress) < 0.0005) return;
+        lastProgress = progress;
         group.style.setProperty('--p', progress.toFixed(4));
         if (pinned) {
             // A step closes as the scan line reaches its node; the stamp waits for the end of the sheet
@@ -97,15 +102,12 @@
     }
     wide.addEventListener('change', update);
 
-    // One rect read per frame for a smooth scan line; the time fallback covers tabs that throttle rAF
+    // At most one rect read per frame, inside the frame
     let queued = false;
     window.addEventListener('scroll', () => {
-        if (!queued) {
-            queued = true;
-            requestAnimationFrame(() => { queued = false; update(); });
-        }
-        const now = performance.now();
-        if (now - last > 100) { last = now; update(); }
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => { queued = false; update(); });
     }, { passive: true });
     window.addEventListener('scrollend', update, { passive: true });
     window.addEventListener('resize', update, { passive: true });
