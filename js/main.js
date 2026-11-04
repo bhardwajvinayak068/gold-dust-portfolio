@@ -348,7 +348,6 @@
         bp.className = 'ev-tool';
         bp.setAttribute('aria-pressed', 'false');
         bp.innerHTML = '<span class="ev-tool-long">See how it\'s built</span><span class="ev-tool-short">How it\'s built</span><kbd>B</kbd>';
-        bp.setAttribute('aria-label', 'See how this page is built (blueprint view)');
 
         const snd = document.createElement('button');
         snd.type = 'button';

@@ -4337,12 +4337,9 @@ html.is-blueprint .ev-thread {
     display: none;
 }
 
+/* Phones: the tools would float over the text; blueprint mode is a pointer experience */
 @media (max-width: 599px) {
-    .ev-tool-long {
+    .ev-tools {
         display: none;
-    }
-
-    .ev-tool-short {
-        display: inline;
     }
 }
