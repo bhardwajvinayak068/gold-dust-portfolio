@@ -262,7 +262,7 @@
                 entry.target.classList.add('is-built');
                 observer.unobserve(entry.target);
             });
-        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+        }, { rootMargin: '0px 0px 40% 0px', threshold: 0 });
         targets.forEach((el) => {
             el.classList.add('ev-build');
             const line = document.createElement('span');
@@ -270,7 +270,7 @@
             line.setAttribute('aria-hidden', 'true');
             el.prepend(line);
             // Anything already on screen is built at once, so nothing visible ever blinks out
-            if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('is-built');
+            if (el.getBoundingClientRect().top < window.innerHeight * 1.4) el.classList.add('is-built');
             else observer.observe(el);
         });
     }
