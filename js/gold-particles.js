@@ -21,6 +21,11 @@
                 cursorRadius: 190,
                 cursorStrength: 0.18
             }, options);
+            // The dust's job is the headline; after that only a light sprinkle stays behind the portrait
+            if (this.canvas.dataset.settle === 'grid') {
+                this.options.particleCount = window.innerWidth < 768 ? 40 : 90;
+                this.options.bokehCount = 0;
+            }
 
             this.particles = [];
             this.bokeh = [];

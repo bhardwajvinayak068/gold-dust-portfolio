@@ -45,6 +45,7 @@
         if (state === shown) return;
         shown = state;
         steps.forEach((list) => list.forEach((li, i) => li.classList.toggle('is-closed', i < closed)));
+        if (complete && !group.classList.contains('is-complete') && window.siteSound) window.siteSound.play('stamp');
         group.classList.toggle('is-complete', complete);
         if (!readStep) return;
         if (closed === 0) {

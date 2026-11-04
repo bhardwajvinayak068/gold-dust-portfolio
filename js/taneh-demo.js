@@ -236,6 +236,7 @@
         for (let k = 1; k < move.path.length; k++) {
             stone.at = move.path[k];
             placeStone(stone);
+            if (window.siteSound) window.siteSound.play(move.captured[k - 1] !== undefined ? 'capture' : 'stone');
             const jumped = move.captured[k - 1];
             if (jumped !== undefined) {
                 const victim = stones.find((s) => s.at === jumped && s.owner === other(player));

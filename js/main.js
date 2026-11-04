@@ -235,6 +235,7 @@
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
                 entry.target.classList.add('is-in');
+                if (entry.target.matches('[data-sheet]')) setTimeout(() => sound.play('stamp'), 800);
                 observer.unobserve(entry.target);
             });
         }, { rootMargin: '0px 0px -20% 0px', threshold: 0.35 });
@@ -250,6 +251,11 @@
         const targets = document.querySelectorAll('main > section:not(.ev-stage), main .container > section, .ev-case, .ev-services .ev-row');
         if (!targets.length) return;
         document.documentElement.classList.add('is-build');
+        // Printing shows everything finished, wherever the reader had scrolled to
+        window.addEventListener('beforeprint', () => {
+            document.querySelectorAll('.ev-build').forEach((el) => el.classList.add('is-built'));
+            document.querySelectorAll('[data-sheet], [data-route] > li').forEach((el) => el.classList.add('is-in'));
+        });
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
@@ -293,6 +299,112 @@
         window.siteScroll = lenis;
     }
 
+    // Sound, off unless the visitor turns it on: short synthesized cues, no audio files
+    const sound = {
+        on: false,
+        ctx: null,
+        play(name) {
+            if (!this.on || !this.ctx) return;
+            const ctx = this.ctx;
+            const now = ctx.currentTime;
+            const tone = (type, from, to, length, level) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(from, now);
+                osc.frequency.exponentialRampToValueAtTime(to, now + length);
+                gain.gain.setValueAtTime(level, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + length);
+                osc.connect(gain).connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + length + 0.02);
+            };
+            if (name === 'stamp') { tone('sine', 140, 55, 0.18, 0.22); tone('triangle', 900, 300, 0.05, 0.05); }
+            if (name === 'stone') tone('triangle', 720, 380, 0.07, 0.09);
+            if (name === 'capture') { tone('triangle', 520, 180, 0.12, 0.1); tone('sine', 220, 90, 0.16, 0.12); }
+            if (name === 'tick') tone('square', 1800, 1400, 0.03, 0.025);
+        },
+    };
+    window.siteSound = sound;
+
+    function store(key, value) {
+        try {
+            if (value === undefined) return localStorage.getItem(key);
+            localStorage.setItem(key, value);
+        } catch (err) { /* private mode or blocked storage: the choice just is not remembered */ }
+        return null;
+    }
+
+    // Bottom-left tools: Blueprint (key B) and Sound
+    function initTools() {
+        if (!document.querySelector('main')) return;
+        const bar = document.createElement('div');
+        bar.className = 'ev-tools';
+        bar.setAttribute('role', 'toolbar');
+        bar.setAttribute('aria-label', 'Page tools');
+
+        const bp = document.createElement('button');
+        bp.type = 'button';
+        bp.className = 'ev-tool';
+        bp.setAttribute('aria-pressed', 'false');
+        bp.innerHTML = '<span>Blueprint</span><kbd>B</kbd>';
+
+        const snd = document.createElement('button');
+        snd.type = 'button';
+        snd.className = 'ev-tool';
+        snd.setAttribute('aria-pressed', 'false');
+        snd.textContent = 'Sound';
+
+        bar.append(bp, snd);
+        document.body.appendChild(bar);
+
+        let loading = null;
+        const loadBlueprint = () => loading || (loading = new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = '/js/blueprint.js?v=1.2';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+        }));
+        async function toggleBlueprint(force) {
+            await loadBlueprint();
+            const on = window.siteBlueprint.set(force === undefined ? !window.siteBlueprint.isOn() : force);
+            bp.setAttribute('aria-pressed', String(on));
+            sound.play('tick');
+        }
+        bp.addEventListener('click', () => toggleBlueprint().catch(() => {}));
+        window.addEventListener('keydown', (e) => {
+            if ((e.target.closest && e.target.closest('input, textarea, select')) || e.metaKey || e.ctrlKey || e.altKey) return;
+            if (e.key === 'b' || e.key === 'B') toggleBlueprint().catch(() => {});
+            if (e.key === 'Escape' && window.siteBlueprint && window.siteBlueprint.isOn()) toggleBlueprint(false);
+        });
+
+        function setSound(on) {
+            sound.on = on;
+            if (on && !sound.ctx) {
+                const AC = window.AudioContext || window.webkitAudioContext;
+                if (AC) sound.ctx = new AC();
+            }
+            if (sound.ctx && sound.ctx.state === 'suspended') sound.ctx.resume();
+            snd.setAttribute('aria-pressed', String(on));
+            snd.textContent = on ? 'Sound on' : 'Sound';
+            store('vb-sound', on ? '1' : '0');
+        }
+        // A remembered "on" still waits for a click: browsers only allow audio after a gesture
+        snd.addEventListener('click', () => {
+            setSound(!sound.on);
+            sound.play('tick');
+        });
+    }
+
+    // Leaving the tab: the title keeps working
+    function initTitle() {
+        const original = document.title;
+        document.addEventListener('visibilitychange', () => {
+            document.title = document.hidden ? 'Still building… · Vinayak Bhardwaj' : original;
+        });
+    }
+
     // 404: write the address that was asked for into the report
     function initNotFound() {
         const path = document.querySelector('.nf-path');
@@ -304,7 +416,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread].forEach((init) => {
+        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread, initTools, initTitle].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });
