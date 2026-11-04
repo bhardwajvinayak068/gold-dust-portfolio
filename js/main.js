@@ -269,28 +269,19 @@
             h.dataset.words = '1';
             h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
             let i = 0;
-            const wrap = (node) => {
+            const wrap = (n) => {
                 const w = document.createElement('span');
+                const inner = document.createElement('span');
                 w.className = 'ev-w';
                 w.setAttribute('aria-hidden', 'true');
                 w.style.setProperty('--wi', i++);
-                const inner = document.createElement('span');
-                inner.appendChild(node);
-                w.appendChild(inner);
+                inner.append(n);
+                w.append(inner);
                 return w;
             };
-            Array.from(h.childNodes).forEach((node) => {
-                if (node.nodeType === 3) {
-                    const frag = document.createDocumentFragment();
-                    node.textContent.split(/(\s+)/).forEach((part) => {
-                        if (!part) return;
-                        frag.appendChild(/^\s+$/.test(part) ? document.createTextNode(' ') : wrap(document.createTextNode(part)));
-                    });
-                    h.replaceChild(frag, node);
-                } else if (node.nodeType === 1) {
-                    h.replaceChild(wrap(node.cloneNode(true)), node);
-                }
-            });
+            h.replaceChildren(...Array.from(h.childNodes).flatMap((n) => (n.nodeType === 3
+                ? n.textContent.split(/(\s+)/).filter(Boolean).map((p) => (/^\s/.test(p) ? ' ' : wrap(p)))
+                : [wrap(n)])));
         };
         targets.forEach((el) => {
             el.querySelectorAll('h2').forEach(setWords);
