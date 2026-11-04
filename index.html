@@ -329,7 +329,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=14.2">
+    <link rel="stylesheet" href="css/site.css?v=13.4">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -392,44 +392,24 @@
         <!-- ==========================================================================
              HERO: the portrait carries the page, gold dust drifts behind it
              ========================================================================== -->
-        <section class="ev-hero ev-stage ev-stage-xray" id="hero" aria-labelledby="hero-title">
-            <script>/* Start as a blueprint, then build: set before first paint so nothing flashes */(function(h){if(!h||matchMedia('(prefers-reduced-motion: reduce)').matches||scrollY>40)return;h.classList.add('is-sweeping');setTimeout(function(){h.classList.remove('is-sweeping');h.classList.add('is-built-hero')},3200)})(document.getElementById('hero'))</script>
-            <div class="ev-stage-plan" aria-hidden="true">
-                <span class="ev-stage-back ev-plan-back"><span class="ev-pchar">B</span><span class="ev-pchar">u</span><span class="ev-pchar">i</span><span class="ev-pchar">l</span><span class="ev-pchar">t</span><span class="ev-pchar">,</span></span>
-                <figure class="ev-stage-figure ev-plan-figure">
-                    <picture>
-                        <source type="image/avif" srcset="assets/media/hero-lines-480.avif?v=2 480w, assets/media/hero-lines-1000.avif?v=2 1000w" sizes="(max-width: 767px) 90vw, 46vw">
-                        <img src="assets/media/hero-lines-1000.webp?v=2" srcset="assets/media/hero-lines-480.webp?v=2 480w, assets/media/hero-lines-1000.webp?v=2 1000w" sizes="(max-width: 767px) 90vw, 46vw" alt="" width="1312" height="1594" decoding="async">
-                    </picture>
-                </figure>
-                <span class="ev-stage-front ev-plan-front">not just designed.</span>
-                <span class="ev-plan-note ev-plan-note-a">H1 · Space Grotesk 700 · 27vw · tracking −5.5%</span>
-                <span class="ev-plan-note ev-plan-note-b">Portrait · 1312 × 1594 · cut out, masked 72% → 100%</span>
-                <span class="ev-plan-note ev-plan-note-c">Gold #E2C08D · Ink #F5F4F0 · Void #070709</span>
-                <span class="ev-plan-axis ev-plan-axis-x"></span>
-                <span class="ev-plan-axis ev-plan-axis-y"></span>
+        <section class="ev-hero ev-stage" id="hero" aria-labelledby="hero-title">
+            <canvas id="gold-canvas" class="ev-hero-dust" data-settle="grid" aria-hidden="true"></canvas>
+            <div class="ev-stage-top container">
+                <img class="ev-hero-logo" src="assets/brand/vb-mark.svg" alt="" width="855" height="646">
+                <p class="ev-kicker">Vinayak Bhardwaj · Kuala Lumpur</p>
             </div>
-            <div class="ev-stage-built">
-                <canvas id="gold-canvas" class="ev-hero-dust" data-settle="grid" aria-hidden="true"></canvas>
-                <h1 class="ev-stage-title" id="hero-title">
+            <h1 class="ev-stage-title" id="hero-title">
                 <span class="ev-stage-back" aria-hidden="true"><span class="ev-char" style="--i:0">B</span><span class="ev-char" style="--i:1">u</span><span class="ev-char" style="--i:2">i</span><span class="ev-char" style="--i:3">l</span><span class="ev-char" style="--i:4">t</span><span class="ev-char" style="--i:5">,</span></span>
                 <span class="ev-stage-front"><span class="visually-hidden">Built, </span><span class="ev-word" style="--i:0">not</span> <span class="ev-word" style="--i:1">just</span> <span class="ev-word" style="--i:2">designed.</span></span>
             </h1>
-                <figure class="ev-stage-figure">
+            <script>/* Hide "Built," until the dust has assembled it; never longer than 4.5 s */(function(h){if(!h||matchMedia('(prefers-reduced-motion: reduce)').matches||scrollY>40)return;h.classList.add('is-assembling');setTimeout(function(){h.classList.replace('is-assembling','is-assembled')},4500)})(document.getElementById('hero'))</script>
+            <figure class="ev-stage-figure">
                 <picture>
                     <source type="image/avif" srcset="assets/media/hero-cut-480.avif 480w, assets/media/hero-cut-800.avif 800w, assets/media/hero-cut-1200.avif 1200w" sizes="(max-width: 767px) 90vw, 46vw">
                     <source type="image/webp" srcset="assets/media/hero-cut-480.webp 480w, assets/media/hero-cut-800.webp 800w, assets/media/hero-cut-1200.webp 1200w" sizes="(max-width: 767px) 90vw, 46vw">
                     <img src="assets/media/hero-cut-800.webp" alt="Vinayak Bhardwaj in a navy blazer, looking off to the side" width="1312" height="1594" fetchpriority="high" decoding="async">
                 </picture>
             </figure>
-            </div>
-            <span class="ev-stage-scan" aria-hidden="true"></span>
-            <span class="ev-stage-lens" aria-hidden="true"><span>Blueprint</span></span>
-            <p class="ev-stage-hint" aria-hidden="true">Move your cursor over the page to see its blueprint</p>
-            <div class="ev-stage-top container">
-                <img class="ev-hero-logo" src="assets/brand/vb-mark.svg" alt="" width="855" height="646">
-                <p class="ev-kicker">Vinayak Bhardwaj · Kuala Lumpur</p>
-            </div>
             <a class="ev-stage-cue" href="#intro">Scroll</a>
         </section>
 
@@ -873,7 +853,7 @@
     </div>
     <script src="js/gold-particles.js?v=5.4" defer></script>
     <script src="js/lenis.min.js?v=1.1.20" defer></script>
-    <script src="js/main.js?v=8.6" defer></script>
+    <script src="js/main.js?v=8.4" defer></script>
     <script src="js/elevation.js?v=6.3" defer></script>
     <script src="js/taneh-demo.js?v=1.2" defer></script>
 
