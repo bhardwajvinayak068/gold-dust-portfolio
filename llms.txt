@@ -1,30 +1,34 @@
 # Vinayak Bhardwaj
 
-> Mechanical engineer based in Kuala Lumpur, Malaysia. Worked on Malaysian job sites since September 2018: QA/QC on commercial builds, site engineering and structural QA/QC on the 70-acre Tun Razak Exchange (TRX) with WCT, and rope-access façade operations on Menara Maybank and KLCC-district towers with Rotol Group. Now builds AI agent workflows and websites through Virin Digital, and produces long-form documentaries on Vinayak Tech.
+> Founder of Virin Digital in Kuala Lumpur, Malaysia. Designs and hand-builds websites, builds AI agent workflows and automation for businesses, produces long-form documentaries on the YouTube channel Vinayak Tech, and is developing 12 Taneh, a mobile strategy game for Android. Every project goes through the same loop: brief, build, check, ship.
 
 ## Pages
 
-- [Home](https://www.vinayakbhardwaj.com/): services, method, career route, recent episodes, contact.
-- [Case studies](https://www.vinayakbhardwaj.com/projects): Virin Digital, Vinayak Tech, Rotol Group, Tun Razak Exchange. Problem, process and result for each.
-- [About](https://www.vinayakbhardwaj.com/about): work history, background and how he works.
+- [Home](https://www.vinayakbhardwaj.com/): what he makes, the build loop, recent episodes, contact.
+- [Case studies](https://www.vinayakbhardwaj.com/projects): Virin Digital, Vinayak Tech, 12 Taneh, and this website. Problem, process and result for each.
+- [About](https://www.vinayakbhardwaj.com/about): what he is building now, engineering background, how he works.
 - [AI automation in Kuala Lumpur](https://www.vinayakbhardwaj.com/ai-automation-kuala-lumpur): what gets automated, how a project runs, questions.
 - [Web design in Kuala Lumpur](https://www.vinayakbhardwaj.com/web-design-kuala-lumpur): what every site gets, how a project runs, questions.
-- [From NCR to AI](https://www.vinayakbhardwaj.com/ncr-to-ai): article on how the site QA loop shapes the way he checks AI agent output.
+- [How I check AI agent output](https://www.vinayakbhardwaj.com/how-i-check-ai-output): article on building AI workflows that are safe to rely on.
 - [Full profile](https://www.vinayakbhardwaj.com/llms-full.txt): the same facts in one long text file.
 
 ## Services (Kuala Lumpur)
 
-- AI agent workflows and automation: manual processes such as lead intake, reporting or document checks, rebuilt as agent pipelines with a checking step and a cost cap.
 - Websites: hand-built sites for founders and service businesses, fast on phones and readable by search engines and AI assistants.
+- AI agent workflows and automation: manual processes such as lead intake, reporting or document checks, rebuilt as agent pipelines with a checking step and a cost cap.
 - Documentary and explainer video: research from primary documents, motion graphics in Remotion, audio mastered to -14 LUFS.
+
+## Projects
+
+- Virin Digital: his studio, founded January 2024. Website: https://www.virindigital.com/
+- Vinayak Tech: YouTube channel with six long-form episodes since September 2026. https://www.youtube.com/@Vinayak_ai_tech
+- 12 Taneh (also Bara Tehni, Alquerque Royale): traditional South Asian strategy board game rebuilt for Android with four AI opponents, daily puzzles and offline play. In testing, coming to Google Play.
+- vinayakbhardwaj.com: hand-built, scoring 99–100 in Google Lighthouse on every page.
 
 ## Facts
 
 - Base: Kuala Lumpur, Malaysia, since September 2018.
-- Education: B.Tech in Mechanical Engineering, Sharda University, 2012–2016.
-- Safety record: zero lost-time incidents over 12+ consecutive months of rope-access operations (Rotol Group, 2024–present).
-- TRX (WCT, 2021–2024): every Non-Conformance Report in his zones closed at root cause.
-- Vinayak Tech: six long-form episodes published since September 2026.
+- Background: eight years in mechanical engineering and QA/QC; B.Tech in Mechanical Engineering, Sharda University.
 - Languages: English, Bahasa Melayu, Hindi, Punjabi.
 
 ## Contact

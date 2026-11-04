@@ -3239,3 +3239,143 @@ html.has-ev-cursor select {
     outline: 2px solid var(--ev-gold);
     outline-offset: 4px;
 }
+
+/* ==========================================================================
+   v8.0 Maker-first: four tracks on the build loop, the game on a phone
+   ========================================================================== */
+.ev-loops-4 .ev-loop ol {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* The check step is the one that can fail: it stays flagged until the loop ships */
+.ev-loops-4.is-live:not(.is-complete) .ev-loop li:nth-child(3).is-closed::before {
+    content: "!";
+    background: var(--ev-flag);
+    border-color: var(--ev-flag);
+    color: var(--bg-void);
+}
+
+.ev-loops-4.is-live:not(.is-complete) .ev-loop:not(.ev-loop-ai) li:nth-child(2).is-closed::before {
+    content: "✓";
+    background: var(--ev-gold);
+    border-color: var(--ev-gold);
+}
+
+@media (min-width: 900px) {
+    .ev-loops-4 {
+        display: grid;
+        gap: 0.6rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loops-4 .ev-loop {
+        padding: 0.9rem 1.5rem 1rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loops-4 .ev-loop-name {
+        margin-bottom: 0.7rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loops-4 .ev-loop li {
+        padding-top: 2.5rem;
+        font-size: 0.92rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loops-4 .ev-loop li span {
+        font-size: 1.05rem;
+    }
+
+    .ev-inspect.is-scrub .ev-loops-4 .ev-loop-stamp {
+        top: 0.7rem;
+    }
+}
+
+@media (max-width: 899px) {
+    .ev-loops-4 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ev-loops-4 .ev-loop ol {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 599px) {
+    .ev-loops-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* A phone screenshot shown as a phone: framed, centred on a drawing sheet */
+.ev-phone {
+    display: grid;
+    place-items: center;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: 1px solid var(--ev-line-soft);
+    border-radius: var(--ev-radius);
+    background-color: var(--bg-void);
+    background-image:
+        linear-gradient(rgba(245, 244, 240, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 244, 240, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+.ev-phone picture {
+    display: block;
+    width: min(100%, 15rem);
+}
+
+.ev-phone img,
+.ev-services .ev-row-media.ev-phone img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 390 / 866;
+    object-fit: cover;
+    border-radius: 22px;
+    border: 3px solid #1C1C24;
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.9);
+}
+
+@media (min-width: 900px) {
+    .ev-services .ev-phone {
+        aspect-ratio: 16 / 9;
+        padding: 1.25rem;
+    }
+
+    .ev-services .ev-phone picture {
+        width: auto;
+        height: 100%;
+    }
+
+    .ev-services .ev-row-media.ev-phone img {
+        width: auto;
+        height: 100%;
+    }
+}
+
+.ev-case-media.ev-phone {
+    max-width: none;
+}
+
+.ev-case-media.ev-phone > picture {
+    width: min(100%, 15rem);
+}
+
+.ev-case-media.ev-phone > picture img {
+    aspect-ratio: 390 / 866;
+    border-radius: 22px;
+    border: 3px solid #1C1C24;
+}
+
+/* About: the engineering years as a quiet, compact list under the current work */
+.ev-records-compact li {
+    padding-block: 0.85rem;
+}
+
+.ev-records-compact h3 {
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+}
+
+.ev-records-compact p {
+    font-size: 0.95rem;
+}

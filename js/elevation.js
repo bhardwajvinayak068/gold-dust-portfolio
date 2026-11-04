@@ -18,10 +18,10 @@
     });
 })();
 
-/* Signature moment: the inspection. On wide screens the two method loops pin to the screen
-   and a scan line sweeps across them as you scroll: a defect is raised, traced, corrected and
-   closed, and the AI loop follows step for step. Narrow screens close the steps as the diagram
-   scrolls past; reduced motion shows both loops already closed. */
+/* Signature moment: the build loop. On wide, tall-enough screens the loops pin to the screen
+   and a scan line sweeps across them as you scroll: brief, build, check (flagged until it
+   passes), ship, then each track is stamped. Narrow screens close the steps as the diagram
+   scrolls past; reduced motion shows every loop already closed. */
 (function () {
     'use strict';
 
@@ -30,11 +30,14 @@
     const inspect = group.closest('.ev-inspect');
     const loops = [...group.querySelectorAll('.ev-loop')];
     const steps = loops.map((loop) => [...loop.querySelectorAll('li')]);
+    // Readout names: one shared set of step names (data-steps) or each loop's own labels joined
+    const shared = group.dataset.steps ? group.dataset.steps.split('|') : null;
     const names = steps.map((list) => list.map((li) => li.querySelector('span').textContent));
+    const doneLabel = group.dataset.done || 'NCR closed · Run signed off';
     const total = steps[0].length;
     const readStep = document.querySelector('.ev-readout-step');
     const readLabel = document.querySelector('.ev-readout-label');
-    const wide = window.matchMedia('(min-width: 900px)');
+    const wide = window.matchMedia('(min-width: 900px) and (min-height: 760px)');
     let shown = -1;
 
     function render(closed, complete) {
@@ -45,14 +48,14 @@
         group.classList.toggle('is-complete', complete);
         if (!readStep) return;
         if (closed === 0) {
-            readStep.textContent = 'Inspection';
-            readLabel.textContent = 'Scroll to run both loops';
+            readStep.textContent = 'The loop';
+            readLabel.textContent = `Scroll to run all ${loops.length}`;
         } else if (complete) {
-            readStep.textContent = 'Closed';
-            readLabel.textContent = 'NCR closed · Run signed off';
+            readStep.textContent = 'Done';
+            readLabel.textContent = doneLabel;
         } else {
             readStep.textContent = `Step ${closed} of ${total}`;
-            readLabel.textContent = `${names[0][closed - 1]} · ${names[1][closed - 1]}`;
+            readLabel.textContent = shared ? shared[closed - 1] : names.map((list) => list[closed - 1]).join(' · ');
         }
     }
 
