@@ -399,6 +399,42 @@
         });
     }
 
+    // Phones: a "Start a project" pill appears after the first screen and steps aside near the form
+    function initStickyCta() {
+        if (!window.matchMedia('(max-width: 767px)').matches || !document.querySelector('main')) return;
+        const home = location.pathname === '/' || location.pathname === '/index';
+        const cta = document.createElement('a');
+        cta.className = 'ev-sticky-cta';
+        cta.href = home ? '#contact' : '/#contact';
+        cta.textContent = 'Start a project';
+        document.body.appendChild(cta);
+        const form = document.querySelector('#contact, .ev-sub-cta');
+        let frame = 0;
+        const update = () => {
+            frame = 0;
+            const past = window.scrollY > window.innerHeight * 0.7;
+            let near = false;
+            if (form) {
+                const r = form.getBoundingClientRect();
+                near = r.top < window.innerHeight && r.bottom > 0;
+            }
+            cta.classList.toggle('is-on', past && !near);
+        };
+        window.addEventListener('scroll', () => { if (!frame) frame = requestAnimationFrame(update); }, { passive: true });
+        update();
+    }
+
+    // Visitor counts and page speed from real visits: Vercel Web Analytics, cookieless, production only
+    function initAnalytics() {
+        if (!/(^|\.)vinayakbhardwaj\.com$/.test(location.hostname)) return;
+        if (navigator.doNotTrack === '1') return;
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+        const script = document.createElement('script');
+        script.defer = true;
+        script.src = '/_vercel/insights/script.js';
+        document.head.appendChild(script);
+    }
+
     // Leaving the tab: the title keeps working
     function initTitle() {
         const original = document.title;
@@ -418,7 +454,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread, initTools, initTitle].forEach((init) => {
+        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread, initTools, initTitle, initStickyCta, initAnalytics].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });

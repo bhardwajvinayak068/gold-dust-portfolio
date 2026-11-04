@@ -4337,3 +4337,123 @@ html.is-blueprint .ev-thread {
         margin-left: 7vw;
     }
 }
+
+/* ==========================================================================
+   v16 Conversion basics: hero buttons, sticky phone button, legal links
+   ========================================================================== */
+.ev-stage-actions {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(1rem, 3svh, 2rem);
+    z-index: 4;
+    display: flex;
+    gap: 0.6rem;
+    transform: translateX(-50%);
+}
+
+.ev-stage-actions .btn {
+    padding: 0.7rem 1.35rem;
+    font-size: 0.92rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .ev-stage-actions {
+        animation: ev-cover-fade-up 0.9s var(--ev-ease) 1.2s both;
+    }
+}
+
+@keyframes ev-cover-fade-up {
+    from { opacity: 0; transform: translate(-50%, 0.6rem); }
+}
+
+/* Room for the buttons: the gold line steps up a little */
+.ev-stage:not(.ev-stage-sub) .ev-stage-front {
+    bottom: 15%;
+}
+
+@media (max-width: 767px) {
+    .ev-stage:not(.ev-stage-sub) .ev-stage-front {
+        bottom: 20%;
+    }
+
+    .ev-stage-actions {
+        width: calc(100% - 2.5rem);
+        bottom: 1rem;
+    }
+
+    .ev-stage-actions .btn {
+        flex: 1 1 0;
+        justify-content: center;
+        padding-inline: 0.8rem;
+        font-size: 0.88rem;
+    }
+
+    .ev-stage-cue {
+        display: none;
+    }
+}
+
+/* The intro keeps its sentence and the facts; the buttons moved up into the hero */
+.ev-intro-side {
+    justify-content: flex-end;
+}
+
+/* Sticky "Start a project" pill: phones only, after the first screen */
+.ev-sticky-cta {
+    display: none;
+}
+
+@media (max-width: 767px) {
+    .ev-sticky-cta {
+        display: inline-flex;
+        position: fixed;
+        left: 50%;
+        bottom: calc(0.9rem + env(safe-area-inset-bottom, 0px));
+        z-index: 900;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1.4rem;
+        border-radius: 999px;
+        background: var(--ev-gold);
+        color: var(--bg-void);
+        font-weight: 700;
+        font-size: 0.95rem;
+        text-decoration: none;
+        box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.8);
+        transform: translate(-50%, 140%);
+        transition: transform 0.4s var(--ev-ease);
+    }
+
+    .ev-sticky-cta.is-on {
+        transform: translate(-50%, 0);
+    }
+
+    body {
+        padding-bottom: 0;
+    }
+
+    .site-footer {
+        padding-bottom: 4.5rem;
+    }
+}
+
+.footer-legal {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgba(226, 192, 141, 0.4);
+    text-underline-offset: 3px;
+}
+
+.footer-legal:hover {
+    color: var(--ev-gold);
+}
+
+.form-privacy {
+    margin: 0.75rem 0 0;
+    font-size: 0.82rem;
+    color: var(--ev-ink-3);
+}
+
+.form-privacy a {
+    color: var(--ev-ink-2);
+}
