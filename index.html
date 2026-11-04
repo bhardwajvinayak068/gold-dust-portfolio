@@ -297,9 +297,8 @@
     </script>
     
     <!-- Fonts (self-hosted) and hero preload -->
-    <link rel="preload" href="assets/fonts/cinzel-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/schibsted-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" as="image" type="image/avif" imagesrcset="assets/media/hero-640.avif?v=2 640w, assets/media/hero-1000.avif?v=2 1000w, assets/media/hero-1600.avif?v=2 1600w, assets/media/hero-2400.avif?v=2 2400w" imagesizes="(max-width: 767px) 100vw, 72vw" fetchpriority="high">
+    <link rel="preload" as="image" type="image/avif" imagesrcset="assets/media/hero-cut-480.avif 480w, assets/media/hero-cut-800.avif 800w, assets/media/hero-cut-1200.avif 1200w" imagesizes="(max-width: 767px) 90vw, 46vw" fetchpriority="high">
 
     <!-- Stylesheets -->
     <style>
@@ -329,7 +328,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=8.0">
+    <link rel="stylesheet" href="css/site.css?v=9.0">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -392,22 +391,33 @@
         <!-- ==========================================================================
              HERO: the portrait carries the page, gold dust drifts behind it
              ========================================================================== -->
-        <section class="ev-hero" id="hero" aria-labelledby="hero-title">
-            <figure class="ev-hero-media">
+        <section class="ev-hero ev-stage" id="hero" aria-labelledby="hero-title">
+            <canvas id="gold-canvas" class="ev-hero-dust" data-settle="grid" aria-hidden="true"></canvas>
+            <div class="ev-stage-top container">
+                <img class="ev-hero-logo" src="assets/brand/vb-mark.svg" alt="" width="855" height="646">
+                <p class="ev-kicker">Vinayak Bhardwaj · Kuala Lumpur</p>
+            </div>
+            <h1 class="ev-stage-title" id="hero-title">
+                <span class="ev-stage-back" aria-hidden="true"><span class="ev-char" style="--i:0">B</span><span class="ev-char" style="--i:1">u</span><span class="ev-char" style="--i:2">i</span><span class="ev-char" style="--i:3">l</span><span class="ev-char" style="--i:4">t</span><span class="ev-char" style="--i:5">,</span></span>
+                <span class="ev-stage-front"><span class="visually-hidden">Built, </span><span class="ev-word" style="--i:0">not</span> <span class="ev-word" style="--i:1">just</span> <span class="ev-word" style="--i:2">designed.</span></span>
+            </h1>
+            <figure class="ev-stage-figure">
                 <picture>
-                    <source type="image/avif" srcset="assets/media/hero-640.avif?v=2 640w, assets/media/hero-1000.avif?v=2 1000w, assets/media/hero-1600.avif?v=2 1600w, assets/media/hero-2400.avif?v=2 2400w" sizes="(max-width: 767px) 100vw, 72vw">
-                    <source type="image/webp" srcset="assets/media/hero-640.webp?v=2 640w, assets/media/hero-1000.webp?v=2 1000w, assets/media/hero-1600.webp?v=2 1600w, assets/media/hero-2400.webp?v=2 2400w" sizes="(max-width: 767px) 100vw, 72vw">
-                    <img src="assets/media/hero-1600.jpg?v=2" alt="Studio portrait of Vinayak Bhardwaj in a navy blazer, looking off to the side" width="2400" height="1792" fetchpriority="high" decoding="async">
+                    <source type="image/avif" srcset="assets/media/hero-cut-480.avif 480w, assets/media/hero-cut-800.avif 800w, assets/media/hero-cut-1200.avif 1200w" sizes="(max-width: 767px) 90vw, 46vw">
+                    <source type="image/webp" srcset="assets/media/hero-cut-480.webp 480w, assets/media/hero-cut-800.webp 800w, assets/media/hero-cut-1200.webp 1200w" sizes="(max-width: 767px) 90vw, 46vw">
+                    <img src="assets/media/hero-cut-800.webp" alt="Vinayak Bhardwaj in a navy blazer, looking off to the side" width="1312" height="1594" fetchpriority="high" decoding="async">
                 </picture>
             </figure>
-            <canvas id="gold-canvas" class="ev-hero-dust" data-settle="grid" aria-hidden="true"></canvas>
+            <a class="ev-stage-cue" href="#intro">Scroll</a>
+        </section>
 
-            <div class="container ev-hero-inner">
-                <div class="ev-hero-copy">
-                    <img class="ev-hero-logo" src="assets/brand/vb-mark.svg" alt="" width="855" height="646">
-                    <p class="ev-kicker">Vinayak Bhardwaj · Kuala Lumpur</p>
-                    <h1 class="ev-hero-title" id="hero-title"><span class="ev-line"><span>Built,</span></span> <span class="ev-line"><span class="ev-gold">not just designed.</span></span></h1>
-                    <p class="ev-hero-lede">I founded Virin Digital in Kuala Lumpur. I design and hand-build websites, set up AI automations that take repetitive work off a team, make long-form documentaries on Vinayak Tech, and I am building 12 Taneh, a strategy game for Android. Every piece is tested before it reaches anyone.</p>
+        <!-- ==========================================================================
+             INTRO: who, what, and the two ways in
+             ========================================================================== -->
+        <section class="ev-intro" id="intro" aria-label="Introduction">
+            <div class="container ev-intro-grid">
+                <p class="ev-intro-lede">I founded Virin Digital in Kuala Lumpur. I design and hand-build websites, set up AI automations that take repetitive work off a team, make long-form documentaries on Vinayak Tech, and I am building 12 Taneh, a strategy game for Android. Every piece is tested before it reaches anyone.</p>
+                <div class="ev-intro-side">
                     <div class="ev-hero-actions">
                         <a href="/projects" class="btn btn-primary-gold"><span>See the work</span><span class="arrow-glyph" aria-hidden="true">→</span></a>
                         <a href="#contact" class="btn btn-secondary-glass"><span>Start a project</span></a>
