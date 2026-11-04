@@ -15,8 +15,8 @@
 
             this.ctx = this.canvas.getContext('2d', { alpha: true });
             this.options = Object.assign({
-                particleCount: window.innerWidth < 768 ? 120 : 500,
-                bokehCount: window.innerWidth < 768 ? 8 : 24,
+                particleCount: window.innerWidth < 768 ? 90 : 320,
+                bokehCount: window.innerWidth < 768 ? 6 : 14,
                 swirlSpeed: 0.0012,
                 cursorRadius: 190,
                 cursorStrength: 0.18
@@ -166,11 +166,12 @@
             const rect = fitViewport ? { width: document.documentElement.clientWidth, height: Math.min(window.innerHeight, 1000) } : this.canvas.parentElement.getBoundingClientRect();
             this.dimensions.width = rect.width;
             this.dimensions.height = rect.height;
-            this.dimensions.dpr = Math.min(window.devicePixelRatio || 1, 2);
+            this.dimensions.dpr = Math.min(window.devicePixelRatio || 1, 1.5);
 
             this.canvas.width = this.dimensions.width * this.dimensions.dpr;
             this.canvas.height = this.dimensions.height * this.dimensions.dpr;
             this.ctx.scale(this.dimensions.dpr, this.dimensions.dpr);
+            this.gridSprite = null;
 
             if (this.dimensions.width >= 1024) {
                 this.portraitCenter.x = this.dimensions.width * 0.74;
@@ -274,8 +275,51 @@
             this.isRunning = false;
         }
 
+        // Soft glows are drawn once into small sprites and stamped, instead of a new gradient per grain per frame
+        sprite(color, bokeh) {
+            this.sprites = this.sprites || new Map();
+            const key = color + bokeh;
+            let c = this.sprites.get(key);
+            if (!c) {
+                c = document.createElement('canvas');
+                c.width = c.height = 64;
+                const g = c.getContext('2d');
+                const grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+                grad.addColorStop(0, color + '1)');
+                if (bokeh) grad.addColorStop(0.6, color + '0.4)');
+                grad.addColorStop(1, color + '0)');
+                g.fillStyle = grad;
+                g.fillRect(0, 0, 64, 64);
+                this.sprites.set(key, c);
+            }
+            return c;
+        }
+
+        makeGrid(w, h) {
+            const c = document.createElement('canvas');
+            const dpr = this.dimensions.dpr;
+            c.width = Math.ceil(w * dpr);
+            c.height = Math.ceil(h * dpr);
+            const g = c.getContext('2d');
+            g.scale(dpr, dpr);
+            g.strokeStyle = 'rgb(245, 244, 240)';
+            g.lineWidth = 1;
+            g.beginPath();
+            for (let x = 0.5; x < w; x += this.gridSize) { g.moveTo(x, 0); g.lineTo(x, h); }
+            for (let y = 0.5; y < h; y += this.gridSize) { g.moveTo(0, y); g.lineTo(w, y); }
+            g.stroke();
+            return c;
+        }
+
         render(currentTime) {
             if (!this.isRunning && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+
+            // Draw at most ~60 times a second: 120 Hz screens would otherwise double the work while scrolling
+            if (this.lastDraw && currentTime - this.lastDraw < 15) {
+                if (this.isRunning) requestAnimationFrame((t) => this.render(t));
+                return;
+            }
+            this.lastDraw = currentTime;
 
             // Delta time normalization (60 FPS baseline = 16.67ms)
             const dt = (currentTime && this.lastTime) ? Math.min((currentTime - this.lastTime) / 1000, 0.05) : 0.0166;
@@ -308,14 +352,10 @@
 
             // The drawing grid fades in under the settling dust
             if (settle > 0.01) {
-                const g = this.gridSize;
+                if (!this.gridSprite) this.gridSprite = this.makeGrid(w, h);
                 ctx.save();
-                ctx.strokeStyle = `rgba(245, 244, 240, ${0.05 * settle})`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                for (let x = 0.5; x < w; x += g) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
-                for (let y = 0.5; y < h; y += g) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
-                ctx.stroke();
+                ctx.globalAlpha = 0.05 * settle;
+                ctx.drawImage(this.gridSprite, 0, 0, w, h);
                 ctx.restore();
             }
 
@@ -337,15 +377,9 @@
                 }
 
                 const currentAlpha = b.baseAlpha * (0.6 + 0.4 * Math.sin(b.alphaPhase)) * (1 - settle);
-                const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.radius);
-                grad.addColorStop(0, b.color + currentAlpha + ')');
-                grad.addColorStop(0.6, b.color + (currentAlpha * 0.4) + ')');
-                grad.addColorStop(1, b.color + '0)');
-
-                ctx.fillStyle = grad;
-                ctx.beginPath();
-                ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
-                ctx.fill();
+                if (currentAlpha <= 0.002) continue;
+                ctx.globalAlpha = currentAlpha;
+                ctx.drawImage(this.sprite(b.color, true), b.x - b.radius, b.y - b.radius, b.radius * 2, b.radius * 2);
             }
             ctx.restore();
 
@@ -449,13 +483,9 @@
                 // Sparkle Glint / Starburst
                 if (p.size > 2 || p.isSparkle) {
                     const glowRadius = p.size * (2.8 + velMag * 0.1);
-                    const glowGrad = ctx.createRadialGradient(x, y, 0, x, y, glowRadius);
-                    glowGrad.addColorStop(0, `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha * 0.75})`);
-                    glowGrad.addColorStop(1, `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, 0)`);
-                    ctx.fillStyle = glowGrad;
-                    ctx.beginPath();
-                    ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
-                    ctx.fill();
+                    ctx.globalAlpha = alpha * 0.75;
+                    ctx.drawImage(this.sprite(`rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, `, false), x - glowRadius, y - glowRadius, glowRadius * 2, glowRadius * 2);
+                    ctx.globalAlpha = 1;
 
                     if (p.isSparkle && alpha > 0.6 && velMag < 4) {
                         ctx.strokeStyle = `rgba(255, 255, 245, ${alpha * 0.85})`;

@@ -18,6 +18,7 @@
             overlay.setAttribute('aria-hidden', 'false');
             overlay.removeAttribute('inert');
             document.body.style.overflow = 'hidden';
+            if (window.siteScroll) window.siteScroll.stop();
             if (closeBtn) setTimeout(() => closeBtn.focus(), 150);
         }
 
@@ -28,6 +29,7 @@
             overlay.setAttribute('aria-hidden', 'true');
             overlay.setAttribute('inert', '');
             document.body.style.overflow = '';
+            if (window.siteScroll) window.siteScroll.start();
             if (returnFocus) toggle.focus();
         }
 
@@ -65,6 +67,7 @@
             overlay.setAttribute('aria-hidden', String(!state));
             hud.toggleAttribute('inert', !state);
             document.body.classList.toggle('modal-open', state);
+            if (window.siteScroll) window.siteScroll[state ? 'stop' : 'start']();
             if (state) {
                 trigger = document.activeElement;
                 setTimeout(() => closeBtn && closeBtn.focus(), 100);
@@ -93,7 +96,8 @@
             if (!target) return;
             e.preventDefault();
             if (isOpen()) setOpen(false);
-            target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            if (window.siteScroll) window.siteScroll.scrollTo(target);
+            else target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         });
     }
 
@@ -275,6 +279,18 @@
         document.body.appendChild(thread);
     }
 
+    // Eased wheel scrolling on mouse and trackpad; touch screens and reduced motion keep native scrolling
+    function initSmoothScroll() {
+        if (reduceMotion || typeof window.Lenis !== 'function' || !window.matchMedia('(pointer: fine)').matches) return;
+        const lenis = new window.Lenis({ lerp: 0.11, smoothWheel: true, anchors: true });
+        const frame = (t) => {
+            lenis.raf(t);
+            requestAnimationFrame(frame);
+        };
+        requestAnimationFrame(frame);
+        window.siteScroll = lenis;
+    }
+
     // 404: write the address that was asked for into the report
     function initNotFound() {
         const path = document.querySelector('.nf-path');
@@ -286,7 +302,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread].forEach((init) => {
+        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });
