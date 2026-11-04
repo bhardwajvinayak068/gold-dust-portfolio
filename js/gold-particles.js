@@ -1,7 +1,8 @@
 /**
  * Gold dust: Canvas 2D particles that drift around the portrait and part around the cursor.
  * With data-settle="grid" (home hero), the dust settles onto the 32px drawing grid as the
- * hero scrolls away: loose material becomes a measured sheet, the grid the inspection uses.
+ * hero scrolls away: loose material becomes a measured sheet, the grid the build loop uses.
+ * On the home stage the dust first flies together into the headline "Built," (buildAssembly).
  */
 
 (function () {
@@ -66,6 +67,97 @@
 
             this.spawnEntities();
             this.start();
+
+            // Home stage: the dust flies together into the headline before the letters turn solid
+            this.stage = this.canvas.closest('.ev-stage');
+            if (this.stage && this.stage.classList.contains('is-assembling')) {
+                const ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+                ready.then(() => this.buildAssembly()).catch(() => this.finishAssembly());
+            }
+        }
+
+        // Sample the headline's letters, drawn where the page draws them, into target points
+        buildAssembly() {
+            const chars = [...this.stage.querySelectorAll('.ev-stage-back .ev-char')];
+            if (!chars.length || !this.stage.classList.contains('is-assembling')) return;
+            const w = this.dimensions.width;
+            const h = this.dimensions.height;
+            const box = this.canvas.getBoundingClientRect();
+            const off = document.createElement('canvas');
+            off.width = Math.ceil(w);
+            off.height = Math.ceil(h);
+            const octx = off.getContext('2d', { willReadFrequently: true });
+            octx.fillStyle = '#fff';
+            octx.textBaseline = 'alphabetic';
+            for (const el of chars) {
+                const cs = getComputedStyle(el);
+                octx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+                const r = el.getBoundingClientRect();
+                const m = octx.measureText(el.textContent);
+                const ascent = m.fontBoundingBoxAscent || parseFloat(cs.fontSize) * 0.9;
+                const descent = m.fontBoundingBoxDescent || parseFloat(cs.fontSize) * 0.25;
+                const lineHeight = parseFloat(cs.lineHeight) || r.height;
+                const baseline = r.top - box.top + (lineHeight - (ascent + descent)) / 2 + ascent;
+                octx.fillText(el.textContent, r.left - box.left, baseline);
+            }
+            const data = octx.getImageData(0, 0, off.width, off.height).data;
+            const step = w >= 900 ? 5 : 4;
+            const points = [];
+            for (let y = 0; y < off.height; y += step) {
+                for (let x = 0; x < off.width; x += step) {
+                    if (data[(y * off.width + x) * 4 + 3] > 128) points.push({ x, y });
+                }
+            }
+            if (!points.length) { this.finishAssembly(); return; }
+            for (let i = points.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [points[i], points[j]] = [points[j], points[i]];
+            }
+            const cap = w >= 900 ? 1700 : 850;
+            const golds = ['255, 250, 230', '247, 229, 181', '226, 192, 141'];
+            this.assembly = {
+                start: performance.now(),
+                done: false,
+                grains: points.slice(0, cap).map((pt) => ({
+                    sx: Math.random() * w,
+                    sy: h * (0.35 + Math.random() * 0.75),
+                    tx: pt.x,
+                    ty: pt.y,
+                    delay: Math.random() * 0.45,
+                    dur: 1.05 + Math.random() * 0.45,
+                    size: 0.8 + Math.random() * 0.9,
+                    color: golds[Math.floor(Math.random() * golds.length)]
+                }))
+            };
+            this.start();
+        }
+
+        finishAssembly() {
+            if (this.stage) this.stage.classList.replace('is-assembling', 'is-assembled');
+        }
+
+        drawAssembly(ctx, now) {
+            const a = this.assembly;
+            const t = (now - a.start) / 1000;
+            // Swiss snap ease, the site's motion curve
+            const ease = (x) => 1 - Math.pow(1 - x, 4);
+            let settled = true;
+            for (const g of a.grains) {
+                const p = Math.min(1, Math.max(0, (t - g.delay) / g.dur));
+                if (p < 1) settled = false;
+                const e = ease(p);
+                const x = g.sx + (g.tx - g.sx) * e;
+                const y = g.sy + (g.ty - g.sy) * e;
+                const fade = a.done ? Math.max(0, 1 - (t - a.doneAt) / 0.7) : 1;
+                ctx.fillStyle = `rgba(${g.color}, ${(0.35 + 0.65 * e) * fade})`;
+                ctx.fillRect(x - g.size / 2, y - g.size / 2, g.size, g.size);
+            }
+            if (settled && !a.done) {
+                a.done = true;
+                a.doneAt = t;
+                this.finishAssembly();
+            }
+            if (a.done && t - a.doneAt > 0.7) this.assembly = null;
         }
 
         resize() {
@@ -257,6 +349,14 @@
             }
             ctx.restore();
 
+            // Headline assembly sits under the drifting dust
+            if (this.assembly) {
+                ctx.save();
+                ctx.globalCompositeOperation = 'source-over';
+                this.drawAssembly(ctx, currentTime || performance.now());
+                ctx.restore();
+            }
+
             // 2. Render Swirling Gold Dust Particles with Scroll Warping
             ctx.save();
             ctx.globalCompositeOperation = 'screen';
@@ -384,7 +484,10 @@
         }
     }
 
-    if (window.requestIdleCallback) {
+    // The assembling headline cannot wait for idle time; everything else can
+    if (document.querySelector('.ev-stage.is-assembling')) {
+        bootEngine();
+    } else if (window.requestIdleCallback) {
         window.requestIdleCallback(bootEngine, { timeout: 1200 });
     } else {
         window.addEventListener('load', () => setTimeout(bootEngine, 100), { once: true });

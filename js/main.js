@@ -276,6 +276,56 @@
         window.addEventListener('blur', () => cursor.classList.remove('is-visible'));
     }
 
+    // Motion language: each section is drawn (a gold line), filled (heading and media wipe in), then stamped
+    function initBuild() {
+        if (reduceMotion || !('IntersectionObserver' in window)) return;
+        // Service rows build one by one as each arrives, not all at once with their section
+        const targets = document.querySelectorAll('main > section:not(.ev-stage), main .container > section, .ev-case, .ev-services .ev-row');
+        if (!targets.length) return;
+        document.documentElement.classList.add('is-build');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-built');
+                observer.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+        targets.forEach((el) => {
+            el.classList.add('ev-build');
+            const line = document.createElement('span');
+            line.className = 'ev-build-line';
+            line.setAttribute('aria-hidden', 'true');
+            el.prepend(line);
+            // Anything already on screen is built at once, so nothing visible ever blinks out
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add('is-built');
+            else observer.observe(el);
+        });
+    }
+
+    // A gold thread down the left edge, drawn as far as you have scrolled (CSS scroll timeline)
+    function initThread() {
+        if (!document.querySelector('main')) return;
+        const thread = document.createElement('div');
+        thread.className = 'ev-thread';
+        thread.setAttribute('aria-hidden', 'true');
+        thread.innerHTML = '<span></span><i></i>';
+        document.body.appendChild(thread);
+    }
+
+    // Buttons lean a few pixels toward a mouse pointer
+    function initMagnetic() {
+        if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        document.querySelectorAll('.btn, .btn-submit-inquiry').forEach((btn) => {
+            btn.addEventListener('pointermove', (e) => {
+                const r = btn.getBoundingClientRect();
+                const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
+                const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
+                btn.style.translate = `${(dx * 10).toFixed(1)}px ${(dy * 8).toFixed(1)}px`;
+            });
+            btn.addEventListener('pointerleave', () => { btn.style.translate = ''; });
+        });
+    }
+
     // 404: write the address that was asked for into the report
     function initNotFound() {
         const path = document.querySelector('.nf-path');
@@ -287,7 +337,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initCursor, initNotFound].forEach((init) => {
+        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initCursor, initNotFound, initBuild, initThread, initMagnetic].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });

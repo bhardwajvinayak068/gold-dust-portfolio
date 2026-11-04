@@ -3893,3 +3893,153 @@ html.has-ev-cursor select {
         align-items: stretch;
     }
 }
+
+/* ==========================================================================
+   v10 Motion language: draw, fill, stamp
+   ========================================================================== */
+/* The headline is assembled from the dust, then the letters turn solid */
+.ev-stage.is-assembling .ev-char,
+.ev-stage.is-assembled .ev-char {
+    animation: none;
+}
+
+.ev-stage.is-assembling .ev-char {
+    opacity: 0;
+}
+
+.ev-stage.is-assembled .ev-char {
+    opacity: 1;
+    transition: opacity 0.7s var(--ev-ease);
+    transition-delay: calc(var(--i) * 0.05s);
+}
+
+/* Draw: a gold construction line runs across the top of each section, then settles into its border */
+.ev-build {
+    position: relative;
+}
+
+.ev-build-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--ev-gold), rgba(226, 192, 141, 0.35));
+    transform: scaleX(0);
+    transform-origin: left center;
+    pointer-events: none;
+}
+
+.is-build .ev-build.is-built > .ev-build-line {
+    transform: scaleX(1);
+    opacity: 0;
+    transition: transform 1.1s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.9s ease 1.2s;
+}
+
+/* Fill: headings rise out of their own baseline, media wipes in along the line */
+.is-build .ev-build:not(.is-built) :is(h2, .ev-case-head h2) {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.35em);
+}
+
+.is-build .ev-build :is(h2, .ev-case-head h2) {
+    transition: clip-path 0.95s var(--ev-ease) 0.15s, transform 0.95s var(--ev-ease) 0.15s;
+}
+
+.is-build .ev-build:not(.is-built) :is(.ev-section-head > p, .ev-case-role, .ev-intro-lede, .ev-sub-cta > p) {
+    opacity: 0;
+    transform: translateY(0.75rem);
+}
+
+.is-build .ev-build :is(.ev-section-head > p, .ev-case-role, .ev-intro-lede, .ev-sub-cta > p) {
+    transition: opacity 0.8s ease 0.35s, transform 0.8s var(--ev-ease) 0.35s;
+}
+
+.is-build .ev-build:not(.is-built) :is(.ev-row-media, .ev-case-media, .ev-taneh-frame, .ev-video-grid) {
+    clip-path: inset(0 100% 0 0);
+}
+
+.is-build .ev-build :is(.ev-row-media, .ev-case-media, .ev-taneh-frame, .ev-video-grid) {
+    transition: clip-path 1.25s cubic-bezier(0.85, 0, 0.15, 1) 0.3s;
+}
+
+/* The thread: a fixed hairline at the left edge, filled to the scroll position */
+.ev-thread {
+    display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+    @media (min-width: 1100px) and (prefers-reduced-motion: no-preference) {
+        .ev-thread {
+            display: block;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: clamp(8px, 1vw, 16px);
+            z-index: 40;
+            width: 1px;
+            background: rgba(226, 192, 141, 0.1);
+            pointer-events: none;
+        }
+
+        .ev-thread span {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(226, 192, 141, 0.25), var(--ev-gold));
+            transform-origin: top;
+            animation: ev-thread-fill linear both;
+            animation-timeline: scroll(root);
+        }
+
+        .ev-thread i {
+            position: absolute;
+            top: 0;
+            left: -3px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--ev-gold);
+            box-shadow: 0 0 0 3px var(--bg-void);
+            animation: ev-thread-head linear both;
+            animation-timeline: scroll(root);
+        }
+    }
+}
+
+@keyframes ev-thread-fill {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+
+@keyframes ev-thread-head {
+    to { transform: translateY(calc(100vh - 7px)); }
+}
+
+/* Page change: the new page wipes in over the old one along the same snap curve */
+::view-transition-old(root) {
+    animation: ev-vt-dim 0.6s ease both;
+}
+
+::view-transition-new(root) {
+    animation: ev-vt-wipe 0.7s cubic-bezier(0.85, 0, 0.15, 1) both;
+}
+
+@keyframes ev-vt-dim {
+    to { opacity: 0.35; filter: brightness(0.6); }
+}
+
+@keyframes ev-vt-wipe {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+}
+
+/* Magnetic buttons ease back when the pointer leaves */
+.btn,
+.btn-submit-inquiry {
+    transition-property: transform, translate, background-color, border-color, color, box-shadow;
+}
+
+.btn {
+    translate: 0 0;
+}
