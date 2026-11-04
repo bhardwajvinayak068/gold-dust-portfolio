@@ -299,6 +299,7 @@
     <!-- Fonts (self-hosted) and hero preload -->
     <link rel="preload" href="assets/fonts/schibsted-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="assets/fonts/space-grotesk-700.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/instrument-serif-italic.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" as="image" type="image/avif" imagesrcset="assets/media/hero3-cut-480.avif 480w, assets/media/hero3-cut-800.avif 800w, assets/media/hero3-cut-1200.avif 1200w" imagesizes="(max-width: 767px) 90vw, 46vw" fetchpriority="high">
 
     <!-- Stylesheets -->
@@ -329,7 +330,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=16.0">
+    <link rel="stylesheet" href="css/site.css?v=16.1">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -400,7 +401,7 @@
             </div>
             <h1 class="ev-stage-title" id="hero-title">
                 <span class="ev-stage-back" aria-hidden="true"><span class="ev-char" style="--i:0">B</span><span class="ev-char" style="--i:1">u</span><span class="ev-char" style="--i:2">i</span><span class="ev-char" style="--i:3">l</span><span class="ev-char" style="--i:4">t</span><span class="ev-char" style="--i:5">,</span></span>
-                <span class="ev-stage-front"><span class="visually-hidden">Built, </span><span class="ev-word" style="--i:0">not</span> <span class="ev-word" style="--i:1">just</span> <span class="ev-word" style="--i:2">designed.</span></span>
+                <span class="ev-stage-front"><span class="visually-hidden">Built, </span><span class="ev-word" style="--i:0">not</span> <span class="ev-word" style="--i:1">just</span> <span class="ev-word" style="--i:2"><span class="ev-serif">designed.</span></span></span>
             </h1>
             <script>/* Hide "Built," until the dust has assembled it; never longer than 4.5 s */(function(h){if(!h||matchMedia('(prefers-reduced-motion: reduce)').matches||scrollY>40)return;h.classList.add('is-assembling');setTimeout(function(){h.classList.replace('is-assembling','is-assembled')},4500)})(document.getElementById('hero'))</script>
             <figure class="ev-stage-figure">
@@ -439,7 +440,7 @@
         <section class="ev-services" id="services" aria-labelledby="services-title">
             <div class="container">
                 <header class="ev-section-head">
-                    <h2 id="services-title">What I make</h2>
+                    <h2 id="services-title">What I <span class="ev-serif">make</span></h2>
                     <p>Four kinds of work for businesses in Kuala Lumpur and beyond. Each one goes through the same loop: nothing ships until it has been checked.</p>
                 </header>
 
@@ -515,7 +516,7 @@
         <section class="ev-playground" id="play" aria-labelledby="play-title">
             <div class="container ev-play-grid">
                 <header class="ev-section-head">
-                    <h2 id="play-title">Play 12 Taneh</h2>
+                    <h2 id="play-title"><span class="ev-serif">Play</span> 12 Taneh</h2>
                     <p>The game I'm building, playable right here. Move a white stone along any line to an empty point, or jump over a bot stone to capture it, and keep jumping while you can. Take every bot stone, or leave the bot with no moves, to win.</p>
                     <p class="ev-play-note">Classic rules against a beginner bot. The full game adds four AI opponents, daily puzzles and offline play, and is coming to Google Play.</p>
                 </header>
@@ -542,7 +543,7 @@
         <section class="ev-work" id="work" aria-labelledby="work-title">
             <div class="container">
                 <header class="ev-section-head">
-                    <h2 id="work-title">One loop for everything I make</h2>
+                    <h2 id="work-title">One loop for <span class="ev-serif">everything</span> I make</h2>
                     <p>Brief, build, check, ship. A website, an AI workflow, a documentary and a game all go through the same four steps, and nothing ships until the check passes. <a class="ev-link" href="/how-i-check-ai-output">How I check AI output →</a></p>
                 </header>
 
@@ -633,7 +634,7 @@
             <div class="container">
                 <header class="ev-section-head ev-head-row">
                     <div>
-                        <h2 id="videos-title">Recent episodes</h2>
+                        <h2 id="videos-title">Recent <span class="ev-serif">episodes</span></h2>
                         <p>From Vinayak Tech. The player loads only when you press play.</p>
                     </div>
                     <a class="ev-link" href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer">All episodes on YouTube ↗</a>
@@ -682,7 +683,7 @@
         <section class="ev-faq" id="faq" aria-labelledby="faq-title">
             <div class="container">
                 <header class="ev-section-head">
-                    <h2 id="faq-title">Questions people ask</h2>
+                    <h2 id="faq-title">Questions people <span class="ev-serif">ask</span></h2>
                 </header>
                 <div class="ev-faq-list">
                     <details class="ev-faq-item">
@@ -719,7 +720,7 @@
                                 <img src="assets/media/headshot-cut-400.webp" srcset="assets/media/headshot-cut-400.webp 400w, assets/media/headshot-cut-800.webp 800w" sizes="15rem" alt="Headshot of Vinayak Bhardwaj, smiling" width="2156" height="1756" loading="lazy" decoding="async">
                             </picture>
                         </figure>
-                        <h2 id="contact-title">Tell me what keeps breaking.</h2>
+                        <h2 id="contact-title">Tell me what keeps <span class="ev-serif">breaking.</span></h2>
                         <p>Describe the process, the site or the story you have in mind. I reply within one working day, from Kuala Lumpur.</p>
 
                         <ul class="direct-channels">
@@ -854,7 +855,7 @@
     </div>
     <script src="js/gold-particles.js?v=5.4" defer></script>
     <script src="js/lenis.min.js?v=1.1.20" defer></script>
-    <script src="js/main.js?v=9.0" defer></script>
+    <script src="js/main.js?v=9.1" defer></script>
     <script src="js/elevation.js?v=6.3" defer></script>
     <script src="js/taneh-demo.js?v=1.2" defer></script>
 

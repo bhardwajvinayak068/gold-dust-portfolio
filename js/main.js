@@ -263,7 +263,37 @@
                 observer.unobserve(entry.target);
             });
         }, { rootMargin: '0px 0px 40% 0px', threshold: 0 });
+        // Set each section heading as separate words, so they can rise into place one after another
+        const setWords = (h) => {
+            if (h.dataset.words) return;
+            h.dataset.words = '1';
+            h.setAttribute('aria-label', h.textContent.replace(/\s+/g, ' ').trim());
+            let i = 0;
+            const wrap = (node) => {
+                const w = document.createElement('span');
+                w.className = 'ev-w';
+                w.setAttribute('aria-hidden', 'true');
+                w.style.setProperty('--wi', i++);
+                const inner = document.createElement('span');
+                inner.appendChild(node);
+                w.appendChild(inner);
+                return w;
+            };
+            Array.from(h.childNodes).forEach((node) => {
+                if (node.nodeType === 3) {
+                    const frag = document.createDocumentFragment();
+                    node.textContent.split(/(\s+)/).forEach((part) => {
+                        if (!part) return;
+                        frag.appendChild(/^\s+$/.test(part) ? document.createTextNode(' ') : wrap(document.createTextNode(part)));
+                    });
+                    h.replaceChild(frag, node);
+                } else if (node.nodeType === 1) {
+                    h.replaceChild(wrap(node.cloneNode(true)), node);
+                }
+            });
+        };
         targets.forEach((el) => {
+            el.querySelectorAll('h2').forEach(setWords);
             el.classList.add('ev-build');
             const line = document.createElement('span');
             line.className = 'ev-build-line';
