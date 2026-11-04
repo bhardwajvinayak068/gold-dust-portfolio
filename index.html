@@ -332,7 +332,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=7.0">
+    <link rel="stylesheet" href="css/site.css?v=7.1">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -403,7 +403,7 @@
                     <img src="assets/media/hero-1600.jpg?v=2" alt="Studio portrait of Vinayak Bhardwaj in a navy blazer, looking off to the side" width="2400" height="1792" fetchpriority="high" decoding="async">
                 </picture>
             </figure>
-            <canvas id="gold-canvas" class="ev-hero-dust" aria-hidden="true"></canvas>
+            <canvas id="gold-canvas" class="ev-hero-dust" data-settle="grid" aria-hidden="true"></canvas>
 
             <div class="container ev-hero-inner">
                 <div class="ev-hero-copy">
@@ -498,7 +498,7 @@
                 <div class="ev-inspect">
                 <div class="ev-inspect-stage">
                 <p class="ev-inspect-readout" aria-hidden="true"><span class="ev-readout-step">Inspection</span><span class="ev-readout-label">Scroll to run both loops</span></p>
-                <div class="ev-loops" role="group" aria-label="Site QA loop compared with AI workflow loop">
+                <div class="ev-loops ev-sheet" role="group" aria-label="Site QA loop compared with AI workflow loop">
                     <span class="ev-scan" aria-hidden="true"></span>
                     <div class="ev-loop">
                         <p class="ev-loop-name">On site (TRX, 2021–24)</p>
@@ -713,7 +713,7 @@
                                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.35rem;" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                     Message sent
                                 </span>
-                                <span id="receipt-hash-val" class="receipt-hash"></span>
+                                <span class="ev-receipt-stamp" aria-hidden="true">Enquiry logged</span>
                             </div>
                             <div class="receipt-body">
                                 <p class="receipt-summary">Thanks. Your message is in my inbox and I'll reply within one working day.</p>
@@ -764,19 +764,19 @@
                 </button>
             </div>
             <div class="hud-grid">
-                <div class="hud-item"><kbd>1</kbd><span>Top</span></div>
-                <div class="hud-item"><kbd>2</kbd><span>Services</span></div>
-                <div class="hud-item"><kbd>3</kbd><span>Method and records</span></div>
-                <div class="hud-item"><kbd>4</kbd><span>Questions</span></div>
-                <div class="hud-item"><kbd>5</kbd><span>Videos</span></div>
-                <div class="hud-item"><kbd>6</kbd><span>Contact</span></div>
+                <div class="hud-item" data-target="#hero"><kbd>1</kbd><span>Top</span></div>
+                <div class="hud-item" data-target="#services"><kbd>2</kbd><span>Services</span></div>
+                <div class="hud-item" data-target="#work"><kbd>3</kbd><span>Method and records</span></div>
+                <div class="hud-item" data-target="#videos"><kbd>4</kbd><span>Videos</span></div>
+                <div class="hud-item" data-target="#faq"><kbd>5</kbd><span>Questions</span></div>
+                <div class="hud-item" data-target="#contact"><kbd>6</kbd><span>Contact</span></div>
                 <div class="hud-item"><kbd>?</kbd><span>Show shortcuts</span></div>
                 <div class="hud-item"><kbd>ESC</kbd><span>Close</span></div>
             </div>
         </div>
     </div>
-    <script src="js/gold-particles.js?v=3.2" defer></script>
-    <script src="js/main.js?v=6.0" defer></script>
+    <script src="js/gold-particles.js?v=4.0" defer></script>
+    <script src="js/main.js?v=6.1" defer></script>
     <script src="js/elevation.js?v=6.0" defer></script>
 
 </body>

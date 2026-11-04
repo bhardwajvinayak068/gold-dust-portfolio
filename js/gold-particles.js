@@ -1,8 +1,7 @@
 /**
- * VELOCITY-REACTIVE GOLD DUST & EMBERS PHYSICS ENGINE
- * Concept 3: Swirling Gold Dust & Sovereign Authority (Awwwards 9+ Edition)
- * High-performance Canvas 2D simulation with scroll-velocity warping,
- * 3-layer optical depth, cursor hydrodynamic swirl, and retina auto-scaling.
+ * Gold dust: Canvas 2D particles that drift around the portrait and part around the cursor.
+ * With data-settle="grid" (home hero), the dust settles onto the 32px drawing grid as the
+ * hero scrolls away: loose material becomes a measured sheet, the grid the inspection uses.
  */
 
 (function () {
@@ -30,6 +29,8 @@
             this.portraitCenter = { x: 0, y: 0 };
             this.isRunning = false;
             this.lastTime = 0;
+            this.settles = this.canvas.dataset.settle === 'grid';
+            this.gridSize = 32;
 
             this.init();
         }
@@ -202,7 +203,29 @@
             this.scroll.velocity += (this.scroll.targetVelocity - this.scroll.velocity) * 0.14;
             this.scroll.targetVelocity *= 0.86; // natural friction decay
             const vel = this.scroll.velocity;
-            const velMag = Math.abs(vel);
+            let velMag = Math.abs(vel);
+
+            // Settling: 0 while the hero is in view, 1 once most of it has scrolled away
+            let settle = 0;
+            if (this.settles) {
+                const top = this.canvas.getBoundingClientRect().top;
+                const t = Math.min(1, Math.max(0, -top / (h * 0.55)));
+                settle = t * t * (3 - 2 * t);
+                if (settle > 0.2) velMag = 0; // no streaks once the dust is settling
+            }
+
+            // The drawing grid fades in under the settling dust
+            if (settle > 0.01) {
+                const g = this.gridSize;
+                ctx.save();
+                ctx.strokeStyle = `rgba(245, 244, 240, ${0.05 * settle})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                for (let x = 0.5; x < w; x += g) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+                for (let y = 0.5; y < h; y += g) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+                ctx.stroke();
+                ctx.restore();
+            }
 
             // 1. Render Background Bokeh Orbs
             ctx.save();
@@ -221,7 +244,7 @@
                     b.y = -b.radius;
                 }
 
-                const currentAlpha = b.baseAlpha * (0.6 + 0.4 * Math.sin(b.alphaPhase));
+                const currentAlpha = b.baseAlpha * (0.6 + 0.4 * Math.sin(b.alphaPhase)) * (1 - settle);
                 const grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.radius);
                 grad.addColorStop(0, b.color + currentAlpha + ')');
                 grad.addColorStop(0.6, b.color + (currentAlpha * 0.4) + ')');
@@ -294,30 +317,44 @@
                 const alphaMod = 0.65 + 0.35 * Math.sin(p.twinklePhase);
                 const alpha = Math.max(0, Math.min(1, p.baseAlpha * alphaMod));
 
+                // Each grain picks its grid node once, when settling starts, and eases onto it
+                let x = p.x;
+                let y = p.y;
+                if (settle > 0) {
+                    if (p.gx === undefined) {
+                        p.gx = Math.round(p.x / this.gridSize) * this.gridSize + 0.5;
+                        p.gy = Math.round(p.y / this.gridSize) * this.gridSize + 0.5;
+                    }
+                    x += (p.gx - x) * settle;
+                    y += (p.gy - y) * settle;
+                } else if (p.gx !== undefined) {
+                    p.gx = undefined;
+                }
+
                 // Dynamic Velocity Streak Warping
                 if (velMag > 3) {
                     ctx.strokeStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha * 0.75})`;
                     ctx.lineWidth = p.size;
                     ctx.beginPath();
-                    ctx.moveTo(p.x, p.y);
-                    ctx.lineTo(p.x, p.y - vel * 0.45);
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y - vel * 0.45);
                     ctx.stroke();
                 } else {
                     ctx.fillStyle = `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha})`;
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.arc(x, y, p.size, 0, Math.PI * 2);
                     ctx.fill();
                 }
 
                 // Sparkle Glint / Starburst
                 if (p.size > 2 || p.isSparkle) {
                     const glowRadius = p.size * (2.8 + velMag * 0.1);
-                    const glowGrad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowRadius);
+                    const glowGrad = ctx.createRadialGradient(x, y, 0, x, y, glowRadius);
                     glowGrad.addColorStop(0, `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, ${alpha * 0.75})`);
                     glowGrad.addColorStop(1, `rgba(${p.color.r}, ${p.color.g}, ${p.color.b}, 0)`);
                     ctx.fillStyle = glowGrad;
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, glowRadius, 0, Math.PI * 2);
+                    ctx.arc(x, y, glowRadius, 0, Math.PI * 2);
                     ctx.fill();
 
                     if (p.isSparkle && alpha > 0.6 && velMag < 4) {
@@ -325,10 +362,10 @@
                         ctx.lineWidth = 0.8;
                         const sLen = p.size * 3.5;
                         ctx.beginPath();
-                        ctx.moveTo(p.x - sLen, p.y);
-                        ctx.lineTo(p.x + sLen, p.y);
-                        ctx.moveTo(p.x, p.y - sLen);
-                        ctx.lineTo(p.x, p.y + sLen);
+                        ctx.moveTo(x - sLen, y);
+                        ctx.lineTo(x + sLen, y);
+                        ctx.moveTo(x, y - sLen);
+                        ctx.lineTo(x, y + sLen);
                         ctx.stroke();
                     }
                 }

@@ -49,7 +49,11 @@
         const closeBtn = document.getElementById('hud-close');
         if (!hud || !overlay) return;
 
-        const sections = { 1: '#hero', 2: '#services', 3: '#work', 4: '#faq', 5: '#videos', 6: '#contact' };
+        // Each page lists its own targets in the dialog: <div class="hud-item" data-target="#id"><kbd>1</kbd>
+        const sections = {};
+        hud.querySelectorAll('.hud-item[data-target]').forEach((item) => {
+            sections[item.querySelector('kbd').textContent.trim()] = item.dataset.target;
+        });
         let trigger = null;
         const isOpen = () => hud.classList.contains('active');
 
@@ -216,9 +220,74 @@
         });
     }
 
+    // Drawing sheets close when they arrive: case-study steps tick and stamp, career nodes light in turn
+    function initSheets() {
+        const sheets = document.querySelectorAll('[data-sheet]');
+        const routes = document.querySelectorAll('[data-route] > li');
+        if (!sheets.length && !routes.length) return;
+        if (reduceMotion || !('IntersectionObserver' in window)) return; // static markup already shows them closed
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                observer.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -20% 0px', threshold: 0.35 });
+
+        sheets.forEach((sheet) => { sheet.classList.add('is-live'); observer.observe(sheet); });
+        routes.forEach((li) => { li.parentElement.classList.add('is-live'); observer.observe(li); });
+    }
+
+    // Desktop only: a crosshair that opens to brackets over anything pressable and names the action
+    function initCursor() {
+        if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+        const cursor = document.createElement('div');
+        cursor.className = 'ev-cursor';
+        cursor.setAttribute('aria-hidden', 'true');
+        cursor.innerHTML = '<div class="ev-cursor-mark"><span></span><span></span><span></span><span></span></div><span class="ev-cursor-tag"></span>';
+        document.body.appendChild(cursor);
+        document.documentElement.classList.add('has-ev-cursor');
+        const tag = cursor.querySelector('.ev-cursor-tag');
+        const pressable = 'a, button, summary, label, [role="button"]';
+
+        function label(el) {
+            if (el.dataset.cursor) return el.dataset.cursor;
+            if (el.matches('.ev-video-btn')) return 'Play';
+            if (el.matches('summary')) return el.parentElement.open ? 'Close' : 'Read';
+            if (el.matches('a[target="_blank"]')) return 'Visit ↗';
+            if (el.matches('a[href*="#"]')) return 'Jump';
+            if (el.matches('a')) return 'Open';
+            return '';
+        }
+
+        document.addEventListener('pointermove', (e) => {
+            if (e.pointerType !== 'mouse') return;
+            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+            cursor.classList.add('is-visible');
+            const target = e.target.closest && e.target.closest(pressable);
+            const typing = e.target.closest && e.target.closest('input, textarea, select');
+            cursor.classList.toggle('is-target', Boolean(target));
+            cursor.style.opacity = typing ? '0' : '';
+            tag.textContent = target ? label(target) : '';
+        }, { passive: true });
+        document.documentElement.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
+        window.addEventListener('blur', () => cursor.classList.remove('is-visible'));
+    }
+
+    // 404: write the address that was asked for into the report
+    function initNotFound() {
+        const path = document.querySelector('.nf-path');
+        if (!path) return;
+        let address = window.location.pathname;
+        try { address = decodeURI(address); } catch (err) { /* keep it encoded */ }
+        path.textContent = address || '/';
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks].forEach((init) => {
+        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initCursor, initNotFound].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });
