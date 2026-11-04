@@ -328,7 +328,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=9.0">
+    <link rel="stylesheet" href="css/site.css?v=9.4">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -501,9 +501,36 @@
                     <div class="ev-row-copy">
                         <h3>Games and apps</h3>
                         <p>12 Taneh is my own mobile game: the centuries-old South Asian board game, also known as Bara Tehni and Alquerque, rebuilt for Android with four AI opponents, daily puzzles and offline play. It is in testing now and coming to Google Play.</p>
-                        <a class="ev-link" href="/projects#twelve-taneh">Read the case study →</a>
+                        <a class="ev-link" href="#play">Play it on this page ↓</a>
                     </div>
                 </article>
+            </div>
+        </section>
+
+        <!-- ==========================================================================
+             PLAY: 12 Taneh, the game I am building, playable on the page
+             ========================================================================== -->
+        <section class="ev-playground" id="play" aria-labelledby="play-title">
+            <div class="container ev-play-grid">
+                <header class="ev-section-head">
+                    <h2 id="play-title">Play 12 Taneh</h2>
+                    <p>The game I'm building, playable right here. Move a white stone along any line to an empty point, or jump over a bot stone to capture it, and keep jumping while you can. Take every bot stone, or leave the bot with no moves, to win.</p>
+                    <p class="ev-play-note">Classic rules against a beginner bot. The full game adds four AI opponents, daily puzzles and offline play, and is coming to Google Play.</p>
+                </header>
+                <div class="ev-taneh" data-taneh>
+                    <div class="ev-taneh-frame">
+                        <div class="ev-taneh-board" role="group" aria-label="12 Taneh board, 25 points">
+                            <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false"></svg>
+                        </div>
+                    </div>
+                    <div class="ev-taneh-bar">
+                        <div>
+                            <p class="ev-taneh-status" data-taneh-status role="status" aria-live="polite">The board loads as you scroll to it.</p>
+                            <p class="ev-taneh-score" data-taneh-score></p>
+                        </div>
+                        <button type="button" class="btn btn-secondary-glass" data-taneh-reset><span>New game</span></button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -520,7 +547,8 @@
                 <div class="ev-inspect">
                 <div class="ev-inspect-stage">
                 <p class="ev-inspect-readout" aria-hidden="true"><span class="ev-readout-step">The loop</span><span class="ev-readout-label">Scroll to run all four</span></p>
-                <div class="ev-loops ev-sheet ev-loops-4" role="group" aria-label="The same build loop for websites, AI workflows, documentaries and 12 Taneh" data-steps="Brief|Build|Check|Ship" data-done="Checked and shipped">
+                <p class="ev-swipe-hint" aria-hidden="true">Swipe for all four tracks →</p>
+                <div class="ev-loops ev-sheet ev-loops-4" tabindex="0" role="group" aria-label="The same build loop for websites, AI workflows, documentaries and 12 Taneh" data-steps="Brief|Build|Check|Ship" data-done="Checked and shipped">
                     <span class="ev-scan" aria-hidden="true"></span>
                     <div class="ev-loop">
                         <p class="ev-loop-name">Websites</p>
@@ -805,11 +833,12 @@
             </div>
             <div class="hud-grid">
                 <div class="hud-item" data-target="#hero"><kbd>1</kbd><span>Top</span></div>
-                <div class="hud-item" data-target="#services"><kbd>2</kbd><span>Services</span></div>
-                <div class="hud-item" data-target="#work"><kbd>3</kbd><span>The build loop and records</span></div>
-                <div class="hud-item" data-target="#videos"><kbd>4</kbd><span>Videos</span></div>
-                <div class="hud-item" data-target="#faq"><kbd>5</kbd><span>Questions</span></div>
-                <div class="hud-item" data-target="#contact"><kbd>6</kbd><span>Contact</span></div>
+                <div class="hud-item" data-target="#services"><kbd>2</kbd><span>What I make</span></div>
+                <div class="hud-item" data-target="#play"><kbd>3</kbd><span>Play 12 Taneh</span></div>
+                <div class="hud-item" data-target="#work"><kbd>4</kbd><span>The build loop and records</span></div>
+                <div class="hud-item" data-target="#videos"><kbd>5</kbd><span>Videos</span></div>
+                <div class="hud-item" data-target="#faq"><kbd>6</kbd><span>Questions</span></div>
+                <div class="hud-item" data-target="#contact"><kbd>7</kbd><span>Contact</span></div>
                 <div class="hud-item"><kbd>?</kbd><span>Show shortcuts</span></div>
                 <div class="hud-item"><kbd>ESC</kbd><span>Close</span></div>
             </div>
@@ -818,6 +847,7 @@
     <script src="js/gold-particles.js?v=4.0" defer></script>
     <script src="js/main.js?v=6.1" defer></script>
     <script src="js/elevation.js?v=6.1" defer></script>
+    <script src="js/taneh-demo.js?v=1.1" defer></script>
 
 </body>
 </html>

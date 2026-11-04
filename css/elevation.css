@@ -3289,20 +3289,46 @@ html.has-ev-cursor select {
     }
 }
 
+.ev-swipe-hint {
+    display: none;
+}
+
+/* Phones and tablets: the four tracks sit side by side and swipe, so the loop stays one screen tall */
 @media (max-width: 899px) {
     .ev-loops-4 {
-        grid-template-columns: 1fr 1fr;
+        display: flex;
+        gap: 0.75rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+    }
+
+    .ev-loops-4::-webkit-scrollbar {
+        display: none;
+    }
+
+    .ev-loops-4 .ev-loop {
+        flex: 0 0 min(84%, 22rem);
+        scroll-snap-align: center;
     }
 
     .ev-loops-4 .ev-loop ol {
         grid-template-columns: 1fr;
     }
+
+    .ev-swipe-hint {
+        display: block;
+        margin: 0 0 0.6rem;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: var(--ev-ink-3);
+    }
 }
 
-@media (max-width: 599px) {
-    .ev-loops-4 {
-        grid-template-columns: 1fr;
-    }
+.ev-loops-4:focus-visible {
+    outline: 2px solid var(--ev-gold);
+    outline-offset: 4px;
 }
 
 /* A phone screenshot shown as a phone: framed, centred on a drawing sheet */
@@ -3490,11 +3516,16 @@ html.has-ev-cursor select {
     pointer-events: none;
 }
 
+.ev-stage-figure {
+    width: max-content;
+}
+
 .ev-stage-figure picture,
 .ev-stage-figure img {
     display: block;
     height: 100%;
     width: auto;
+    max-width: none;
 }
 
 .ev-stage-figure img {
@@ -3661,4 +3692,204 @@ html.has-ev-cursor select {
     font-weight: 700;
     letter-spacing: -0.03em;
     text-transform: none;
+}
+
+/* ==========================================================================
+   v9.1 Play 12 Taneh: the real board, the real rules, a beginner bot
+   ========================================================================== */
+.ev-playground {
+    padding: var(--ev-section-pad) 0;
+    border-top: 1px solid var(--ev-line-soft);
+}
+
+.ev-play-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+}
+
+.ev-playground .ev-section-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 0;
+}
+
+.ev-playground .ev-section-head > p {
+    justify-self: start;
+}
+
+.ev-play-note {
+    font-family: var(--font-mono);
+    font-size: 0.8rem !important;
+    color: var(--ev-ink-3) !important;
+    line-height: 1.6 !important;
+}
+
+.ev-taneh {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: min(100%, 34rem);
+    justify-self: center;
+}
+
+.ev-taneh-frame {
+    padding: clamp(0.75rem, 2.5vw, 1.5rem);
+    border: 1px solid var(--ev-line);
+    border-radius: 12px;
+    background: linear-gradient(160deg, #15141B, #0B0B10);
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(245, 244, 240, 0.04);
+}
+
+.ev-taneh-board {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background-color: var(--bg-void);
+    background-image: radial-gradient(rgba(245, 244, 240, 0.06) 1px, transparent 1px);
+    background-size: 16px 16px;
+}
+
+.ev-taneh-board svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ev-taneh-board line {
+    stroke: rgba(226, 192, 141, 0.42);
+    stroke-width: 0.45;
+}
+
+.ev-taneh-board circle {
+    fill: rgba(226, 192, 141, 0.55);
+}
+
+.ev-taneh-point {
+    position: absolute;
+    z-index: 2;
+    width: 15%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.ev-taneh-point:disabled {
+    cursor: default;
+}
+
+.ev-taneh-point::after {
+    content: "";
+    position: absolute;
+    inset: 22%;
+    border-radius: 50%;
+    border: 1.5px dashed transparent;
+    transition: border-color 0.2s var(--ev-ease), transform 0.3s var(--ev-ease);
+}
+
+.ev-taneh-point.is-target::after {
+    border-color: rgba(245, 244, 240, 0.65);
+}
+
+.ev-taneh-point.is-capture::after {
+    border-style: solid;
+    border-color: var(--ev-gold);
+    inset: 14%;
+}
+
+.ev-taneh-point.is-selected::after {
+    inset: 8%;
+    border-style: solid;
+    border-color: var(--ev-gold);
+}
+
+.ev-taneh-point:focus-visible {
+    outline: 2px solid var(--ev-gold);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) {
+    .ev-taneh-point:not(:disabled):hover::after {
+        border-color: var(--ev-gold);
+        transform: scale(1.08);
+    }
+}
+
+.ev-taneh-stone {
+    position: absolute;
+    z-index: 1;
+    width: 10.5%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: left 0.26s var(--ev-ease), top 0.26s var(--ev-ease), opacity 0.35s var(--ev-ease), transform 0.35s var(--ev-ease);
+}
+
+.ev-taneh-stone.is-you {
+    background: radial-gradient(circle at 35% 30%, #FFFFFF, #E6E3DC 55%, #B9B4A8 100%);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.55), inset 0 -2px 3px rgba(0, 0, 0, 0.18);
+}
+
+.ev-taneh-stone.is-bot {
+    background: radial-gradient(circle at 35% 30%, #3A3842, #1A1920 60%, #0E0E12 100%);
+    border: 1.5px solid var(--ev-gold);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+}
+
+.ev-taneh-stone.is-taken {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+}
+
+.ev-taneh-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.ev-taneh-status {
+    margin: 0;
+    color: var(--ev-ink);
+    font-weight: 600;
+    min-height: 1.5em;
+}
+
+.ev-taneh-score {
+    margin: 0.2rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ev-ink-3);
+}
+
+.ev-taneh.is-over .ev-taneh-status {
+    color: var(--ev-gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ev-taneh-stone {
+        transition: none;
+    }
+}
+
+@media (max-width: 899px) {
+    .ev-play-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 479px) {
+    .ev-taneh-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
 }
