@@ -7,6 +7,9 @@
 - [Home](https://www.vinayakbhardwaj.com/): services, method, career route, recent episodes, contact.
 - [Case studies](https://www.vinayakbhardwaj.com/projects): Virin Digital, Vinayak Tech, Rotol Group, Tun Razak Exchange. Problem, process and result for each.
 - [About](https://www.vinayakbhardwaj.com/about): work history, background and how he works.
+- [AI automation in Kuala Lumpur](https://www.vinayakbhardwaj.com/ai-automation-kuala-lumpur): what gets automated, how a project runs, questions.
+- [Web design in Kuala Lumpur](https://www.vinayakbhardwaj.com/web-design-kuala-lumpur): what every site gets, how a project runs, questions.
+- [From NCR to AI](https://www.vinayakbhardwaj.com/ncr-to-ai): article on how the site QA loop shapes the way he checks AI agent output.
 - [Full profile](https://www.vinayakbhardwaj.com/llms-full.txt): the same facts in one long text file.
 
 ## Services (Kuala Lumpur)

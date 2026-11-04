@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-MY">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>From NCR to AI: How I Check Agent Output | Vinayak Bhardwaj</title>
+
+    <!-- Theme & Browser Chrome Color (MWA & Accessibility Compliance) -->
+    <meta name="theme-color" content="#070709">
+    <meta name="msapplication-navbutton-color" content="#070709">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <!-- SEO & Metadata (English & Bahasa Melayu) -->
+    <meta name="description" content="How the Non-Conformance Report loop from the Tun Razak Exchange shapes the way I build AI agent workflows: define, check, route, log and cap.">
+    <meta name="author" content="Vinayak Bhardwaj">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.vinayakbhardwaj.com/ncr-to-ai">
+
+    <!-- Geo & Regional Targeting (Malaysia Focus) -->
+    <meta name="geo.region" content="MY-14">
+    <meta name="geo.placename" content="Kuala Lumpur">
+    <meta name="geo.position" content="3.1390;101.6869">
+    <meta name="ICBM" content="3.1390, 101.6869">
+
+    <!-- Open Graph / Social Cards -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.vinayakbhardwaj.com/ncr-to-ai">
+    <meta property="og:title" content="From NCR to AI: How I Check Agent Output | Vinayak Bhardwaj">
+    <meta property="og:description" content="How the Non-Conformance Report loop from the Tun Razak Exchange shapes the way I build AI agent workflows: define, check, route, log and cap.">
+    <meta property="og:image" content="https://www.vinayakbhardwaj.com/assets/media/og-share-v2-1200x630.jpg">
+    <meta property="og:site_name" content="Vinayak Bhardwaj">
+    <meta property="og:locale" content="en_MY">
+    <meta property="og:locale:alternate" content="ms_MY">
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="From NCR to AI: How I Check Agent Output | Vinayak Bhardwaj">
+    <meta name="twitter:description" content="How the Non-Conformance Report loop from the Tun Razak Exchange shapes the way I build AI agent workflows: define, check, route, log and cap.">
+    <meta name="twitter:image" content="https://www.vinayakbhardwaj.com/assets/media/og-share-v2-1200x630.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48">
+    <link rel="icon" href="/assets/brand/vb-icon.svg" type="image/svg+xml">
+    <link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Preconnect & Fonts -->
+    <link rel="preload" href="assets/fonts/cinzel-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/schibsted-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        /* Self-hosted Google Fonts (variable, latin subset). Replaces the render-blocking fonts.googleapis.com request. */
+        @font-face {
+          font-family: 'Cinzel';
+          font-style: normal;
+          font-weight: 600 700;
+          font-display: swap;
+          src: url(assets/fonts/cinzel-var.woff2) format('woff2');
+          unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
+        }
+        @font-face {
+          font-family: 'Schibsted Grotesk';
+          font-style: normal;
+          font-weight: 400 700;
+          font-display: swap;
+          src: url(assets/fonts/schibsted-grotesk-var.woff2) format('woff2');
+          unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
+        }
+        @font-face {
+          font-family: 'JetBrains Mono';
+          font-style: normal;
+          font-weight: 400 500;
+          font-display: swap;
+          src: url(assets/fonts/jetbrains-mono-var.woff2) format('woff2');
+          unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
+        }
+    </style>
+    <link rel="stylesheet" href="css/site.css?v=7.1">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://www.vinayakbhardwaj.com/ncr-to-ai#article",
+      "headline": "From NCR to AI: how I check agent output",
+      "description": "How the Non-Conformance Report loop from the Tun Razak Exchange shapes the way Vinayak Bhardwaj builds and checks AI agent workflows.",
+      "url": "https://www.vinayakbhardwaj.com/ncr-to-ai",
+      "mainEntityOfPage": "https://www.vinayakbhardwaj.com/ncr-to-ai",
+      "inLanguage": "en-MY",
+      "datePublished": "2026-11-04",
+      "dateModified": "2026-11-04",
+      "author": {
+        "@id": "https://www.vinayakbhardwaj.com/#person"
+      },
+      "publisher": {
+        "@id": "https://www.vinayakbhardwaj.com/#person"
+      },
+      "image": "https://www.vinayakbhardwaj.com/assets/media/og-share-v2-1200x630.jpg"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.vinayakbhardwaj.com/ncr-to-ai#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.vinayakbhardwaj.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "From NCR to AI",
+          "item": "https://www.vinayakbhardwaj.com/ncr-to-ai"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- Cinematic Luxury Film Grain Texture Overlay -->
+    <div class="film-grain" aria-hidden="true"></div>
+
+
+
+    <!-- ==========================================================================
+         FLOATING FROSTED NAVIGATION BAR (MATCHING HOME)
+         ========================================================================== -->
+    <header class="site-header" role="banner">
+        <div class="nav-container">
+            <div class="nav-pill">
+
+
+                <!-- Mobile Navigation Actions (Audio Toggle + Menu Trigger) -->
+                <div class="nav-mobile-actions">
+                    <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
+                        <span class="menu-icon" aria-hidden="true"><span class="hamburger-line line-1"></span><span class="hamburger-line line-2"></span><span class="hamburger-line line-3"></span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==========================================================================
+         FULL-SCREEN BESPOKE LUXURY MOBILE NAVIGATION OVERLAY
+         ========================================================================== -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div class="mobile-menu-inner">
+            <div class="mobile-menu-header">
+                <img class="menu-logo" src="assets/brand/vb-mark.svg" alt="Vinayak Bhardwaj" width="855" height="646">
+                <button id="mobile-menu-close" class="mobile-menu-close-btn" aria-label="Close Mobile Navigation">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <nav class="mobile-nav-list" aria-label="Main navigation">
+                <a href="/" class="mobile-nav-item"><span class="mobile-nav-label">Home</span></a>
+                <a href="/#services" class="mobile-nav-item"><span class="mobile-nav-label">Services</span></a>
+                <a href="/projects" class="mobile-nav-item"><span class="mobile-nav-label">Work</span></a>
+                <a href="/about" class="mobile-nav-item"><span class="mobile-nav-label">About</span></a>
+                <a href="/#videos" class="mobile-nav-item"><span class="mobile-nav-label">Videos</span></a>
+                <a href="/#contact" class="mobile-nav-item"><span class="mobile-nav-label">Contact</span></a>
+            </nav>
+
+            <div class="mobile-menu-footer">
+                <div class="mobile-meta-text">Kuala Lumpur, Malaysia</div>
+                <div class="mobile-social-strip" aria-label="Mobile Social Links">
+                    <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="mobile-social-link">LINKEDIN ↗</a>
+                    <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="mobile-social-link">YOUTUBE ↗</a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="mobile-social-link">WHATSAPP ↗</a>
+                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="mobile-social-link">INSTAGRAM ↗</a>
+                </div>
+                <a href="/#contact" class="btn btn-primary-gold mobile-cta-btn">Start a project →</a>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content" class="subpage-stage ev-sub">
+        <div class="container">
+            <article class="ev-article" aria-labelledby="article-title">
+                <header class="ev-sub-hero-copy ev-article-head">
+                    <a href="/" class="ev-hero-logo-link" aria-label="Vinayak Bhardwaj, home"><img class="ev-hero-logo" src="assets/brand/vb-mark.svg" alt="" width="855" height="646"></a>
+                    <p class="ev-kicker">Notes · <time datetime="2026-11-04">4 November 2026</time> · 6 minute read</p>
+                    <h1 class="ev-hero-title" id="article-title"><span class="ev-line"><span>From NCR to AI:</span></span> <span class="ev-line"><span class="ev-gold">how I check agent output.</span></span></h1>
+                    <p class="ev-hero-lede">On a construction site, nothing is finished because someone says it is. It is finished when the cause of every defect has been found, fixed and checked. I build AI workflows the same way, and this is why.</p>
+                </header>
+
+                <div class="ev-prose">
+                    <h2 id="ncr">What an NCR is</h2>
+                    <p>From 2021 to 2024 I worked as a site engineer on structural QA/QC at the Tun Razak Exchange, the 70-acre financial district in Kuala Lumpur. Many contractor teams worked side by side across civil, structural, architectural and MEP packages. When work did not match the drawing, it got a Non-Conformance Report.</p>
+                    <p>An NCR is not a complaint. It is a record with a fixed shape: what was inspected, what was out of tolerance, why it happened, what was done about it, and who checked the fix. It stays open until every one of those boxes is filled and signed. The point is that a defect cannot quietly disappear.</p>
+
+                    <h2 id="loop">The loop, side by side</h2>
+                    <p>When I started building AI agent workflows, I found I was drawing the same loop.</p>
+                    <div class="ev-prose-table" role="region" aria-label="Site QA loop compared with AI workflow loop" tabindex="0">
+                        <table>
+                            <thead><tr><th scope="col">On site (TRX, 2021–24)</th><th scope="col">In an AI workflow</th></tr></thead>
+                            <tbody>
+                                <tr><td>Inspect against the drawing</td><td>Define what correct output looks like</td></tr>
+                                <tr><td>Raise an NCR for anything out of tolerance</td><td>The agent does the work</td></tr>
+                                <tr><td>Find the root cause, not just the symptom</td><td>A checker tests the output against the definition</td></tr>
+                                <tr><td>Correct it with the trade responsible</td><td>Fix and retry, or route to a person</td></tr>
+                                <tr><td>Verify and close, signed, with a record</td><td>Log and sign off; every run is traceable</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 id="quiet">AI fails quietly</h2>
+                    <p>A badly poured column is visible. A wrong answer from a language model usually is not. It arrives in fluent sentences, in the right format, at the right time. The failures that matter in business automation are rarely crashes; they are confident outputs that are slightly wrong: a lead marked as spam, a total copied from the wrong row, a reply that promises something you do not offer.</p>
+                    <p>That is why I do not judge an AI workflow by how good its best output looks. I judge it by what happens to its worst output.</p>
+
+                    <h2 id="define">1. Define correct before you build</h2>
+                    <p>On site, the drawing is the definition. Without it, an inspection is an opinion. Before I build a workflow I write the equivalent: what a correct result contains, what it must never contain, and which cases are out of scope and go straight to a person. For lead intake that might be: every enquiry gets a category from a fixed list, a contact detail that was really in the message, and no price that is not on your price list.</p>
+
+                    <h2 id="checker">2. The checker is not the agent</h2>
+                    <p>A trade does not sign off its own work. In a workflow, the step that checks the output is separate from the step that produced it. Some checks are plain code: is the category on the list, does the number match the source, is the email address real text from the message. Some use a second model with a narrow question and no stake in the first answer. Either way, the agent's output is treated as unverified until it passes.</p>
+
+                    <h2 id="route">3. Failures go to a person</h2>
+                    <p>On site, an open NCR has an owner. In a workflow, an output that fails its check is retried once with the reason attached, and if it fails again it is routed to a named person with everything they need to decide. It is never sent on silently, and it is never dropped.</p>
+
+                    <h2 id="log">4. Every run leaves a record</h2>
+                    <p>An NCR file is the reason a consultant can sign off a floor months later. A workflow keeps the same kind of record: the input, the output, which checks passed or failed, who handled the exceptions, and what each run cost. When something goes wrong, the question is not "what did the AI do?" but "which step let it through?", and the log answers it.</p>
+
+                    <h2 id="cost">5. A cap, like a wind cutoff</h2>
+                    <p>On rope-access work at Rotol Group, an anemometer reading above the limit stops the job, whatever the schedule says. Every workflow I build has the same kind of hard stop: a budget per run and per day. If it is reached, the workflow pauses and tells a person, rather than spending its way through a loop.</p>
+
+                    <h2 id="business">What this means for a business</h2>
+                    <p>None of this makes a workflow clever. It makes it safe to rely on. The useful question for any business automating a process is not whether the AI can do the task, but what happens on the day it gets the task wrong. If the answer is "a person sees it, with the reason, before a client does", the workflow is ready.</p>
+                    <p>That is the standard I bring from site to every <a class="ev-link" href="/ai-automation-kuala-lumpur">AI automation project</a>.</p>
+                </div>
+            </article>
+
+            <section class="ev-sub-cta" aria-labelledby="art-cta-title">
+                <h2 id="art-cta-title">Want a workflow you can rely on?</h2>
+                <p>Tell me what happens today and what goes wrong. I reply within one working day.</p>
+                <div class="ev-hero-actions">
+                    <a href="/#contact" class="btn btn-primary-gold"><span>Start a project</span><span class="arrow-glyph" aria-hidden="true">→</span></a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="btn btn-secondary-glass"><span>Message on WhatsApp ↗</span></a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">VINAYAK BHARDWAJ</div>
+                <nav class="footer-socials" aria-label="Social channels">
+                    <a href="https://www.linkedin.com/in/vinayak-bhardwaj1947/" target="_blank" rel="noopener noreferrer" class="footer-social-link">LinkedIn ↗</a>
+                    <a href="https://www.youtube.com/@Vinayak_ai_tech" target="_blank" rel="noopener noreferrer" class="footer-social-link">YouTube ↗</a>
+                    <a href="https://wa.me/60182302045" target="_blank" rel="noopener noreferrer" class="footer-social-link">WhatsApp ↗</a>
+                    <a href="https://www.instagram.com/bhardwajvinayak104/" target="_blank" rel="noopener noreferrer" class="footer-social-link">Instagram ↗</a>
+                    <a href="mailto:bhardwajvinayak1947@gmail.com" class="footer-social-link">Email ↗</a>
+                </nav>
+                <div id="world-clock" class="footer-clock" aria-label="Current Kuala Lumpur time">Kuala Lumpur</div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Vinayak Bhardwaj</div>
+                <div>Kuala Lumpur, Malaysia</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- KEYBOARD COMMAND HUD DIALOG -->
+    <div id="command-hud-overlay" class="command-hud-overlay" aria-hidden="true"></div>
+    <div id="command-hud" class="command-hud" aria-hidden="true" inert role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+        <div class="command-hud-card">
+            <div class="hud-header">
+                <div class="hud-title">Keyboard shortcuts</div>
+                <button id="hud-close" class="hud-close-btn" aria-label="Close keyboard shortcuts">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <div class="hud-grid">
+                <div class="hud-item" data-target="#main-content"><kbd>1</kbd><span>Top</span></div>
+                <div class="hud-item" data-target="#loop"><kbd>2</kbd><span>The loop</span></div>
+                <div class="hud-item" data-target="#define"><kbd>3</kbd><span>Define correct</span></div>
+                <div class="hud-item" data-target="#business"><kbd>4</kbd><span>For a business</span></div>
+                <div class="hud-item"><kbd>?</kbd><span>Show shortcuts</span></div>
+                <div class="hud-item"><kbd>ESC</kbd><span>Close</span></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deferred Scripts for Core Web Vitals & Instant LCP -->
+    <script src="js/main.js?v=6.1" defer></script>
+
+</body>
+</html>

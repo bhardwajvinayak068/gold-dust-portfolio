@@ -3133,3 +3133,109 @@ html.has-ev-cursor textarea,
 html.has-ev-cursor select {
     cursor: auto;
 }
+
+/* ==========================================================================
+   v7.2 Service pages and notes
+   ========================================================================== */
+/* Service heroes carry buttons where the projects hero carries its index */
+@media (min-width: 1024px) {
+    .ev-sub-hero-text .ev-sub-hero-copy > .ev-hero-actions {
+        grid-area: index;
+        align-self: start;
+    }
+}
+
+.ev-sub-section .ev-faq-list {
+    max-width: 52rem;
+}
+
+/* Notes: one readable column, the drawing sheet only where there is data */
+.ev-article {
+    padding-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.ev-article-head {
+    max-width: 48rem;
+    padding: clamp(2rem, 6vw, 4rem) 0 clamp(2rem, 5vw, 3.5rem);
+    border-bottom: 1px solid var(--ev-line-soft);
+}
+
+.ev-article-head .ev-hero-title {
+    font-size: clamp(2.1rem, 5vw, 3.75rem);
+}
+
+.ev-prose {
+    max-width: 42rem;
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+}
+
+.ev-prose h2 {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: clamp(1.35rem, 2.2vw, 1.7rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--ev-ink);
+    text-wrap: balance;
+    margin: 2.75rem 0 0.9rem;
+    scroll-margin-top: calc(var(--nav-height) + 1.5rem);
+}
+
+.ev-prose h2:first-child {
+    margin-top: 0;
+}
+
+.ev-prose p {
+    color: var(--ev-ink-2);
+    font-size: 1.08rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+    margin: 0 0 1.1rem;
+}
+
+.ev-prose-table {
+    margin: 1.5rem 0 1rem;
+    overflow-x: auto;
+}
+
+.ev-prose-table table {
+    width: 100%;
+    min-width: 30rem;
+    border-collapse: collapse;
+    border: 1px solid var(--ev-line-soft);
+    background-color: var(--bg-void);
+    background-image:
+        linear-gradient(rgba(245, 244, 240, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 244, 240, 0.035) 1px, transparent 1px);
+    background-size: 32px 32px;
+}
+
+.ev-prose-table th,
+.ev-prose-table td {
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--ev-line-soft);
+    text-align: left;
+    vertical-align: top;
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+.ev-prose-table th {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ev-ink-3);
+}
+
+.ev-prose-table th:last-child {
+    color: var(--ev-gold);
+}
+
+.ev-prose-table td {
+    color: var(--ev-ink);
+}
+
+.ev-prose-table:focus-visible {
+    outline: 2px solid var(--ev-gold);
+    outline-offset: 4px;
+}
