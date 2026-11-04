@@ -4321,3 +4321,28 @@ html.is-blueprint .ev-thread {
     position: static;
     width: max-content;
 }
+
+/* The blueprint panel opens with one plain sentence */
+.ev-bp-intro {
+    margin: 0 0 0.55rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--ev-line);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--ev-ink);
+}
+
+.ev-tool-short {
+    display: none;
+}
+
+@media (max-width: 599px) {
+    .ev-tool-long {
+        display: none;
+    }
+
+    .ev-tool-short {
+        display: inline;
+    }
+}

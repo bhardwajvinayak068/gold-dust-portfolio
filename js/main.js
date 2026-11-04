@@ -347,7 +347,8 @@
         bp.type = 'button';
         bp.className = 'ev-tool';
         bp.setAttribute('aria-pressed', 'false');
-        bp.innerHTML = '<span>Blueprint</span><kbd>B</kbd>';
+        bp.innerHTML = '<span class="ev-tool-long">See how it\'s built</span><span class="ev-tool-short">How it\'s built</span><kbd>B</kbd>';
+        bp.setAttribute('aria-label', 'See how this page is built (blueprint view)');
 
         const snd = document.createElement('button');
         snd.type = 'button';
@@ -361,7 +362,7 @@
         let loading = null;
         const loadBlueprint = () => loading || (loading = new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = '/js/blueprint.js?v=1.2';
+            script.src = '/js/blueprint.js?v=1.3';
             script.onload = resolve;
             script.onerror = reject;
             document.head.appendChild(script);
@@ -370,6 +371,8 @@
             await loadBlueprint();
             const on = window.siteBlueprint.set(force === undefined ? !window.siteBlueprint.isOn() : force);
             bp.setAttribute('aria-pressed', String(on));
+            bp.querySelector('.ev-tool-long').textContent = on ? 'Close blueprint' : 'See how it\'s built';
+            bp.querySelector('.ev-tool-short').textContent = on ? 'Close' : 'How it\'s built';
             sound.play('tick');
         }
         bp.addEventListener('click', () => toggleBlueprint().catch(() => {}));

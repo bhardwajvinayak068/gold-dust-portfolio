@@ -106,8 +106,12 @@
         const fonts = [...new Set([...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/["']/g, '')))];
         const lcp = lastPaint;
         hud.textContent = '';
+        // One plain sentence first, so nobody has to guess what they are looking at
+        const intro = document.createElement('p');
+        intro.className = 'ev-bp-intro';
+        intro.textContent = 'This is the page\'s blueprint: every box measured, every image weighed. Hover anything to measure it. Press B or Esc to close.';
+        hud.appendChild(intro);
         const lines = [
-            ['Blueprint', 'hover anything to measure it · B or Esc to close'],
             ['Downloaded this visit', `${kb(total)} (HTML ${kb(nav ? nav.transferSize || 0 : 0)}, CSS ${kb(css)}, JS ${kb(js)}, images ${kb(img)}); cached files count as 0`],
             ['DOM', `${document.getElementsByTagName('*').length} elements`],
             ['Type', fonts.join(', ') || 'system'],
