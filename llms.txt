@@ -20,6 +20,7 @@
 
 ## Projects
 
+- Staff evaluation platform (client project, 2026): role-based scorecards with a safety gate, a private staff profile form that scores people automatically, and an owner overview; built for a Kuala Lumpur façade-maintenance and hospitality group and in use by its staff. React, TypeScript, Postgres.
 - Virin Digital: his studio, founded January 2024. Website: https://www.virindigital.com/
 - Vinayak Tech: YouTube channel with six long-form episodes since September 2026. https://www.youtube.com/@Vinayak_ai_tech
 - 12 Taneh (also Bara Tehni, Alquerque Royale): traditional South Asian strategy board game rebuilt for Android with four AI opponents, daily puzzles and offline play. In testing, coming to Google Play.

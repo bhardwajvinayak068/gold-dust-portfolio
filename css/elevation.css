@@ -4044,3 +4044,9 @@ html.lenis body {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
 }
+
+/* A caption under a desktop + phone pair stops before the phone */
+.ev-device .ev-case-cap {
+    max-width: 68%;
+    line-height: 1.5;
+}

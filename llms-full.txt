@@ -34,6 +34,12 @@ Article: https://www.vinayakbhardwaj.com/how-i-check-ai-output
 
 ## 3. Case studies
 
+### Staff evaluation platform (Client project, designer and developer, 2026)
+- Client: a Kuala Lumpur group running façade-maintenance crews and a restaurant (not named at its request).
+- Problem: reviews were ad hoc, with no shared standard across trades and hospitality roles, and safety could be outweighed by other strengths.
+- Built: weighted role scorecards out of ten; a safety gate capping the score at 4 when safety compliance falls below the threshold; a private profile form that scores staff automatically; an owner overview by team. React, TypeScript, Postgres, automated tests on the scoring rules.
+- Result: in use by the company's staff; submissions go straight into a database.
+
 ### Virin Digital (Founder, January 2024–present)
 - Problem: small service businesses lose enquiries to slow sites and manual intake.
 - Built: hand-built websites, and AI agent pipelines for research, content and enquiry triage, each with a checking step and a cost cap.
