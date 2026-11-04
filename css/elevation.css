@@ -3017,122 +3017,6 @@ html {
     from { opacity: 0; transform: rotate(-3deg) scale(1.4); }
 }
 
-/* --------------------------------------------------------------------------
-   The inspection cursor (fine pointers only): a crosshair that opens to a
-   bracket and names what you are about to do
-   -------------------------------------------------------------------------- */
-.ev-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10000;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s var(--ev-ease);
-}
-
-.ev-cursor.is-visible {
-    opacity: 1;
-}
-
-.ev-cursor-mark {
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    margin: -11px 0 0 -11px;
-    transition: width 0.3s var(--ev-ease), height 0.3s var(--ev-ease), margin 0.3s var(--ev-ease);
-}
-
-.ev-cursor-mark::before,
-.ev-cursor-mark::after {
-    content: "";
-    position: absolute;
-    background: var(--ev-gold);
-    transition: opacity 0.2s var(--ev-ease);
-}
-
-.ev-cursor-mark::before {
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 1px;
-}
-
-.ev-cursor-mark::after {
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-}
-
-/* Over something pressable the cross becomes four corner brackets */
-.ev-cursor-mark span {
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-color: var(--ev-gold);
-    border-style: solid;
-    border-width: 0;
-    opacity: 0;
-    transition: opacity 0.2s var(--ev-ease);
-}
-
-.ev-cursor-mark span:nth-child(1) { top: 0; left: 0; border-top-width: 1px; border-left-width: 1px; }
-.ev-cursor-mark span:nth-child(2) { top: 0; right: 0; border-top-width: 1px; border-right-width: 1px; }
-.ev-cursor-mark span:nth-child(3) { bottom: 0; left: 0; border-bottom-width: 1px; border-left-width: 1px; }
-.ev-cursor-mark span:nth-child(4) { bottom: 0; right: 0; border-bottom-width: 1px; border-right-width: 1px; }
-
-.ev-cursor.is-target .ev-cursor-mark {
-    width: 34px;
-    height: 34px;
-    margin: -17px 0 0 -17px;
-}
-
-.ev-cursor.is-target .ev-cursor-mark::before,
-.ev-cursor.is-target .ev-cursor-mark::after {
-    opacity: 0;
-}
-
-.ev-cursor.is-target .ev-cursor-mark span {
-    opacity: 1;
-}
-
-.ev-cursor-tag {
-    position: absolute;
-    left: 22px;
-    top: 14px;
-    padding: 0.2rem 0.45rem;
-    border: 1px solid var(--ev-line);
-    border-radius: 3px;
-    background: var(--bg-void);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    white-space: nowrap;
-    color: var(--ev-gold);
-    opacity: 0;
-    transform: translateY(4px);
-    transition: opacity 0.2s var(--ev-ease), transform 0.3s var(--ev-ease);
-}
-
-.ev-cursor.is-target .ev-cursor-tag:not(:empty) {
-    opacity: 1;
-    transform: none;
-}
-
-html.has-ev-cursor,
-html.has-ev-cursor a,
-html.has-ev-cursor button,
-html.has-ev-cursor summary,
-html.has-ev-cursor label {
-    cursor: none;
-}
-
-/* Typing keeps the system caret, and the crosshair steps aside */
-html.has-ev-cursor input,
-html.has-ev-cursor textarea,
-html.has-ev-cursor select {
-    cursor: auto;
-}
 
 /* ==========================================================================
    v7.2 Service pages and notes
@@ -4034,12 +3918,87 @@ html.has-ev-cursor select {
     to { clip-path: inset(0 0 0 0); }
 }
 
-/* Magnetic buttons ease back when the pointer leaves */
-.btn,
-.btn-submit-inquiry {
-    transition-property: transform, translate, background-color, border-color, color, box-shadow;
+
+/* ==========================================================================
+   v11 Inner pages open on the same stage: one big word, a gold line in front
+   ========================================================================== */
+.ev-sub:has(> .ev-stage-sub) {
+    padding-top: 0;
 }
 
-.btn {
-    translate: 0 0;
+.ev-stage-sub {
+    position: relative;
+    isolation: isolate;
+    height: min(72svh, 720px);
+    min-height: 26rem;
+    overflow: hidden;
+}
+
+.ev-stage-sub.has-figure {
+    height: min(100svh, 900px);
+    min-height: 32rem;
+}
+
+.ev-stage-sub .ev-stage-back {
+    top: 22%;
+    font-size: clamp(4rem, calc(158vw / var(--len)), 22rem);
+}
+
+/* Without a figure the gold line sits right under the big word */
+.ev-stage-sub:not(.has-figure) .ev-stage-front {
+    top: auto;
+    bottom: 14%;
+    font-size: clamp(1.7rem, 4.4vw, 4.2rem);
+    padding-inline: var(--ev-gutter);
+}
+
+.ev-stage-sub.has-figure .ev-stage-back {
+    top: 16%;
+}
+
+.ev-stage-figure-sub {
+    height: 76%;
+}
+
+.ev-stage-sub .ev-stage-figure-sub img {
+    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
+}
+
+.ev-intro-sub {
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.ev-intro-sub .ev-case-index {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+}
+
+@media (max-width: 767px) {
+    .ev-stage-sub {
+        height: min(62svh, 560px);
+        min-height: 22rem;
+    }
+
+    .ev-stage-sub.has-figure {
+        height: min(92svh, 720px);
+    }
+
+    .ev-stage-sub .ev-stage-back {
+        top: 26%;
+    }
+
+    .ev-stage-sub.has-figure .ev-stage-back {
+        top: 20%;
+    }
+
+    .ev-stage-figure-sub {
+        height: 64%;
+    }
+
+    .ev-stage-sub:not(.has-figure) .ev-stage-front {
+        bottom: 12%;
+        font-size: clamp(1.6rem, 8vw, 2.4rem);
+    }
 }

@@ -239,43 +239,6 @@
         routes.forEach((li) => { li.parentElement.classList.add('is-live'); observer.observe(li); });
     }
 
-    // Desktop only: a crosshair that opens to brackets over anything pressable and names the action
-    function initCursor() {
-        if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-
-        const cursor = document.createElement('div');
-        cursor.className = 'ev-cursor';
-        cursor.setAttribute('aria-hidden', 'true');
-        cursor.innerHTML = '<div class="ev-cursor-mark"><span></span><span></span><span></span><span></span></div><span class="ev-cursor-tag"></span>';
-        document.body.appendChild(cursor);
-        document.documentElement.classList.add('has-ev-cursor');
-        const tag = cursor.querySelector('.ev-cursor-tag');
-        const pressable = 'a, button, summary, label, [role="button"]';
-
-        function label(el) {
-            if (el.dataset.cursor) return el.dataset.cursor;
-            if (el.matches('.ev-video-btn')) return 'Play';
-            if (el.matches('summary')) return el.parentElement.open ? 'Close' : 'Read';
-            if (el.matches('a[target="_blank"]')) return 'Visit ↗';
-            if (el.matches('a[href*="#"]')) return 'Jump';
-            if (el.matches('a')) return 'Open';
-            return '';
-        }
-
-        document.addEventListener('pointermove', (e) => {
-            if (e.pointerType !== 'mouse') return;
-            cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-            cursor.classList.add('is-visible');
-            const target = e.target.closest && e.target.closest(pressable);
-            const typing = e.target.closest && e.target.closest('input, textarea, select');
-            cursor.classList.toggle('is-target', Boolean(target));
-            cursor.style.opacity = typing ? '0' : '';
-            tag.textContent = target ? label(target) : '';
-        }, { passive: true });
-        document.documentElement.addEventListener('pointerleave', () => cursor.classList.remove('is-visible'));
-        window.addEventListener('blur', () => cursor.classList.remove('is-visible'));
-    }
-
     // Motion language: each section is drawn (a gold line), filled (heading and media wipe in), then stamped
     function initBuild() {
         if (reduceMotion || !('IntersectionObserver' in window)) return;
@@ -312,20 +275,6 @@
         document.body.appendChild(thread);
     }
 
-    // Buttons lean a few pixels toward a mouse pointer
-    function initMagnetic() {
-        if (reduceMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-        document.querySelectorAll('.btn, .btn-submit-inquiry').forEach((btn) => {
-            btn.addEventListener('pointermove', (e) => {
-                const r = btn.getBoundingClientRect();
-                const dx = (e.clientX - (r.left + r.width / 2)) / r.width;
-                const dy = (e.clientY - (r.top + r.height / 2)) / r.height;
-                btn.style.translate = `${(dx * 10).toFixed(1)}px ${(dy * 8).toFixed(1)}px`;
-            });
-            btn.addEventListener('pointerleave', () => { btn.style.translate = ''; });
-        });
-    }
-
     // 404: write the address that was asked for into the report
     function initNotFound() {
         const path = document.querySelector('.nf-path');
@@ -337,7 +286,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initCursor, initNotFound, initBuild, initThread, initMagnetic].forEach((init) => {
+        [initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });
