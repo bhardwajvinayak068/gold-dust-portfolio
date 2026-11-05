@@ -4832,25 +4832,26 @@ html.is-blueprint .ev-thread {
         gap: clamp(1.5rem, 2.5vw, 2.5rem);
     }
 
-    /* 02 AI and 03 Documentaries: one row, two heights */
-    .ev-services .ev-row:nth-of-type(2) {
-        grid-column: 1 / span 7;
+    /* 02 AI and 03 Documentaries: one row, 7 and 5 columns, tops and labels on one line */
+    .ev-services .ev-row:nth-of-type(2),
+    .ev-services .ev-row:nth-of-type(3) {
         margin-top: clamp(4.5rem, 8vw, 7rem);
         align-self: start;
     }
 
+    .ev-services .ev-row:nth-of-type(2) {
+        grid-column: 1 / span 7;
+    }
+
     .ev-services .ev-row:nth-of-type(3) {
         grid-column: 8 / -1;
-        margin-top: clamp(10rem, 16vw, 14rem);
-        align-self: start;
     }
 
-    .ev-services .ev-row:nth-of-type(2) .ev-row-media img {
-        aspect-ratio: 16 / 10;
-    }
-
+    /* One height for both pictures, so the labels below them sit on one line */
+    .ev-services .ev-row:nth-of-type(2) .ev-row-media img,
     .ev-services .ev-row:nth-of-type(3) .ev-row-media img {
-        aspect-ratio: 4 / 3;
+        aspect-ratio: auto;
+        height: clamp(20rem, 33vw, 32rem);
     }
 
     /* 04 Games: notes first, the phone on its sheet to the right */
