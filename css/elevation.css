@@ -5084,3 +5084,127 @@ html.is-blueprint .ev-thread {
         display: none;
     }
 }
+
+/* ==========================================================================
+   v20 Spacing system. One margin, one section rhythm, one heading gap,
+   everything on an 8px grid. Every page reads these tokens.
+   ========================================================================== */
+:root {
+    --page-pad: clamp(1.25rem, 4.5vw, 4rem);   /* side margin: 20px phone, 64px desktop */
+    --sec: clamp(3.5rem, 6.7vw, 6rem);         /* space above and below every section: 56 to 96px */
+    --max-width: 90rem;
+    --head-gap: clamp(2rem, 4vw, 3.5rem);      /* heading block to its content: 32 to 56px */
+    --rail: 2.75rem;                           /* timeline dot rail */
+    --ev-section-pad: var(--sec);
+}
+
+/* The page margin: the same on the header, hero, every section and the footer */
+.container {
+    padding-inline: var(--page-pad);
+}
+
+.site-header .nav-container {
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: max(var(--page-pad), env(safe-area-inset-right, 0px)) max(var(--page-pad), env(safe-area-inset-left, 0px));
+}
+
+@media (min-width: 900px) {
+    .ev-cutout {
+        margin-right: calc(-1 * max(var(--page-pad), (100vw - var(--max-width)) / 2 + var(--page-pad)));
+    }
+}
+
+/* Section rhythm: the same space above and below each, on every page */
+.ev-intro,
+.ev-intro-sub,
+.ev-services,
+.ev-play,
+.ev-work,
+.ev-videos,
+.ev-faq,
+.ev-sub-section,
+.contact-section {
+    padding-block: var(--sec);
+}
+
+.ev-section-head {
+    margin-bottom: var(--head-gap);
+}
+
+/* Closing panel: sits one section-space from what is above and below, text on a 48px inset */
+.ev-sub-cta {
+    margin: 0;
+    padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.ev-article + .ev-sub-cta {
+    margin-top: var(--sec);
+}
+
+/* Lists: one column grid for years, names and descriptions on every page */
+.ev-records-compact li {
+    padding-block: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .ev-records-plain li {
+        grid-template-columns: 8.5rem minmax(0, 4fr) minmax(0, 6fr);
+    }
+
+    .ev-route li {
+        padding-left: 0;
+    }
+
+    .ev-route .ev-rec-years {
+        padding-left: var(--rail);
+    }
+}
+
+/* One column grid on desktop: year | title | description. Heading notes, intro side and list
+   descriptions all start on the same line. */
+@media (min-width: 1024px) {
+    .ev-intro-grid {
+        grid-template-columns: 8.5rem minmax(0, 4fr) minmax(0, 6fr);
+        column-gap: 2rem;
+        align-items: end;
+    }
+
+    .ev-intro-grid > .ev-intro-lede {
+        grid-column: 1 / span 2;
+    }
+
+    .ev-intro-grid > .ev-intro-side {
+        grid-column: 3;
+    }
+
+    .ev-services .ev-section-head,
+    .ev-work .ev-section-head,
+    .ev-sub-section > .ev-section-head {
+        display: grid;
+        grid-template-columns: 8.5rem minmax(0, 4fr) minmax(0, 6fr);
+        column-gap: 2rem;
+        align-items: end;
+        max-width: none;
+    }
+
+    .ev-services .ev-section-head > h2,
+    .ev-work .ev-section-head > h2,
+    .ev-sub-section > .ev-section-head > h2 {
+        grid-column: 1 / span 2;
+    }
+
+    .ev-services .ev-section-head > p,
+    .ev-work .ev-section-head > p,
+    .ev-sub-section > .ev-section-head > p {
+        grid-column: 3;
+        justify-self: start;
+        max-width: 46ch;
+    }
+}
+
+/* FAQ lists on the service pages run the full grid width, like every other list */
+.ev-sub-section .ev-faq-list,
+.ev-faq .ev-faq-list {
+    max-width: none;
+}
