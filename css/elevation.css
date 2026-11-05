@@ -4349,9 +4349,29 @@ html.is-blueprint .ev-thread {
     display: none;
 }
 
-/* Phones: the tools would float over the text; blueprint mode is a pointer experience */
+/* Docked tools: in the header beside the links, or in the menu panel; never over the text */
+.ev-tools.is-docked {
+    position: static;
+    pointer-events: auto;
+}
+
+.nav-pill > .ev-tools.is-docked {
+    margin-right: 0.5rem;
+}
+
+.nav-pill > .ev-tools.is-docked .ev-tool {
+    height: 48px;
+    padding: 0 1rem;
+    background: rgba(10, 11, 14, 0.9);
+}
+
+.mobile-menu-footer > .ev-tools.is-docked {
+    margin-bottom: 0.25rem;
+}
+
+/* Phones: blueprint mode is a pointer experience, so the menu offers only Sound */
 @media (max-width: 599px) {
-    .ev-tools {
+    .ev-tools .ev-tool:first-child {
         display: none;
     }
 }

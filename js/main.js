@@ -377,7 +377,18 @@
         snd.textContent = 'Sound';
 
         bar.append(bp, snd);
-        document.body.appendChild(bar);
+        // Docked, never floating over the text: beside the nav links on desktop, inside the menu panel below that
+        const wide = window.matchMedia('(min-width: 1024px)');
+        const place = () => {
+            const desk = wide.matches && document.querySelector('.ev-desk-nav');
+            const menu = document.querySelector('.mobile-menu-footer');
+            if (desk) desk.before(bar);
+            else if (menu) menu.prepend(bar);
+            else document.body.appendChild(bar);
+            bar.classList.toggle('is-docked', Boolean(desk || menu));
+        };
+        place();
+        wide.addEventListener('change', place);
 
         let loading = null;
         const loadBlueprint = () => loading || (loading = new Promise((resolve, reject) => {
