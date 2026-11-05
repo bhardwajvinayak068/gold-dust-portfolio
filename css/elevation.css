@@ -4767,8 +4767,8 @@ html.is-blueprint .ev-thread {
 }
 
 /* ==========================================================================
-   v18 Services as a drawing register: numbered entries on a 12-column sheet.
-   01 runs wide, 02 and 03 share a row at different heights, 04 runs wide.
+   v18 Services: the stacked column keeps its order; each entry gets a
+   numbered label (01 / 04) like a drawing register
    ========================================================================== */
 .ev-services > .container {
     counter-reset: svc;
@@ -4786,84 +4786,13 @@ html.is-blueprint .ev-thread {
     color: var(--ev-gold);
 }
 
-@media (min-width: 1100px) {
-    .ev-services > .container {
-        grid-template-columns: repeat(12, minmax(0, 1fr));
-        column-gap: clamp(1.5rem, 2.5vw, 2.5rem);
-    }
-
-    .ev-services .ev-section-head {
-        position: static;
+/* In the stacked layout the label sits on its own line above the heading */
+@media (min-width: 900px) {
+    .ev-services .ev-row-copy::before {
         grid-column: 1 / -1;
-        grid-row: auto;
-        display: grid;
-        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-        align-items: end;
-        margin-bottom: clamp(3rem, 6vw, 5rem);
-    }
-
-    .ev-services .ev-section-head h2 {
-        font-size: clamp(2.2rem, 3.6vw, 3.4rem);
-    }
-
-    .ev-services .ev-row,
-    .ev-services .ev-row + .ev-row,
-    .ev-services .ev-row:nth-of-type(2) {
-        margin: 0;
-        padding-top: 1.25rem;
-        border-top: 1px solid var(--ev-line);
-        align-items: end;
-    }
-
-    .ev-services .ev-row-copy {
-        display: flex;
-        flex-direction: column;
-        gap: 0.9rem;
     }
 
     .ev-services .ev-row-copy h3 {
-        grid-row: auto;
-    }
-
-    /* 01 Websites: wide drawing, notes in the margin */
-    .ev-services .ev-row:nth-of-type(1) {
-        grid-column: 1 / -1;
-        grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
-        gap: clamp(1.5rem, 2.5vw, 2.5rem);
-    }
-
-    /* 02 AI and 03 Documentaries: one row, 7 and 5 columns, tops and labels on one line */
-    .ev-services .ev-row:nth-of-type(2),
-    .ev-services .ev-row:nth-of-type(3) {
-        margin-top: clamp(4.5rem, 8vw, 7rem);
-        align-self: start;
-    }
-
-    .ev-services .ev-row:nth-of-type(2) {
-        grid-column: 1 / span 7;
-    }
-
-    .ev-services .ev-row:nth-of-type(3) {
-        grid-column: 8 / -1;
-    }
-
-    /* One height for both pictures, so the labels below them sit on one line */
-    .ev-services .ev-row:nth-of-type(2) .ev-row-media img,
-    .ev-services .ev-row:nth-of-type(3) .ev-row-media img {
-        aspect-ratio: auto;
-        height: clamp(20rem, 33vw, 32rem);
-    }
-
-    /* 04 Games: notes first, the phone on its sheet to the right */
-    .ev-services .ev-row:nth-of-type(4) {
-        grid-column: 1 / -1;
-        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-        gap: clamp(1.5rem, 2.5vw, 2.5rem);
-        margin-top: clamp(4.5rem, 8vw, 7rem);
-    }
-
-    .ev-services .ev-row:nth-of-type(4) .ev-row-copy {
-        order: -1;
-        align-self: end;
+        grid-row: 2 / span 2;
     }
 }
