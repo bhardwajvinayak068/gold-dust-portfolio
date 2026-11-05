@@ -296,6 +296,43 @@
         });
     }
 
+    // What I make: a stack of strips; one is open at a time. Hover opens on desktop, tap or Enter anywhere.
+    function initStack() {
+        const stack = document.querySelector('.ev-stack');
+        if (!stack) return;
+        const rows = Array.from(stack.children);
+        const hoverable = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 900px)');
+        const open = (row) => rows.forEach((r) => {
+            const on = r === row;
+            r.classList.toggle('is-open', on);
+            r.querySelector('.ev-stack-tab').setAttribute('aria-expanded', String(on));
+        });
+        // Hover follows the hand, not the layout: strips sliding under a still cursor must not open,
+        // and nothing re-opens until the current strip has finished moving
+        let settleUntil = 0;
+        let pending = 0;
+        rows.forEach((row) => {
+            row.querySelector('.ev-stack-tab').addEventListener('click', () => open(row));
+            row.addEventListener('pointermove', (e) => {
+                if (!hoverable.matches || e.pointerType !== 'mouse' || row.classList.contains('is-open')) return;
+                if (e.movementX === 0 && e.movementY === 0) return;
+                const wait = settleUntil - performance.now();
+                // Still moving from the last open: if the hand rests here, open this one when that settles
+                if (wait > 0) {
+                    clearTimeout(pending);
+                    pending = setTimeout(() => { if (row.matches(':hover')) { settleUntil = performance.now() + 500; open(row); } }, wait);
+                    return;
+                }
+                settleUntil = performance.now() + 500;
+                open(row);
+            });
+        });
+        // Collapsing only starts once the script runs, so without it every entry stays readable
+        stack.classList.add('is-ready');
+        window.addEventListener('beforeprint', () => stack.classList.remove('is-ready'));
+        window.addEventListener('afterprint', () => stack.classList.add('is-ready'));
+    }
+
     // A gold thread down the left edge, drawn as far as you have scrolled (CSS scroll timeline)
     function initThread() {
         if (!document.querySelector('main')) return;
@@ -486,7 +523,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         // Each module is independent: a page without a module's markup must not stop the rest.
-        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initThread, initTools, initTitle, initStickyCta, initAnalytics].forEach((init) => {
+        [initSmoothScroll, initMenu, initShortcuts, initClock, initContactForm, initCopyLinks, initSheets, initNotFound, initBuild, initStack, initThread, initTools, initTitle, initStickyCta, initAnalytics].forEach((init) => {
             try { init(); } catch (err) { console.warn(`[init] ${init.name} skipped:`, err); }
         });
     });

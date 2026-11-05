@@ -322,7 +322,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=18.3">
+    <link rel="stylesheet" href="css/site.css?v=19.0">
 </head>
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -441,69 +441,80 @@
                     <p>Four kinds of work for businesses in Kuala Lumpur and beyond. Each one goes through the same loop: nothing ships until it has been checked.</p>
                 </header>
 
-                <article class="ev-row">
-                    <figure class="ev-row-media ev-device">
-                        <picture>
-                            <source type="image/avif" srcset="assets/media/virin-desktop-720.avif 720w, assets/media/virin-desktop-1440.avif 1440w" sizes="(max-width: 899px) 100vw, 55vw">
-                            <source type="image/webp" srcset="assets/media/virin-desktop-720.webp 720w, assets/media/virin-desktop-1440.webp 1440w" sizes="(max-width: 899px) 100vw, 55vw">
-                            <img class="ev-device-desktop" src="assets/media/virin-desktop-1440.webp" alt="Screenshot of virindigital.com on desktop" width="1440" height="900" loading="lazy" decoding="async">
-                        </picture>
-                        <picture>
-                            <source type="image/avif" srcset="assets/media/virin-mobile-390.avif">
-                            <img class="ev-device-phone" src="assets/media/virin-mobile-390.webp" alt="Screenshot of virindigital.com on a phone" width="390" height="844" loading="lazy" decoding="async">
-                        </picture>
-                    </figure>
-                    <div class="ev-row-copy">
-                        <h3>Websites that load fast and get found</h3>
-                        <p>Hand-built sites for founders and service businesses: quick on a phone, readable by search engines and AI assistants, and wired so every enquiry reaches a person. This site and virindigital.com are both built this way.</p>
-                        <a class="ev-link" href="/web-design-kuala-lumpur">Web design in Kuala Lumpur →</a>
-                    </div>
-                </article>
-
-                <article class="ev-row ev-row-flip">
-                    <figure class="ev-row-media">
-                        <picture>
-                            <source type="image/avif" srcset="assets/media/desk-640.avif 640w, assets/media/desk-1000.avif 1000w, assets/media/desk-1600.avif 1600w" sizes="(max-width: 899px) 100vw, 55vw">
-                            <source type="image/webp" srcset="assets/media/desk-640.webp 640w, assets/media/desk-1000.webp 1000w, assets/media/desk-1600.webp 1600w" sizes="(max-width: 899px) 100vw, 55vw">
-                            <img src="assets/media/desk-1000.jpg" alt="Vinayak working at his desk at night, code on a second monitor" width="2400" height="1792" loading="lazy" decoding="async">
-                        </picture>
-                    </figure>
-                    <div class="ev-row-copy">
-                        <h3>AI agent workflows and automation</h3>
-                        <p>I take a manual process, such as lead intake, reporting or document checks, and rebuild it as an AI workflow: agents that do the work and a second step that checks it, with failures sent to a person and a cap on what each run can cost.</p>
-                        <a class="ev-link" href="/ai-automation-kuala-lumpur">AI automation in Kuala Lumpur →</a>
-                    </div>
-                </article>
-
-                <article class="ev-row">
-                    <figure class="ev-row-media">
-                        <picture>
-                            <source type="image/avif" srcset="assets/media/studio-640.avif 640w, assets/media/studio-1000.avif 1000w, assets/media/studio-1600.avif 1600w" sizes="(max-width: 899px) 100vw, 55vw">
-                            <source type="image/webp" srcset="assets/media/studio-640.webp 640w, assets/media/studio-1000.webp 1000w, assets/media/studio-1600.webp 1600w" sizes="(max-width: 899px) 100vw, 55vw">
-                            <img src="assets/media/studio-1000.jpg" alt="Vinayak recording a video with a boom microphone and camera" width="2400" height="1792" loading="lazy" decoding="async">
-                        </picture>
-                    </figure>
-                    <div class="ev-row-copy">
-                        <h3>Documentaries and content</h3>
-                        <p>Vinayak Tech is my YouTube channel. Each episode takes one claim about AI or money, follows the documents and numbers behind it, and explains it in plain language. Research, scripts, motion graphics and sound are all made in-house.</p>
-                        <a class="ev-link" href="#videos">Watch recent episodes ↓</a>
-                    </div>
-                </article>
-
-                <article class="ev-row ev-row-flip">
-                    <figure class="ev-row-media ev-phone">
-                        <picture>
-                            <source type="image/avif" srcset="assets/media/taneh-board-390.avif 390w, assets/media/taneh-board-780.avif 780w" sizes="(max-width: 899px) 60vw, 22vw">
-                            <source type="image/webp" srcset="assets/media/taneh-board-390.webp 390w, assets/media/taneh-board-780.webp 780w" sizes="(max-width: 899px) 60vw, 22vw">
-                            <img src="assets/media/taneh-board-390.webp" alt="Screenshot of 12 Taneh on a phone: the 25-point board with white and dark stones, the AI opponent Ustad and the Play vs AI mode" width="390" height="866" loading="lazy" decoding="async">
-                        </picture>
-                    </figure>
-                    <div class="ev-row-copy">
-                        <h3>Games and apps</h3>
-                        <p>12 Taneh is my own mobile game: the centuries-old South Asian board game, also known as Bara Tehni and Alquerque, rebuilt for Android with four AI opponents, daily puzzles and offline play. It is in testing now and coming to Google Play.</p>
-                        <a class="ev-link" href="#play">Play it on this page ↓</a>
-                    </div>
-                </article>
+                <div class="ev-stack">
+                    <article class="ev-row is-open">
+                        <button type="button" class="ev-stack-tab" aria-expanded="true" aria-controls="svc-1"><span class="ev-stack-num">01</span><span class="ev-stack-name">Websites</span></button>
+                        <div class="ev-stack-body" id="svc-1">
+                            <figure class="ev-row-media ev-device">
+                                <picture>
+                                    <source type="image/avif" srcset="assets/media/virin-desktop-720.avif 720w, assets/media/virin-desktop-1440.avif 1440w" sizes="(max-width: 899px) 100vw, 55vw">
+                                    <source type="image/webp" srcset="assets/media/virin-desktop-720.webp 720w, assets/media/virin-desktop-1440.webp 1440w" sizes="(max-width: 899px) 100vw, 55vw">
+                                    <img class="ev-device-desktop" src="assets/media/virin-desktop-1440.webp" alt="Screenshot of virindigital.com on desktop" width="1440" height="900" loading="lazy" decoding="async">
+                                </picture>
+                                <picture>
+                                    <source type="image/avif" srcset="assets/media/virin-mobile-390.avif">
+                                    <img class="ev-device-phone" src="assets/media/virin-mobile-390.webp" alt="Screenshot of virindigital.com on a phone" width="390" height="844" loading="lazy" decoding="async">
+                                </picture>
+                            </figure>
+                            <div class="ev-row-copy">
+                                <h3>Websites that load fast and get found</h3>
+                                <p>Hand-built sites for founders and service businesses: quick on a phone, readable by search engines and AI assistants, and wired so every enquiry reaches a person. This site and virindigital.com are both built this way.</p>
+                                <a class="ev-link" href="/web-design-kuala-lumpur">Web design in Kuala Lumpur →</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="ev-row">
+                        <button type="button" class="ev-stack-tab" aria-expanded="false" aria-controls="svc-2"><span class="ev-stack-num">02</span><span class="ev-stack-name">AI workflows</span></button>
+                        <div class="ev-stack-body" id="svc-2">
+                            <figure class="ev-row-media">
+                                <picture>
+                                    <source type="image/avif" srcset="assets/media/desk-640.avif 640w, assets/media/desk-1000.avif 1000w, assets/media/desk-1600.avif 1600w" sizes="(max-width: 899px) 100vw, 55vw">
+                                    <source type="image/webp" srcset="assets/media/desk-640.webp 640w, assets/media/desk-1000.webp 1000w, assets/media/desk-1600.webp 1600w" sizes="(max-width: 899px) 100vw, 55vw">
+                                    <img src="assets/media/desk-1000.jpg" alt="Vinayak working at his desk at night, code on a second monitor" width="2400" height="1792" loading="lazy" decoding="async">
+                                </picture>
+                            </figure>
+                            <div class="ev-row-copy">
+                                <h3>AI agent workflows and automation</h3>
+                                <p>I take a manual process, such as lead intake, reporting or document checks, and rebuild it as an AI workflow: agents that do the work and a second step that checks it, with failures sent to a person and a cap on what each run can cost.</p>
+                                <a class="ev-link" href="/ai-automation-kuala-lumpur">AI automation in Kuala Lumpur →</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="ev-row">
+                        <button type="button" class="ev-stack-tab" aria-expanded="false" aria-controls="svc-3"><span class="ev-stack-num">03</span><span class="ev-stack-name">Documentaries</span></button>
+                        <div class="ev-stack-body" id="svc-3">
+                            <figure class="ev-row-media">
+                                <picture>
+                                    <source type="image/avif" srcset="assets/media/studio-640.avif 640w, assets/media/studio-1000.avif 1000w, assets/media/studio-1600.avif 1600w" sizes="(max-width: 899px) 100vw, 55vw">
+                                    <source type="image/webp" srcset="assets/media/studio-640.webp 640w, assets/media/studio-1000.webp 1000w, assets/media/studio-1600.webp 1600w" sizes="(max-width: 899px) 100vw, 55vw">
+                                    <img src="assets/media/studio-1000.jpg" alt="Vinayak recording a video with a boom microphone and camera" width="2400" height="1792" loading="lazy" decoding="async">
+                                </picture>
+                            </figure>
+                            <div class="ev-row-copy">
+                                <h3>Documentaries and content</h3>
+                                <p>Vinayak Tech is my YouTube channel. Each episode takes one claim about AI or money, follows the documents and numbers behind it, and explains it in plain language. Research, scripts, motion graphics and sound are all made in-house.</p>
+                                <a class="ev-link" href="#videos">Watch recent episodes ↓</a>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="ev-row">
+                        <button type="button" class="ev-stack-tab" aria-expanded="false" aria-controls="svc-4"><span class="ev-stack-num">04</span><span class="ev-stack-name">Games</span></button>
+                        <div class="ev-stack-body" id="svc-4">
+                            <figure class="ev-row-media ev-phone">
+                                <picture>
+                                    <source type="image/avif" srcset="assets/media/taneh-board-390.avif 390w, assets/media/taneh-board-780.avif 780w" sizes="(max-width: 899px) 60vw, 22vw">
+                                    <source type="image/webp" srcset="assets/media/taneh-board-390.webp 390w, assets/media/taneh-board-780.webp 780w" sizes="(max-width: 899px) 60vw, 22vw">
+                                    <img src="assets/media/taneh-board-390.webp" alt="Screenshot of 12 Taneh on a phone: the 25-point board with white and dark stones, the AI opponent Ustad and the Play vs AI mode" width="390" height="866" loading="lazy" decoding="async">
+                                </picture>
+                            </figure>
+                            <div class="ev-row-copy">
+                                <h3>Games and apps</h3>
+                                <p>12 Taneh is my own mobile game: the centuries-old South Asian board game, also known as Bara Tehni and Alquerque, rebuilt for Android with four AI opponents, daily puzzles and offline play. It is in testing now and coming to Google Play.</p>
+                                <a class="ev-link" href="#play">Play it on this page ↓</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -852,7 +863,7 @@
     </div>
     <script src="js/gold-particles.js?v=5.4" defer></script>
     <script src="js/lenis.min.js?v=1.1.20" defer></script>
-    <script src="js/main.js?v=9.3" defer></script>
+    <script src="js/main.js?v=9.4" defer></script>
     <script src="js/elevation.js?v=6.3" defer></script>
     <script src="js/taneh-demo.js?v=1.2" defer></script>
 
