@@ -5062,3 +5062,25 @@ html.is-blueprint .ev-thread {
         animation: none !important;
     }
 }
+
+/* Closed strips say what they hold: a quiet descriptor after the name */
+.ev-stack-hint {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    color: var(--ev-ink-3);
+}
+
+@media (max-width: 899px) {
+    .ev-stack.is-ready .ev-stack-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 380px) {
+    .ev-stack-hint {
+        display: none;
+    }
+}
