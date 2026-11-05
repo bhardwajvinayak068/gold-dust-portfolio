@@ -51,14 +51,6 @@
     <style>
         /* Self-hosted Google Fonts (variable, latin subset). Replaces the render-blocking fonts.googleapis.com request. */
         @font-face {
-          font-family: 'Cinzel';
-          font-style: normal;
-          font-weight: 600 700;
-          font-display: swap;
-          src: url(assets/fonts/cinzel-var.woff2) format('woff2');
-          unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
-        }
-        @font-face {
           font-family: 'Schibsted Grotesk';
           font-style: normal;
           font-weight: 400 700;
@@ -75,7 +67,7 @@
           unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B0, U+00B7, U+00D7, U+00E7, U+00E9, U+2013-2014, U+2018-201D, U+2022, U+2026, U+2190-2193, U+2197;
         }
     </style>
-    <link rel="stylesheet" href="css/site.css?v=17.1">
+    <link rel="stylesheet" href="css/site.css?v=18.0">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -121,9 +113,6 @@
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <!-- Cinematic Luxury Film Grain Texture Overlay -->
-    <div class="film-grain" aria-hidden="true"></div>
-
 
 
     <!-- ==========================================================================
@@ -134,7 +123,15 @@
             <div class="nav-pill">
 
 
-                <!-- Mobile Navigation Actions (Audio Toggle + Menu Trigger) -->
+                <nav class="ev-desk-nav" aria-label="Site">
+                    <a href="/">Home</a>
+                    <a href="/projects">Work</a>
+                    <a href="/#services">Services</a>
+                    <a href="/about">About</a>
+                    <a href="/#videos">Videos</a>
+                    <a class="ev-desk-cta" href="/#contact">Start a project</a>
+                </nav>
+
                 <div class="nav-mobile-actions">
                     <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu-overlay">
                         <span class="menu-icon" aria-hidden="true"><span class="hamburger-line line-1"></span><span class="hamburger-line line-2"></span><span class="hamburger-line line-3"></span></span>

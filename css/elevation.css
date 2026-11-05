@@ -1585,10 +1585,6 @@ html {
     background-image: none;
 }
 
-.film-grain {
-    display: none;
-}
-
 /* ==========================================================================
    Cutout portraits: the person stands in the page, no frame.
    The body rises out of the section divider and fades into the canvas;
@@ -4680,4 +4676,173 @@ html.is-blueprint .ev-thread {
 
 .ev-contact .btn-submit-inquiry {
     border-radius: 2px;
+}
+
+/* ==========================================================================
+   v18 Desktop navigation: the links are on screen from 1024px up;
+   the menu button stays for phones and tablets
+   ========================================================================== */
+.ev-desk-nav {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .ev-desk-nav {
+        display: flex;
+        align-items: center;
+        gap: 0.15rem;
+        height: 48px;
+        padding: 0 0.3rem 0 0.5rem;
+        pointer-events: auto;
+        border: 1px solid var(--ev-line);
+        border-radius: var(--radius-pill);
+        background: rgba(10, 11, 14, 0.9);
+        box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.8);
+    }
+
+    .ev-desk-nav a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 36px;
+        padding: 0 0.8rem;
+        border-radius: var(--radius-pill);
+        font-family: var(--font-mono);
+        font-size: 0.78rem;
+        letter-spacing: 0.04em;
+        color: var(--ev-ink-2);
+        text-decoration: none;
+        transition: color 0.25s ease;
+    }
+
+    .ev-desk-nav a:hover,
+    .ev-desk-nav a[aria-current="page"] {
+        color: var(--ev-ink);
+    }
+
+    .ev-desk-nav a[aria-current="page"] {
+        text-decoration: underline;
+        text-decoration-color: var(--ev-gold);
+        text-underline-offset: 0.4em;
+    }
+
+    .ev-desk-nav .ev-desk-cta {
+        margin-left: 0.35rem;
+        padding: 0 1rem;
+        background: var(--ev-gold);
+        color: var(--bg-void);
+        font-family: var(--font-body);
+        font-size: 0.86rem;
+        font-weight: 600;
+        letter-spacing: 0;
+    }
+
+    .ev-desk-nav .ev-desk-cta:hover {
+        color: var(--bg-void);
+        background: #ecd2a8;
+    }
+
+    .nav-mobile-actions {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   v18 Services as a drawing register: numbered entries on a 12-column sheet.
+   01 runs wide, 02 and 03 share a row at different heights, 04 runs wide.
+   ========================================================================== */
+.ev-services > .container {
+    counter-reset: svc;
+}
+
+.ev-services .ev-row {
+    counter-increment: svc;
+}
+
+.ev-services .ev-row-copy::before {
+    content: counter(svc, decimal-leading-zero) " / 04";
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--ev-gold);
+}
+
+@media (min-width: 1100px) {
+    .ev-services > .container {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        column-gap: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+
+    .ev-services .ev-section-head {
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+        align-items: end;
+        margin-bottom: clamp(3rem, 6vw, 5rem);
+    }
+
+    .ev-services .ev-section-head h2 {
+        font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+    }
+
+    .ev-services .ev-row,
+    .ev-services .ev-row + .ev-row,
+    .ev-services .ev-row:nth-of-type(2) {
+        margin: 0;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--ev-line);
+        align-items: end;
+    }
+
+    .ev-services .ev-row-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+
+    .ev-services .ev-row-copy h3 {
+        grid-row: auto;
+    }
+
+    /* 01 Websites: wide drawing, notes in the margin */
+    .ev-services .ev-row:nth-of-type(1) {
+        grid-column: 1 / -1;
+        grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+        gap: clamp(1.5rem, 2.5vw, 2.5rem);
+    }
+
+    /* 02 AI and 03 Documentaries: one row, two heights */
+    .ev-services .ev-row:nth-of-type(2) {
+        grid-column: 1 / span 7;
+        margin-top: clamp(4.5rem, 8vw, 7rem);
+        align-self: start;
+    }
+
+    .ev-services .ev-row:nth-of-type(3) {
+        grid-column: 8 / -1;
+        margin-top: clamp(10rem, 16vw, 14rem);
+        align-self: start;
+    }
+
+    .ev-services .ev-row:nth-of-type(2) .ev-row-media img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .ev-services .ev-row:nth-of-type(3) .ev-row-media img {
+        aspect-ratio: 4 / 3;
+    }
+
+    /* 04 Games: notes first, the phone on its sheet to the right */
+    .ev-services .ev-row:nth-of-type(4) {
+        grid-column: 1 / -1;
+        grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+        gap: clamp(1.5rem, 2.5vw, 2.5rem);
+        margin-top: clamp(4.5rem, 8vw, 7rem);
+    }
+
+    .ev-services .ev-row:nth-of-type(4) .ev-row-copy {
+        order: -1;
+        align-self: end;
+    }
 }
